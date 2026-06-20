@@ -1,0 +1,68 @@
+/* Vertical Spacing */
+
+.stack {
+    display: grid;
+    gap: var(--space-7); 
+}
+
+.stack--loose {
+    gap: var(--space-8); 
+}
+
+.stack--tight {
+    gap: var(--space-4);
+}
+
+
+/* Items + Content align  */
+
+.row {
+    display: flex;
+}
+
+/* Inline Spacing */
+
+.inline {
+    display: flex;
+    gap: var(--space-6)
+}
+
+/* vertical spacing */
+
+.is-active {
+    display: block;
+}
+
+
+/* STATES */
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.is-visible {
+    visibility: visible;
+}
+
+.is-open {
+    display: block;
+}
+
+.dark-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+    transition: background-color 0.4s ease;
+}
+
+.bold {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-1);
+}

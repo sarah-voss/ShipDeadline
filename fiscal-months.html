@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="ShipDeadline">
+        <title>ShipDeadline - Fiscal Months</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+<script src="/js/main.js" type="module" defer></script>   
+</head>
+    <body class="page">
+        <div id="overlay"></div>
+
+        <!-- HEADER-->
+        <header class="header">
+            <div class="container">
+                <div class="header__layout">
+                    
+                    <div class="logo">
+                        <div class="logo__img-container">
+                            <img src="/assets/images/logo-globe.png" alt="" class="logo__img">
+                        </div>
+                        <a href="index.html" class="logo__title">ShipDeadline</a>
+                    </div>
+
+                    <!-- Header Nav List-->
+                        <nav>
+                            <ul class="header__nav-list row">
+                                    <li class="nav-item">
+                                        <a href="index.html" data-nav-item='calculator'>Calculator</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="fiscal-months.html" data-nav-item='fiscal-months'>Fiscal Deadlines</a>
+                                    </li>
+                            </ul>
+                        </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class='page__main' data-fiscal-months>
+            <div class="container">
+
+                    <div class="fiscal-intro">
+                        <div class="fiscal-intro__left">
+                            <div class="calendar-badge">
+                                <img src="/assets/icons/calendar.png" alt="" class="calendar-badge__icon">
+                            </div>
+                            <div class="fiscal-intro__content">
+                                <h1 class="fiscal-intro__title">Fiscal Deadlines</h1>
+                                <p class="fiscal-intro__text"> Configure the fiscal closing dates for each month.
+                                    <br>
+                                These dates are used to calculate recommended departure deadlines.</p>
+                            </div>
+                        </div>
+
+                        <div class="intro__right">
+                            <label for="fiscal-year" class="fiscal-year__label">Fiscal Year</label>
+                                <select id="fiscal-year" class="fiscal-year__select" data-fiscal-year-input>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                </select>
+                            <button type="button" class="btn btn--primary btn-save-all" data-fiscal-year-save-button>Save All</button>
+                        </div>
+                    </div>
+                    
+                    <section class="fiscal-months">
+                        <div class="fiscal-months__grid" data-fiscal-months-grid>
+
+                            
+                        </div>
+                    </section>
+
+            </div>
+        </main>
+
+
+
+
+<!-- FOOTER -->
+             <footer class="footer"> 
+                <div class="container">          
+                    <div class="footer__content">
+                                <div class="footer__tool-stat-item">
+                                    <div class="footer__tool-stat-icon-container">
+                                        <img src="/assets/icons/boxes-white.png" alt="" class="footer__tool-stat-icon">
+                                    </div>  
+                                    <div class="footer__tool-stat-content">
+                                        <span class="footer__tool-stat-title">Full & Partial</span>
+                                        <span class="footer__tool-stat-text">Load Types</span>
+                                    </div>
+                                </div>
+                                <div class="footer__tool-stat-item">
+                                    <div class="footer__tool-stat-icon-container">
+                                        <img src="/assets/icons/road-sea-air-white.png" alt="" class="footer__tool-stat-icon">
+                                    </div>  
+                                    <div class="footer__tool-stat-content">
+                                        <span class="footer__tool-stat-title">Road | Sea | Air</span>
+                                        <span class="footer__tool-stat-text">Transport Modes</span>
+                                    </div>
+                                </div>
+                                <div class="footer__tool-stat-item">
+                                    <div class="footer__tool-stat-icon-container">
+                                        <img src="/assets/icons/calendar-white.png" alt="" class="footer__tool-stat-icon">
+                                    </div>  
+                                    <div class="footer__tool-stat-content">
+                                        <span class="footer__tool-stat-title">Fiscal Aware</span>
+                                        <span class="footer__tool-stat-text">Delivery Planning</span>
+                                    </div>
+                                </div>
+                    </div>
+                </div>  
+             </footer>
+    </body>
+</html>
