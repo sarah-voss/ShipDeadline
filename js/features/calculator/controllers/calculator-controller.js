@@ -2,8 +2,8 @@
 import * as calculatorRender from "../renderers/calculator-render.js";
 import * as state from "../state.js";
 
-import { getCalculatorScenario } from "../logic/scenarios.js";
-import { MODE_RENDERERS } from "../shipment/config.js";
+import { getCalculatorScenario, isLoadTypeFullyUnavailable } from "../logic/scenarios.js";
+import { MODE_RENDERERS, IMPLEMENTED_SCENARIOS } from "../shipment/config.js";
 import { getDestinationArea, getCountryFieldStatus } from '../logic/geography-rules.js';
 import { saveCalculatorState } from "../storage.js";
 import { initRouteController } from "./route-controller.js";
@@ -22,7 +22,10 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         onRouteChange: syncCalculatorUiFromState 
     });
 
-    initFullRoadController({ elements });
+    initFullRoadController({ 
+        elements,
+        onFullRoadChange: syncCalculatorUiFromState
+    });
 
 
     // destructure imported values
@@ -84,9 +87,19 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     function renderCalculatorFromState() {
         const currentStep = state.getCurrentStep();
         const scenario = getCurrentScenario();
+        const loadType = state.getLoadType();
+
+        if (isLoadTypeFullyUnavailable(loadType)) {
+            calculatorRender.renderCalculatorStep(calculatorSteps, 'shipment');
+            calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
+            calculatorRender.hidePreviousButton(calculatorPreviousButton);
+            calculatorRender.disableNextButton(calculatorNextButton);
+        return;
+        }
 
         calculatorRender.renderCalculatorStep(calculatorSteps, currentStep);
         syncCalculatorUiFromState();
+
 
         if (currentStep !== 'route') {
             calculatorRender.renderPreviousButton(calculatorPreviousButton)
@@ -95,11 +108,25 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
 
         if (currentStep === 'shipment') {
+            // scenario can be null if route state is missing/corrupted (e.g. restored from stale storage)
+            if (!scenario) {
+                calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
+                state.setStepValidity('shipment', false);
+                syncNextButton();
+                return;
+            }
+
             const renderMode = MODE_RENDERERS[scenario];
             renderMode(
                 calculatorSteps.shipment,
-                state.calculatorState.shipmentDetails.fullRoad.vehicles
+                state.calculatorState.shipmentDetails.fullRoad.vehicles,
+                scenario
             );
+
+            if (!IMPLEMENTED_SCENARIOS.includes(scenario)) {
+                state.setStepValidity('shipment', false);
+                syncNextButton();
+            }
         }
     }
 

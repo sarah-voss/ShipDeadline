@@ -78,3 +78,25 @@ export function renderCalculatorStep(calculatorSteps, stepToShow) {
 export function focusFirstRouteField(input) {
     input.focus();
 }
+
+const SCENARIO_LABELS = {
+    'full-sea': 'Sea freight (FCL)',
+    'partial-road': 'Partial load - road (LTL)',
+    'partial-air': 'Partial load - air',
+}
+
+
+// vehicles is unused here but kept so this matches the (container, vehicles, scenario)
+// signature every MODE_RENDERERS entry is called with in calculator-controller.js
+export function renderComingSoonMode(container, vehicles, scenario) {
+    const title = document.createElement('h2');
+    const message = document.createElement('p');
+
+    title.classList.add('coming-soon__title');
+    title.textContent = `${SCENARIO_LABELS[scenario] ?? 'This shipment mode'} is not available yet`;
+
+    message.classList.add('coming-soon__text');
+    message.textContent = 'This mode is on the roadmap. For now the calculator supports full load road shipments within continental Europe only.';
+
+    container.replaceChildren(title, message);
+}

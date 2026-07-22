@@ -47,8 +47,13 @@ export function renderSuggestions(
 
         if (fieldType === 'city') {
             btn.innerHTML = highlightMatch(location.city, value);
-            btn.dataset.postcode = location.postcode;
             btn.dataset.city = location.city;
+            
+            if (!location.postcode) {
+                btn.dataset.postcode = ''; 
+            } else { 
+                btn.dataset.postcode = location.postcode;
+            }  
         }
 
         li.appendChild(btn);

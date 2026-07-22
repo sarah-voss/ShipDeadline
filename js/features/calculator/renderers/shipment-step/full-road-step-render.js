@@ -1,4 +1,5 @@
-import { VEHICLE_OPTIONS } from '../../shipment/config.js';
+import { VEHICLE_OPTIONS, MAX_FULL_ROAD_VEHICLES } from '../../shipment/config.js';
+import { renderFieldState } from '../calculator-render.js';
 
 export function renderFullRoadMode(container, vehicles) {
    
@@ -31,6 +32,10 @@ export function renderFullRoadMode(container, vehicles) {
     buttonText.classList.add('add-vehicle__text');
     buttonText.textContent = 'Add another vehicle';
 
+    if (!vehicles.every(v => v.status === 'valid') || vehicles.length >= MAX_FULL_ROAD_VEHICLES) {
+        addButton.classList.add('visually-hidden');
+    }
+
 
     // assembly
     descriptionContainer.append(descriptionIcon, descriptionText);
@@ -45,11 +50,15 @@ export function renderFullRoadMode(container, vehicles) {
 }
 
 
-export function createVehicleItem(vehicle, index) {
+    function createVehicleItem(vehicle, index) {
     const vehicleContainer = document.createElement('div');
     const vehicleContent = document.createElement('div');
     const label = document.createElement('label');
+    const selectWrapper = document.createElement('div');
     const select = document.createElement('select');
+    const successIcon = document.createElement('span')
+    const warning = document.createElement('p');
+    
 
     vehicleContainer.classList.add('vehicle-container');
     vehicleContainer.dataset.vehicleContainer = '';
@@ -60,12 +69,26 @@ export function createVehicleItem(vehicle, index) {
     label.classList.add('select-vehicle__label');
     label.textContent = `Vehicle ${index + 1}`;
 
+    selectWrapper.classList.add('select-vehicle-wrapper');
+
     select.classList.add('select-vehicle');
     select.dataset.vehicleSelect = 'true';
     select.dataset.vehicleId = vehicle.id;
 
-    vehicleContent.append(label, select);
+    successIcon.dataset.successIcon = '';
+    successIcon.classList.add('helper-icon-success');
+    successIcon.textContent = '✔';
+
+
+    warning.dataset.duplicateWarning = '';
+    warning.classList.add('error-message', 'error-message--duplicate');
+    warning.textContent = 'Duplicate vehicle type. Each vehicle must be a different type, as transit time varies by vehicle - not by quantity';
+
+    selectWrapper.append(select, successIcon);
+    vehicleContent.append(label, selectWrapper, warning);
     vehicleContainer.append(vehicleContent);
+
+    renderFieldState(vehicleContainer, vehicle.status);
 
     VEHICLE_OPTIONS.forEach(({ value, label: optionLabel }) => {
         const option = document.createElement('option');
@@ -94,4 +117,13 @@ export function createVehicleItem(vehicle, index) {
     }
 
     return vehicleContainer;
+}
+
+export function renderAddButtonVisibility(container, isVisible) {
+    const addButton = container.querySelector('[data-add-vehicle]');
+    addButton.classList.toggle('visually-hidden', !isVisible);
+}
+
+export function renderDuplicateWarning(vehicleContainer, isDuplicate) {
+vehicleContainer.classList.toggle('duplicate', isDuplicate);
 }

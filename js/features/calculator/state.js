@@ -101,8 +101,8 @@ export function setSelectedCountry(locationName, fieldType, country, code) {
 }
 
 export function setSelectedPostcodeCity(locationName, postcode, city) {
-    calculatorState[locationName].postcode.selected = postcode;
     calculatorState[locationName].city.selected = city;
+    calculatorState[locationName].postcode.selected = postcode;
 }
 
 export function getSelectedCountry(locationName, fieldType) {
@@ -116,11 +116,6 @@ export function setFieldStatus(locationName, fieldType, status, errorType = null
      if (status === 'valid' && fieldType === 'country') {
     calculatorState[locationName][fieldType].hasBeenValidatedOnce = true;
   }
-  
-    if (fieldType === 'postcode' || fieldType === 'city') {
-        calculatorState[locationName].postcode.status = status;
-        calculatorState[locationName].city.status = status;
-    }
 }
 
 export function getFieldStatus(locationName, fieldType) {
@@ -176,7 +171,7 @@ export function setFullRoadVehicleType(index, type) {
 
 export function isFullRoadComplete() {
     return calculatorState.shipmentDetails.fullRoad.vehicles.every( 
-        v => v.type !== ''
+        v => v.status === 'valid'
     );
 }
 
@@ -206,10 +201,16 @@ export function removeFullRoadVehicle(vehicleId) {
 
 
 // vehicle duplicate control
-export function hasDuplicateFullRoadVehicles() {
-    const types = calculatorState.shipmentDetails.fullRoad.vehicles
-    .map(vehicle => vehicle.type)
-    .filter(Boolean);
+export function isVehicleDuplicate(vehicleId) {
+    const vehicles = calculatorState.shipmentDetails.fullRoad.vehicles;
+    const target = vehicles.find(v => v.id === vehicleId);
+    if (!target.type) return false;
+    const index = vehicles.findIndex(v => v.id === vehicleId);
+    const shortenedVehiclesArray = vehicles.slice(0, index);
+    return shortenedVehiclesArray.some(v => v.type === target.type);
+}
 
-    return new Set(types).size !== types.length;
+export function hasDuplicateFullRoadVehicles() {
+    const vehicles = calculatorState.shipmentDetails.fullRoad.vehicles;
+    return vehicles.some(v => isVehicleDuplicate(v.id));
 }

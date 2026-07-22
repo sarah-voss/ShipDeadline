@@ -35,12 +35,12 @@ const elements = {
             postcode: {
                 input: calculatorRoot.querySelector('[data-departure-postcode-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-departure-postcode-suggestions]'),
-                field: calculatorRoot.querySelector('[data-departure-postcode-city-group]')
+                field: calculatorRoot.querySelector('[data-departure-postcode-field]') //
             },
             city: {
                 input: calculatorRoot.querySelector('[data-departure-city-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-departure-city-suggestions]'),
-                field: calculatorRoot.querySelector('[data-departure-postcode-city-group]')
+                field: calculatorRoot.querySelector('[data-departure-city-field]')
             }
         },
         destination: {
@@ -54,12 +54,12 @@ const elements = {
             postcode: {
                 input: calculatorRoot.querySelector('[data-destination-postcode-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-destination-postcode-suggestions]'),
-                field: calculatorRoot.querySelector('[data-destination-postcode-city-group]')
+                field: calculatorRoot.querySelector('[data-destination-postcode-field]')
             },
             city: {
                 input: calculatorRoot.querySelector('[data-destination-city-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-destination-city-suggestions]'),
-                field: calculatorRoot.querySelector('[data-destination-postcode-city-group]')
+                field: calculatorRoot.querySelector('[data-destination-city-field]')
             }
         }
       },

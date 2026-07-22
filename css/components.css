@@ -759,7 +759,6 @@ opacity: 0.7;
 
 .validated button {
     outline: none;
-    border: 1px solid var(--color-success); 
 }
 
 .validated button label {
@@ -781,12 +780,14 @@ opacity: 0.7;
 }
 
 /* Error */
-.error input {
+.error input,
+.error select {
     outline: none;
     border: 1px solid var(--color-error);
 }
 
-.error input:focus-visible {
+.error input:focus-visible,
+.error select:focus-visible {
     outline: none;
     border: 1px solid var(--color-error);
     box-shadow: 1px 2px 3px 1px hsla(0, 49%, 59%, 0.4), 
@@ -816,6 +817,9 @@ opacity: 0.7;
     display: block;
 }
 
+.error.duplicate .error-message--duplicate { 
+    display: block; 
+}
 
 
 /* === STEP 2 COMPONENTS === */
@@ -844,7 +848,7 @@ opacity: 0.7;
 }
 
 .vehicle-container {
-    inline-size: 100%; /* da vedere */
+    inline-size: 100%; 
     max-inline-size: 700px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -859,7 +863,11 @@ opacity: 0.7;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    inline-size: 80%;
+    inline-size: 50%;
+}
+
+.select-vehicle-wrapper {
+    position: relative;
 }
 
 .select-vehicle {

@@ -60,24 +60,24 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         state.setSelectedCountry(locationName, fieldType, name, code);
     }
 
-    // APPLY SELECTED POSTCODE 
-    function applySelectedPostcode(locationName, fieldType, button, input) {
+    // APPLY SELECTED POSTCODE OR CITY
+    function applySelectedPostcodeOrCity(locationName, fieldType, button, input) {
         const postcode = button.dataset.postcode;
         const city = button.dataset.city;
-        state.setInputValue(locationName, fieldType, postcode);
-        state.setSelectedPostcodeCity(locationName, postcode, city);
-        input.value = postcode;
-        locations[locationName].city.input.value = city;
-    }
+        const value = fieldType === 'postcode' ? postcode : city;
 
-    // APPLY SELECTED CITY
-    function applySelectedCity(locationName, fieldType, button, input) {
-        const postcode = button.dataset.postcode;
-        const city = button.dataset.city;
-        state.setInputValue(locationName, fieldType, city);
+        state.setInputValue(locationName, fieldType, value);
+        input.value = value;
+
+        if (fieldType === 'postcode') {
+            locations[locationName].city.input.value = city;
+        } else if (!postcode) {
+            locations[locationName].postcode.input.value = '';
+        } else {
+            locations[locationName].postcode.input.value = postcode;
+        }
+
         state.setSelectedPostcodeCity(locationName, postcode, city);
-        input.value = city;
-        locations[locationName].postcode.input.value = postcode;
     }
 
 
@@ -107,6 +107,11 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             resetPostcodeCity(locationName);
         }
 
+        if (fieldType === 'postcode' || fieldType === 'city') {
+            setFieldUiState(locationName, 'city', 'idle', locations[locationName].city.field);
+            setFieldUiState(locationName, 'postcode', 'idle', locations[locationName].postcode.field);
+        }
+
         if (checkedValue.length < 2) {
             setFieldUiState(locationName, fieldType, 'idle', field);
             return;
@@ -126,6 +131,25 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             state.getSelectedLocation('departure', 'city') === state.getSelectedLocation('destination', 'city')
         )
     }
+
+    // UPDATE DUPLICATE DESTINATION
+     function updateDuplicateDestinationState() {
+        const isDuplicate = isSameAsDeparture();
+        const cityWasFlagged = state.calculatorState.destination.city.errorType === 'same-as-departure';
+
+        if (isDuplicate) {
+        setFieldUiState('destination', 'city', 'error', locations.destination.city.field, 'same-as-departure');
+        setFieldUiState('destination', 'postcode', 'error', locations.destination.postcode.field, 'same-as-departure');
+        return;
+    }
+
+    if (cityWasFlagged) {
+        const hasCity = state.getSelectedLocation('destination', 'city');
+        const hasPostcode = state.getSelectedLocation('destination', 'postcode');
+        setFieldUiState('destination', 'city', hasCity ? 'valid' : 'idle', locations.destination.city.field);
+        setFieldUiState('destination', 'postcode', hasPostcode ? 'valid' : 'idle', locations.destination.postcode.field);
+    }
+}
 
 
     // RESET POSTCODE CITY
@@ -241,25 +265,22 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             }
 
             if (fieldType === 'postcode') {
-                applySelectedPostcode(locationName, fieldType, button, input);
+                applySelectedPostcodeOrCity(locationName, fieldType, button, input);
+                setFieldUiState(locationName, 'city', status, locations[locationName].city.field, errorType);
             }
 
             if (fieldType === 'city') {
-                applySelectedCity(locationName, fieldType, button, input)
-            }
-
-            if (locationName === 'destination' &&
-                (fieldType === 'postcode' || fieldType === 'city') &&
-                isSameAsDeparture()
-            ) {
-                status = 'error';
-                errorType = 'same-as-departure';
+                applySelectedPostcodeOrCity(locationName, fieldType, button, input);
+                if (button.dataset.postcode) {
+                setFieldUiState(locationName, 'postcode', status, locations[locationName].postcode.field, errorType);
+                }
             }
 
             setFieldUiState(locationName, fieldType, status, field, errorType);
 
             routeRender.closeSuggestions(suggestionsContainer);
             routeRender.renderPostcodeCityGroup(locationName, area);
+            updateDuplicateDestinationState();
 
             updateRouteStep();
             onRouteChange();
