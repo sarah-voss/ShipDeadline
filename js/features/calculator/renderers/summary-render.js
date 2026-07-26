@@ -18,10 +18,16 @@ export function renderSummaryCountry(country, summaryField) {
 
 // render Summary Location
 export function renderSummaryLocation(city, postcode, summaryField) {
-    if (!city || !postcode) {
+    if (!city) {
         summaryField.textContent = '';
         return;
     }
+
+    if (!postcode) {
+        summaryField.textContent = `${city}`;
+        return;
+    }
+
     summaryField.textContent = `${city} ${postcode}`;
 }
 
@@ -66,6 +72,21 @@ export function renderSummaryMode(text, scenario) {
 
     text.classList.remove('placeholder');
     text.classList.add('bold');
+}
+
+export function renderSummaryVehicles(div, vehicles) {
+    div.innerHTML = '';
+
+    if (!vehicles) return; 
+    
+    vehicles.forEach(v => {
+        if (v.status === 'valid') {
+        const vehicleText = document.createElement('p');
+        vehicleText.classList.add('vehicle-labels');
+        vehicleText.textContent = v.type;
+        div.append(vehicleText);
+        }
+    })
 }
 
 

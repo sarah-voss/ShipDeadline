@@ -3,11 +3,12 @@
 // ======== STATE STEP 1 ========= //
 export const calculatorState = {
     currentStep: 'route',
+    loadType: 'full-road',
 
     steps: {
     route: { isValid: false },
     shipment: { isValid: false },
-    result: { isValid: false }
+    result: { isValid: false },
     },
     
     departure: {
@@ -30,7 +31,12 @@ export const calculatorState = {
             selected: null,
             status: 'idle',
             errorType: null,
-        }
+        },
+
+        coordinates: {
+            lon: null,
+            lat: null
+        },
     },
 
     destination: {
@@ -53,9 +59,21 @@ export const calculatorState = {
             selected: null,
             status: 'idle',
             errorType: null,
-        }
+        },
+
+        coordinates: {
+            lon: null,
+            lat: null
+        },
     },
-    selectedFiscalMonth: null,
+
+    selectedFiscalMonth: {
+        id: null,
+        fullLabel: null,
+        monthLabel: null,
+        year: null,
+        closingDate: null,
+    },
 
     shipmentDetails: {
         fullRoad: {
@@ -86,6 +104,18 @@ export function setStepValidity(step, isValid) {
     calculatorState.steps[step].isValid = isValid;
 }
 
+export function setLoadType(loadType) {
+    calculatorState.loadType = loadType;
+}
+
+export function getLoadType() {
+    return calculatorState.loadType;
+}
+
+export function getSelectedVehicles() {
+    return calculatorState.shipmentDetails.fullRoad.vehicles;
+}
+
 
 // ==== ROUTE ==== //
 
@@ -105,8 +135,8 @@ export function setSelectedPostcodeCity(locationName, postcode, city) {
     calculatorState[locationName].postcode.selected = postcode;
 }
 
-export function getSelectedCountry(locationName, fieldType) {
-   return calculatorState[locationName][fieldType].code;
+export function getSelectedCountry(locationName) {
+   return calculatorState[locationName].country.code;
 }
 
 export function setFieldStatus(locationName, fieldType, status, errorType = null) {
@@ -129,7 +159,7 @@ export function getSelectedLocation(locationName, fieldType) {
 export function isFieldAreaComplete(locationName) {
     return (
         calculatorState[locationName].country.status === 'valid' &&
-        calculatorState[locationName].postcode.status === 'valid' &&
+        ['valid', 'not-applicable'].includes(calculatorState[locationName].postcode.status) &&
         calculatorState[locationName].city.status === 'valid'
     );
 }
@@ -144,21 +174,21 @@ export function getSelectedMonth() {
 
 
 
+// COORDINATES
+
+export function setSelectedCoordinates(locationName, coordinates) {
+calculatorState[locationName].coordinates = coordinates;
+}
+
+export function getSelectedCoordinates() {
+    const departureCoords = calculatorState.departure.coordinates;
+    const destinationCoords = calculatorState.destination.coordinates;
+    return { departureCoords, destinationCoords};
+}
+
+
 // ======== FULL ROAD ========= //
 
-const routingDetails = {
-    loadType: 'full-load',
-};
-
-
-// Routing Details Getters & Setters
-export function setLoadType(loadType) {
-    routingDetails.loadType = loadType;
-}
-
-export function getLoadType() {
-    return routingDetails.loadType;
-}
 
 export function setFullRoadVehicleType(index, type) {
     const vehicle = calculatorState.shipmentDetails.fullRoad.vehicles[index];
@@ -166,6 +196,12 @@ export function setFullRoadVehicleType(index, type) {
     if (!vehicle) return;
 
     vehicle.type = type;
+
+    if (isVehicleDuplicate(vehicle.id)) {
+        vehicle.status = 'error';
+        return;
+    }
+
     vehicle.status = type ? 'valid' : 'idle';
 }
 
@@ -187,6 +223,12 @@ export function addFullRoadVehicle() {
     vehicles.push(newVehicle);
 
     return newVehicle;
+}
+
+
+// get vehicles
+export function getFullRoadVehicle() {
+    return calculatorState.shipmentDetails.fullRoad.vehicles;
 }
 
 

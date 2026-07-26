@@ -40,6 +40,7 @@ export function renderFieldState(field, status) {
     if (status === 'idle') {
         field.classList.add('idle');
     }
+
 }
 
 

@@ -35,7 +35,8 @@ const elements = {
             postcode: {
                 input: calculatorRoot.querySelector('[data-departure-postcode-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-departure-postcode-suggestions]'),
-                field: calculatorRoot.querySelector('[data-departure-postcode-field]') //
+                field: calculatorRoot.querySelector('[data-departure-postcode-field]'),
+                label: calculatorRoot.querySelector('[data-departure-postcode-label]')
             },
             city: {
                 input: calculatorRoot.querySelector('[data-departure-city-input]'),
@@ -54,7 +55,8 @@ const elements = {
             postcode: {
                 input: calculatorRoot.querySelector('[data-destination-postcode-input]'),
                 suggestionsContainer: calculatorRoot.querySelector('[data-destination-postcode-suggestions]'),
-                field: calculatorRoot.querySelector('[data-destination-postcode-field]')
+                field: calculatorRoot.querySelector('[data-destination-postcode-field]'),
+                label: calculatorRoot.querySelector('[data-destination-postcode-label]')
             },
             city: {
                 input: calculatorRoot.querySelector('[data-destination-city-input]'),
@@ -85,8 +87,9 @@ const elements = {
             successIcon: calculatorRoot.querySelector('[data-summary-within-success-icon]')
         },
         mode: {
-            text: calculatorRoot.querySelector('[data-summary-mode]'),
-            successIcon: calculatorRoot.querySelector('[data-summary-mode-success-icon]')
+            modeText: calculatorRoot.querySelector('[data-summary-mode]'),
+            successIcon: calculatorRoot.querySelector('[data-summary-mode-success-icon]'),
+            vehiclesDiv: calculatorRoot.querySelector('[data-summary-mode-vehicles]'),
         },
         editAllButton: calculatorRoot.querySelector('[data-summary-edit-all-button]'),
       },

@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 <script src="/js/main.js" type="module" defer></script>   
+<script src="/js/features/calculator/logic/transit/test.js" type="module" defer></script> <!-- zu löschen-->
 </head>
     <body class="page">
         <div id="overlay" data-page-overlay></div>
@@ -139,6 +140,7 @@
                                             <div class="summary-card__content-text">
                                                 <h4 class="summary-card__step-title">MODE</h4>
                                                 <p class="summary-card__dynamic-text placeholder" data-summary-mode>Air / Sea / Road</p>
+                                                <div class="summary-card__dynamic-text" data-summary-mode-vehicles></div>
                                             </div>
                                             <div class="summary-card__success-icon" data-summary-mode-success-icon>
                                                 <img src="/assets/icons/success.png" alt="">
@@ -223,7 +225,8 @@
                                                                 >
                                                                 <label 
                                                                 for="departing-postcode" 
-                                                                class="field-label">
+                                                                class="field-label"
+                                                                data-departure-postcode-label>
                                                                 *select postcode
                                                                 </label>
                                                                 <ul data-departure-postcode-suggestions></ul>
@@ -304,7 +307,8 @@
                                                                 data-destination-postcode-input>
                                                                 <label 
                                                                 for="destination-postcode" 
-                                                                class="field-label">
+                                                                class="field-label"
+                                                                data-destination-postcode-label>
                                                                 *select postcode
                                                                 </label>
                                                                 <ul data-destination-postcode-suggestions></ul>

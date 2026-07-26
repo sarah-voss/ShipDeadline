@@ -1,5 +1,6 @@
 import { calculatorState } from "../state.js";
 
+
 // highlight matching substring
 function highlightMatch(text, value) {
     const index = text.toLowerCase().indexOf(value.toLowerCase());
@@ -39,22 +40,17 @@ export function renderSuggestions(
             btn.dataset.code = location.code;
         }
 
-        if (fieldType === 'postcode') {
-            btn.innerHTML = highlightMatch(location.postcode, value);
-            btn.dataset.postcode = location.postcode;
+        if (fieldType === 'city' || fieldType === 'postcode') {
+            const displayValue = location[fieldType];
+            btn.innerHTML = highlightMatch(displayValue, value);
+
             btn.dataset.city = location.city;
+            btn.dataset.lat = location.coordinates.lat;
+            btn.dataset.lon = location.coordinates.lon;
+            
+            btn.dataset.postcode = location.postcode || '';
         }
 
-        if (fieldType === 'city') {
-            btn.innerHTML = highlightMatch(location.city, value);
-            btn.dataset.city = location.city;
-            
-            if (!location.postcode) {
-                btn.dataset.postcode = ''; 
-            } else { 
-                btn.dataset.postcode = location.postcode;
-            }  
-        }
 
         li.appendChild(btn);
         suggestionsContainer.appendChild(li);
@@ -90,6 +86,18 @@ export function renderErrorMessage(locationName, fieldType, field) {
 
     field.classList.add('not-valid');
 }
+
+
+// render postcode label /*
+export function renderPostcodeLabel(label, status) {
+    if (status === 'not-applicable') {
+        label.textContent = '*no fixed postcode';
+        label.classList.add('not-applicable');
+        return;
+    }
+        label.textContent = '*select postcode';
+        label.classList.remove('not-applicable');
+} 
 
 
 // validate Fiscal Month

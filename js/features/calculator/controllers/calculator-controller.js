@@ -49,15 +49,15 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
     // GET CURRENT SCENARIO
     function getCurrentScenario() {
-        const departureCountry = state.getSelectedLocation('departure', 'country');
-        const destinationCountry = state.getSelectedLocation('destination', 'country');
+        const departureCountryCode = state.getSelectedCountry('departure');
+        const destinationCountryCode = state.getSelectedCountry('destination');
 
-        if (!destinationCountry) return null;
-        if (getCountryFieldStatus('departure', departureCountry) === 'error') return null;
+        if (!destinationCountryCode) return null;
+        if (getCountryFieldStatus('departure', departureCountryCode) === 'error') return null;
 
         return getCalculatorScenario({
             loadType: state.getLoadType(),
-            destinationArea: getDestinationArea(destinationCountry),
+            destinationArea: getDestinationArea(destinationCountryCode),
         });
     }
 

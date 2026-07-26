@@ -41,10 +41,10 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
     }
 
     function getCurrentFullRoadScenario() {
-        const selectedCountry = state.getSelectedLocation('destination', 'country');
+        const selectedCountryCode = state.getSelectedCountry('destination');
         return getCalculatorScenario({
             loadType: state.getLoadType(),
-            destinationArea: getDestinationArea(selectedCountry),
+            destinationArea: getDestinationArea(selectedCountryCode),
         });
     }
 

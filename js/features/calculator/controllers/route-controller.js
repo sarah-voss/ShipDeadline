@@ -49,6 +49,9 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const currentStatus = state.getFieldStatus(locationName, fieldType);
         calculatorRender.renderFieldState(field, currentStatus);
         routeRender.renderErrorMessage(locationName, fieldType, field);
+        if (fieldType === 'postcode') {
+            routeRender.renderPostcodeLabel(locations[locationName].postcode.label, currentStatus);
+        }
     }
 
     // APPLY SELECTED COUNTRY
@@ -65,6 +68,12 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const postcode = button.dataset.postcode;
         const city = button.dataset.city;
         const value = fieldType === 'postcode' ? postcode : city;
+        const coordinates = {
+            lon: Number(button.dataset.lon),
+            lat: Number(button.dataset.lat)
+        }
+
+        state.setSelectedCoordinates(locationName, coordinates);
 
         state.setInputValue(locationName, fieldType, value);
         input.value = value;
@@ -84,7 +93,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     // SHOW SUGGESTIONS
     async function showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input) {
         // get selected country
-        const selectedCountry = state.getSelectedCountry(locationName, 'country');
+        const selectedCountry = state.getSelectedCountry(locationName);
 
         // send api request
         const suggestions = await searchLocation(fieldType, checkedValue, selectedCountry);
@@ -252,13 +261,13 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             const button = e.target.closest('button');
             if (!button) return;
 
-            let status = 'valid';
+            let status = 'valid'; //
             let errorType = null;
 
             if (fieldType === 'country') {
                 applySelectedCountry(locationName, fieldType, button, input);
-                const countryName = button.dataset.name;
-                status = getCountryFieldStatus(locationName, countryName);
+                const countryCode = button.dataset.code;
+                status = getCountryFieldStatus(locationName, countryCode);
                 if (status === 'error') {
                     errorType = 'departure-country-not-europe';
                 }
@@ -272,7 +281,9 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             if (fieldType === 'city') {
                 applySelectedPostcodeOrCity(locationName, fieldType, button, input);
                 if (button.dataset.postcode) {
-                setFieldUiState(locationName, 'postcode', status, locations[locationName].postcode.field, errorType);
+                setFieldUiState(locationName, 'postcode', status, locations[locationName].postcode.field);
+                } else {
+                    setFieldUiState(locationName, 'postcode', 'not-applicable', locations[locationName].postcode.field);
                 }
             }
 
@@ -348,7 +359,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             year: selectedMonth.year,
             closingDate: selectedMonth.closingDate
         });
-
 
         routeRender.validateFiscalMonth(monthPickerInput);
         routeRender.closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay);

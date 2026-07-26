@@ -40,16 +40,20 @@ function updateSummaryFiscalMonth(elements) {
 // UPDATE SUMMARY MODE
 function updateSummaryMode(elements, scenario) {
     const summaryField = elements.summaryCard.mode;
-    const text = summaryField.text;
+    const modeText = summaryField.modeText;
     const isConfirmed = state.getCurrentStep() !== 'route';
+    const vehiclesDiv = summaryField.vehiclesDiv;
+    const vehicles = state.getSelectedVehicles();
+    console.log(vehicles);
 
     if (!scenario) {
-        summaryRender.renderSummaryMode(text, false);
+        summaryRender.renderSummaryMode(modeText, false);
         summaryRender.renderSummarySuccess(summaryField.successIcon, false);
         return;
     }
 
-    summaryRender.renderSummaryMode(text, scenario);
+    summaryRender.renderSummaryMode(modeText, scenario);
+    summaryRender.renderSummaryVehicles(vehiclesDiv, vehicles);
     summaryRender.renderSummarySuccess(summaryField.successIcon, isConfirmed);
 }
 
