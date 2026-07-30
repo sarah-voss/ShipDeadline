@@ -66,7 +66,7 @@ export async function searchLocation(fieldType, query, selectedCountry) {
         checkedArray.push(loc);
     });
  
-    console.log(checkedArray);
+
     return checkedArray;
 }
 

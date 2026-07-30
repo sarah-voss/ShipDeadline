@@ -83,7 +83,8 @@ export function renderSummaryVehicles(div, vehicles) {
         if (v.status === 'valid') {
         const vehicleText = document.createElement('p');
         vehicleText.classList.add('vehicle-labels');
-        vehicleText.textContent = v.type;
+        const vehicleLabel = v.type.split('-');
+        vehicleText.textContent = v.type.replace('-', ' ');
         div.append(vehicleText);
         }
     })

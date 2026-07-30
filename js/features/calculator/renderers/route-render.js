@@ -1,4 +1,5 @@
 import { calculatorState } from "../state.js";
+import { getTodayAtMidnight } from "../../../utils/date-utils.js";
 
 
 // highlight matching substring
@@ -149,6 +150,12 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
         button.type = 'button';
         cardName.classList.add('month-card__name');
         cardYear.classList.add('month-card__year');
+
+        const isPast = new Date(element.closingDate) < getTodayAtMidnight();
+        if (isPast) {
+            button.disabled = true;
+            button.classList.add('month-card--disabled');
+        };
 
         // add values
         button.dataset.monthId = element.id;

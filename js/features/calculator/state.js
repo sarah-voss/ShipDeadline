@@ -112,6 +112,12 @@ export function getLoadType() {
     return calculatorState.loadType;
 }
 
+export function resetVehicles() {
+calculatorState.shipmentDetails.fullRoad.vehicles = [
+                { id: Date.now(), type: '', status: 'idle' }
+            ]
+}
+
 export function getSelectedVehicles() {
     return calculatorState.shipmentDetails.fullRoad.vehicles;
 }
@@ -164,8 +170,8 @@ export function isFieldAreaComplete(locationName) {
     );
 }
 
-export function setSelectedMonth(month) {
-    calculatorState.selectedFiscalMonth = month;
+export function setSelectedMonth(monthRef) {
+    calculatorState.selectedFiscalMonth = monthRef;
 }
 
 export function getSelectedMonth() {
@@ -223,12 +229,6 @@ export function addFullRoadVehicle() {
     vehicles.push(newVehicle);
 
     return newVehicle;
-}
-
-
-// get vehicles
-export function getFullRoadVehicle() {
-    return calculatorState.shipmentDetails.fullRoad.vehicles;
 }
 
 

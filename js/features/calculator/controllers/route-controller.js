@@ -8,7 +8,7 @@ import { getCountryFieldStatus } from '../logic/geography-rules.js';
 
 import { MONTHS } from '../../fiscal-months/config.js';
 import { loadFiscalMonths } from '../../fiscal-months/storage.js';
-import { createFiscalMonths } from '../../fiscal-months/state.js';
+import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/state.js';
 
 export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
@@ -202,6 +202,8 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         monthPickerTrigger.textContent = 'select fiscal month';
         monthPickerInput.classList.remove('validated');
         state.setSelectedMonth(null);
+        state.resetVehicles();
+        console.log(state.calculatorState.shipmentDetails);
 
         updateRouteStep();
         onRouteChange();
@@ -225,16 +227,26 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             routeRender.renderPostcodeCityGroup(locationName, area);
         });
 
-        const savedMonth = state.getSelectedMonth();
+        const savedMonth = state.getSelectedMonth(); 
+
         if (savedMonth) {
-            monthPickerTrigger.textContent = savedMonth.fullLabel;
+        const currentMonths = loadFiscalMonths(savedMonth.year) || createFiscalMonths(MONTHS, savedMonth.year);
+        const freshMonth = findFiscalMonthById(currentMonths, savedMonth.id);
+        
+        if (freshMonth) {
+            monthPickerTrigger.textContent = freshMonth.fullLabel;
             routeRender.validateFiscalMonth(monthPickerInput);
         }
+            monthPickerTrigger.textContent = savedMonth.fullLabel || freshMonth.fullLabel;
+            routeRender.validateFiscalMonth(monthPickerInput);
     }
+    }
+
+    
 
     // CREATE / LOAD MONTHS FOR CALENDAR
     let year = Number(monthPickerYearInput.value);
-    const fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+    let fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
 
 
 
@@ -338,6 +350,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     // select year
     monthPickerYearInput.addEventListener('change', (e) => {
         year = Number(e.target.value);
+        fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
         routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, fiscalMonths, year);
     })
 
@@ -354,10 +367,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
         state.setSelectedMonth({
             id: selectedMonth.id,
-            fullLabel: selectedMonth.fullLabel,
-            monthLabel: selectedMonth.label,
             year: selectedMonth.year,
-            closingDate: selectedMonth.closingDate
         });
 
         routeRender.validateFiscalMonth(monthPickerInput);

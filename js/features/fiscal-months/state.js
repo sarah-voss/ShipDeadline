@@ -36,3 +36,7 @@ export function markFiscalMonthsAsSaved(fiscalMonths) {
         };
     });
 }
+
+export function findFiscalMonthById(fiscalMonths, monthId) {
+    return fiscalMonths.find(month => month.id  === monthId);
+}

@@ -1,6 +1,10 @@
 import * as summaryRender from "../renderers/summary-render.js";
 import * as state from "../state.js";
 
+import { loadFiscalMonths } from '../../fiscal-months/storage.js';
+import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/state.js';
+import { MONTHS } from '../../fiscal-months/config.js';
+
 
 // UPDATE SUMMARY LOCATION
 function updateSummaryLocation(elements, locationName) {
@@ -20,22 +24,21 @@ function updateSummaryLocation(elements, locationName) {
 // UPDATE SUMMARY FISCAL MONTH
 function updateSummaryFiscalMonth(elements) {
     const summaryField = elements.summaryCard.within;
-    const selectedMonth = state.getSelectedMonth();
-    const monthText = summaryField.monthNameText;
-    const dateText = summaryField.closingDateText;
+    const selectedMonth = state.getSelectedMonth(); // { id, year }
 
     if (!selectedMonth) {
-        summaryRender.renderSummaryFiscalMonth(monthText, dateText, null, null);
+        summaryRender.renderSummaryFiscalMonth(summaryField.monthNameText, summaryField.closingDateText, null, null);
         summaryRender.renderSummarySuccess(summaryField.successIcon, false);
         return;
     }
 
-    const chosenMonth = selectedMonth.monthLabel;
-    const closingDate = selectedMonth.closingDate;
+    const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
+    const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
 
-    summaryRender.renderSummaryFiscalMonth(monthText, dateText, chosenMonth, closingDate);
+    summaryRender.renderSummaryFiscalMonth(summaryField.monthNameText, summaryField.closingDateText, freshMonth.label, freshMonth.closingDate);
     summaryRender.renderSummarySuccess(summaryField.successIcon, true);
 }
+
 
 // UPDATE SUMMARY MODE
 function updateSummaryMode(elements, scenario) {
@@ -44,10 +47,10 @@ function updateSummaryMode(elements, scenario) {
     const isConfirmed = state.getCurrentStep() !== 'route';
     const vehiclesDiv = summaryField.vehiclesDiv;
     const vehicles = state.getSelectedVehicles();
-    console.log(vehicles);
 
     if (!scenario) {
         summaryRender.renderSummaryMode(modeText, false);
+        summaryRender.renderSummaryVehicles(vehiclesDiv, vehicles);
         summaryRender.renderSummarySuccess(summaryField.successIcon, false);
         return;
     }

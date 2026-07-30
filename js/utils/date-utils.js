@@ -10,3 +10,9 @@ export function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB');
 }
+
+export function getTodayAtMidnight() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+}

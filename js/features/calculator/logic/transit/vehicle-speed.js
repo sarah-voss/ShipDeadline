@@ -1,5 +1,5 @@
-export const VEHICLE_SPEEDS_KMH = {
-    'standard-truck': 70,
-    'van': 85,
-    'exceptional-load': 45,
+export const VEHICLE_CONFIG = {
+    'standard-truck': { speedKmh: 70, loadingHours: 4 },
+    'van': { speedKmh: 85, loadingHours: 2 },
+    'exceptional-load': { speedKmh: 45, loadingHours: 6 },
 };
