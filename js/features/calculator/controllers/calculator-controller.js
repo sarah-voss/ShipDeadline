@@ -9,6 +9,7 @@ import { saveCalculatorState } from "../storage.js";
 import { initRouteController } from "./route-controller.js";
 import { renderSummaryFromState } from "./summary-controller.js";
 import { initFullRoadController } from "./shipment-step/full-road-controller.js";
+import { initResultController } from "./result-controller.js";
 
 
 
@@ -26,6 +27,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         elements,
         onFullRoadChange: syncCalculatorUiFromState
     });
+
+    initResultController();
 
 
     // destructure imported values

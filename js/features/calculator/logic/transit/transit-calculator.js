@@ -10,19 +10,24 @@ import { createFiscalMonths, findFiscalMonthById } from '../../../fiscal-months/
 
 
 
-export function getTransitHours() {
-    const { departureCoords, destinationCoords } = state.getSelectedCoordinates();
+export function getTransitDetails({ resultElements }) {
+    const {
+        departureCoords, 
+        destinationCoords,
+        vehiclesArr,
+        departureCountry,
+        destinationCountry,
+        fiscalDeadline
+    } = resultElements;
+
     const distanceKm = calculateDistance(departureCoords, destinationCoords);
 
-    const vehiclesArr = state.getSelectedVehicles();
     const vehicleTypes = vehiclesArr.map(v => v.type);
 
     const speeds = vehicleTypes.map(type => VEHICLE_CONFIG[type].speedKmh);
     const kmh = Math.min(...speeds);
     const drivingHours = distanceKm / kmh;
-
-    const departureCountry = state.getSelectedCountry('departure');
-    const destinationCountry = state.getSelectedCountry('destination');
+    
     const customsDelay = getCustomsDelayHours(departureCountry, destinationCountry);
 
     const loadingHours = vehicleTypes.map(type => VEHICLE_CONFIG[type].loadingHours);
@@ -30,20 +35,10 @@ export function getTransitHours() {
 
     const totalHours = drivingHours + customsDelay + turnaroundTime;
 
-    const selectedMonth = state.getSelectedMonth(); 
-    const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
-    const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
-    const fiscalDeadline = new Date(freshMonth.closingDate);
-
     const { windowStart, lastShippingDate } = calculateShippingWindow(fiscalDeadline, totalHours);
 
-    return { windowStart, lastShippingDate, totalHours };
+    return { windowStart, lastShippingDate, customsDelay };
 }
 
 
-console.log(getTransitHours());
 
-
-
-
-// Dann... Results-renderer + results-calculator
