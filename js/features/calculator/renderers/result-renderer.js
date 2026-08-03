@@ -1,3 +1,3 @@
-export function renderResult(windowStart, lastShippingDate, customsDelay, fiscalDeadline) {
+export function renderResult({ resultElements}) {
 
 }

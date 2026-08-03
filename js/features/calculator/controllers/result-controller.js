@@ -36,9 +36,7 @@ export function initResultController() {
 
         const details = getTransitDetails({ resultElements });
 
-        console.log(details);
         return details;
     }
 
-    getResultDetails();
 }

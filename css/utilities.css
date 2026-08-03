@@ -27,7 +27,6 @@
     gap: var(--space-6)
 }
 
-/* vertical spacing */
 
 .is-active {
     display: block;

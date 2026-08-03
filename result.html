@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Result">
+    <title>ShipDeadline - Calculator</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <script src="/js/main.js" type="module" defer></script>
+</head>
+
+<body class="page">
+    <div id="overlay" data-page-overlay></div>
+
+    <!-- HEADER-->
+    <header class="header">
+        <div class="container">
+            <div class="header__layout">
+
+                <div class="logo">
+                    <div class="logo__img-container">
+                        <img src="/assets/images/logo-globe.png" alt="" class="logo__img">
+                    </div>
+                    <a href="index.html" class="logo__title">ShipDeadline</a>
+                </div>
+
+                <!-- Header Nav List-->
+                <nav>
+                    <ul class="header__nav-list row">
+                        <li class="nav-item">
+                            <a href="index.html" data-nav-item='calculator'>Calculator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="fiscal-months.html" data-nav-item='fiscal-months'>Fiscal Deadlines</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="page__main" data-calculator>
+        <div class="container">
+            <div class="section stack stack--tight">
+
+                <div class="hero">
+                    <div class="hero__left">
+                        <div class="hero__image-container">
+                            <img src="/assets/images/box-img.png" alt="" class="hero__image">
+                        </div>
+                        <div class="hero__content">
+                            <h1 class="hero__title">Shipping Planning Tool</h1>
+                            <p class="hero__description">Calculate the latest and recommended departure window based
+                                on routing, mode and fiscal deadlines.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="calculator-page__content-container">
+                    <div class="calculator-page__content">
+
+                        <!-- SUMMARY CARD-->
+                        <div class="summary-card">
+                            <div class="summary-card__rail">
+
+                                <div class="summary-card__header">
+                                    <h3>Summary</h3>
+                                </div>
+
+                                <div class="summary-card__step">
+                                    <div class="summary-card__icon">
+                                        <img src="/assets/icons/maps-icon.png" alt="">
+                                    </div>
+                                    <div class="summary-card__content">
+                                        <div class="summary-card__content-text">
+                                            <h4 class="summary-card__step-title">FROM</h4>
+                                            <p class="summary-card__dynamic-text placeholder"
+                                                data-summary-departure-country data-placeholder="Select origin">
+                                                Select origin
+                                            </p>
+                                            <p class="summary-card__dynamic-text" data-summary-departure-location></p>
+                                        </div>
+                                        <div class="summary-card__success-icon" data-summary-departure-success-icon>
+                                            <img src="/assets/icons/success.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="summary-card__step">
+                                    <div class="summary-card__icon">
+                                        <img src="/assets/icons/maps-icon.png" alt="">
+                                    </div>
+                                    <div class="summary-card__content">
+                                        <div class="summary-card__content-text">
+                                            <h4 class="summary-card__step-title">TO</h4>
+                                            <p class="summary-card__dynamic-text placeholder"
+                                                data-summary-destination-country data-placeholder="Select destination">
+                                                Select destination</p>
+                                            <p class="summary-card__dynamic-text" data-summary-destination-location></p>
+                                        </div>
+                                        <div class="summary-card__success-icon" data-summary-destination-success-icon>
+                                            <img src="/assets/icons/success.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="summary-card__step">
+                                    <div class="summary-card__icon">
+                                        <img src="/assets/icons/stopwatch-icon.png" alt="">
+                                    </div>
+                                    <div class="summary-card__content">
+                                        <div class="summary-card__content-text">
+                                            <h4 class="summary-card__step-title">WITHIN</h4>
+                                            <p class="summary-card__dynamic-text placeholder" data-summary-month-name>
+                                                Choose fiscal month</p>
+                                            <p class="summary-card__dynamic-text" data-summary-closing-date></p>
+                                        </div>
+                                        <div class="summary-card__success-icon" data-summary-within-success-icon>
+                                            <img src="/assets/icons/success.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="summary-card__step">
+                                <div class="summary-card__icon">
+                                    <img src="/assets/icons/mode-icon.png" alt="">
+                                </div>
+                                <div class="summary-card__content">
+                                    <div class="summary-card__content-text">
+                                        <h4 class="summary-card__step-title">MODE</h4>
+                                        <p class="summary-card__dynamic-text placeholder" data-summary-mode>Air / Sea /
+                                            Road</p>
+                                        <div class="summary-card__dynamic-text" data-summary-mode-vehicles></div>
+                                    </div>
+                                    <div class="summary-card__success-icon" data-summary-mode-success-icon>
+                                        <img src="/assets/icons/success.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="summary-card__footer" data-summary-edit-all-button>
+                                <img src="/assets/icons/pencil.png" alt="" class="summary-card__footer-icon">
+                                <p class="summary-card__footer-text">Edit all</p>
+                            </div>
+                        </div>
+
+                        <!-- CALCULATOR -->
+                        <section class="calculator">
+                            <!-- Calculator Headline -->
+                            <div class="calculator__headline">
+                                <button class="calculator__tab calculator__tab--active" type="button"
+                                    data-mode-trigger="full-load">
+                                    Full Load
+                                </button>
+                                <button class="calculator__tab tab-not-active" type="button"
+                                    data-mode-trigger="partial-load">
+                                    Partial Load
+                                </button>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <p class="calculator__description" data-mode-description><i>Dedicated shipment
+                                    → exclusive capacity, direct routing</i></p>
+
+
+                            <div class="calculator__main">
+                                <form action="" class="form">
+                                    <div class="form__container" data-calculator-body>
+
+                                        <section data-calculator-step="result">
+
+                                            <!-- RESULT -->
+                                            <header class="result__intro">
+                                                <div class="result__intro-icon">
+                                                    <img src="assets/icons/success.png" alt="">
+                                                </div>
+                                                <h2 class="result__title">Shipping Recommendation</h2>
+                                                <p class="result__description">Here are the key dates for your shipment
+                                                </p>
+                                            </header>
+
+                                            <!-- RESULT CARDS-->
+                                            <div class="result__card-container">
+                                                <article class="result-card result-card--safe">
+                                                    <header class="result-card__header">
+                                                        <div class="result-card__icon">
+                                                            <img src="assets/icons/result-icon__calendar.png" alt="">
+                                                        </div>
+                                                        <p class="result-card__label">Safe Shipping Window</p>
+                                                    </header>
+                                                    <h3 class="result-card__title">12 Dec - 16 Dec</h3>
+                                                    <p class="result-card__num-days">4 days</p>
+                                                    <p class="result-card__description">This is your recommended
+                                                        shipping window
+                                                    </p>
+                                                </article>
+
+                                                <article class="result-card result-card--last-date">
+                                                    <header class="result-card__header">
+                                                        <div class="result-card__icon">
+                                                            <img src="assets/icons/result-icon__truck.png" alt="">
+                                                        </div>
+                                                        <p class="result-card__label">Ship no later than</p>
+                                                    </header>
+                                                    <h3 class="result-card__title">16 Dec 2026</h3>
+                                                    <p class="result-card__description">Last recommended
+                                                        shipping date
+                                                    </p>
+                                                </article>
+
+                                                <article class="result-card result-card--deadline">
+                                                    <header class="result-card__header">
+                                                        <div class="result-card__icon">
+                                                            <img src="assets/icons/result-icon__deadline.png" alt="">
+                                                        </div>
+                                                        <p class="result-card__label">Fiscal Deadline</p>
+                                                    </header>
+                                                    <h3 class="result-card__title">18 Dec 2026</h3>
+                                                    <p class="result-card__description">Delivery must be
+                                                        completed by this date
+                                                    </p>
+                                                </article>
+                                            </div>
+
+                                            <div class="result__timeline">
+                                                <header class="timeline__header">
+                                                    <div class="timeline__icon">
+                                                        <img src="" alt="">
+                                                    </div>
+                                                    <h3>Shipping Timeline</h3>
+                                                </header>
+
+                                                <div class="timeline__track">
+
+                                                    <div class="timeline__line"></div>
+
+                                                    <div class="timeline__marker timeline__marker--safe">
+                                                        <span class="timeline__marker-dot"></span>
+                                                        <div class="timeline__marker-text">
+                                                            <p class="timeline__marker-date">12 Dec 2026</p>
+                                                            <p class="timeline__marker-label">Window Start</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline__marker timeline__marker--last-date">
+                                                        <span class="timeline__marker-dot"></span>
+                                                        <div class="timeline__marker-text">
+                                                            <p class="timeline__marker-date">16 Dec 2026</p>
+                                                            <p class="timeline__marker-label">Last recommended shipping date</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline__marker timeline__marker--deadline">
+                                                        <span class="timeline__marker-dot"></span>
+                                                        <div class="timeline__marker-text">
+                                                            <p class="timeline__marker-date">18 Dec 2026</p>
+                                                            <p class="timeline__marker-label">Fiscal Deadline</p>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__tool-stat-item">
+                    <div class="footer__tool-stat-icon-container">
+                        <img src="/assets/icons/boxes-white.png" alt="" class="footer__tool-stat-icon">
+                    </div>
+                    <div class="footer__tool-stat-content">
+                        <span class="footer__tool-stat-title">Full & Partial</span>
+                        <span class="footer__tool-stat-text">Load Types</span>
+                    </div>
+                </div>
+                <div class="footer__tool-stat-item">
+                    <div class="footer__tool-stat-icon-container">
+                        <img src="/assets/icons/road-sea-air-white.png" alt="" class="footer__tool-stat-icon">
+                    </div>
+                    <div class="footer__tool-stat-content">
+                        <span class="footer__tool-stat-title">Road | Sea | Air</span>
+                        <span class="footer__tool-stat-text">Transport Modes</span>
+                    </div>
+                </div>
+                <div class="footer__tool-stat-item">
+                    <div class="footer__tool-stat-icon-container">
+                        <img src="/assets/icons/calendar-white.png" alt="" class="footer__tool-stat-icon">
+                    </div>
+                    <div class="footer__tool-stat-content">
+                        <span class="footer__tool-stat-title">Fiscal Aware</span>
+                        <span class="footer__tool-stat-text">Delivery Planning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
