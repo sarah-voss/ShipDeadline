@@ -38,7 +38,8 @@ export function calculateShippingWindow(fiscalDeadline, totalHours) {
     const adjustedDeadline = rollBackToWorkDay(fiscalDeadline);
     const transitDays = calculateTransitDays(totalHours);
     const lastShippingDate = subtractWorkingDays(adjustedDeadline, transitDays);
-    const windowStart = subtractWorkingDays(lastShippingDate, 4);
+    const SAFE_WINDOW_DAYS = 4;
+    const windowStart = subtractWorkingDays(lastShippingDate, SAFE_WINDOW_DAYS);
 
     return { windowStart, lastShippingDate };
 }

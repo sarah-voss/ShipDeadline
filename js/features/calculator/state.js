@@ -67,13 +67,7 @@ export const calculatorState = {
         },
     },
 
-    selectedFiscalMonth: {
-        id: null,
-        fullLabel: null,
-        monthLabel: null,
-        year: null,
-        closingDate: null,
-    },
+    selectedFiscalMonth: null,
 
     shipmentDetails: {
         fullRoad: {

@@ -1,13 +1,3 @@
-import * as state from '../../state.js'
-import { calculateDistance } from './distance-source.js';
-import { VEHICLE_CONFIG } from './vehicle-speed.js';
-import { getCustomsDelayHours } from './customs-rules.js';
-import { calculateShippingWindow } from './shipping-window.js';
-
-import { MONTHS } from '../../../fiscal-months/config.js';
-import { loadFiscalMonths } from '../../../fiscal-months/storage.js';
-import { createFiscalMonths, findFiscalMonthById } from '../../../fiscal-months/state.js';
-
 
 
 export function getTransitDetails({ resultElements }) {

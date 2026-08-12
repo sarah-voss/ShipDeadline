@@ -7,9 +7,10 @@ import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/sta
 
 import { getTransitDetails } from "../logic/transit/transit-calculator.js";
 
-export function initResultController() {
 
+export function initResultController({ elements }) {
 
+    const { result } = elements;
 
     function getResultDetails() {
 
@@ -20,13 +21,13 @@ export function initResultController() {
         const departureCountry = state.getSelectedCountry('departure');
         const destinationCountry = state.getSelectedCountry('destination');
 
-        const selectedMonth = state.getSelectedMonth(); 
+        const selectedMonth = state.getSelectedMonth();
         const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
         const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
         const fiscalDeadline = new Date(freshMonth.closingDate);
 
         const resultElements = {
-            departureCoords, 
+            departureCoords,
             destinationCoords,
             vehiclesArr,
             departureCountry,
@@ -38,5 +39,7 @@ export function initResultController() {
 
         return details;
     }
+
+    
 
 }

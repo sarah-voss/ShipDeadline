@@ -28,8 +28,6 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         onFullRoadChange: syncCalculatorUiFromState
     });
 
-    initResultController();
-
 
     // destructure imported values
     const { tabButtons,
@@ -130,6 +128,10 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
                 state.setStepValidity('shipment', false);
                 syncNextButton();
             }
+        }
+
+        if (currentStep === 'result') { 
+            initResultController({ elements }); // init? name ändern
         }
     }
 
