@@ -28,56 +28,45 @@
 
 
 
-/* ==== HERO ==== */
+/* ==== Banner ==== */
 
-.hero {
+.banner {
     display: flex;
     align-items: center;
     gap: 2rem;
     background: var(--color-surface-plain);
-    padding-block: 1rem;
     padding-inline: 1.5rem;
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-2);
 }
 
-
-/* Hero Left */
-
-.hero__left {
-    display: flex;
-    align-items: center;
-}
-
-.hero__image-container {
-    width: 11rem;
-    height: 9rem;
+.banner__image-container {
+    width: 2.5rem;
+    height: 2.5rem;
     overflow: hidden;
 }
 
-.hero__image {
+.banner__image {
  width: 100%;
  height: 100%;
 }
 
 
-.hero__content {
-    inline-size: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    gap: var(--space-2);
-    margin-inline-start: 2.5rem;
-}
-
-.hero__title {
-font-weight: var(--fw-bold);
-font-size: var(--fs-3);
+.banner__title {
+font-weight: var(--fw-medium);
+font-size: var(--fs-2);
 color: var(--color-brand);
 }
 
-.hero__description {
-    line-height: 1.3;
+.banner-divider {
+    background-color: var(--color-border-input);
+    width: 1px;
+    height: 50%;
+}
+
+.banner__description {
+    color: var(--color-brand);
+    font-size: var(--fs-0);
 }
 
 
@@ -91,8 +80,11 @@ color: var(--color-brand);
 
 @container calculator-page (max-width: 1060px) {
     .summary-card {
-        inline-size: 50%;
+        inline-size: 40%;
     }
 
 }
 
+.calculator--result .summary-card {
+    display: none;
+}

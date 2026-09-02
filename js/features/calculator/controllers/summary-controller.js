@@ -24,7 +24,7 @@ function updateSummaryLocation(elements, locationName) {
 // UPDATE SUMMARY FISCAL MONTH
 function updateSummaryFiscalMonth(elements) {
     const summaryField = elements.summaryCard.within;
-    const selectedMonth = state.getSelectedMonth(); // { id, year }
+    const selectedMonth = state.getSelectedMonth(); 
 
     if (!selectedMonth) {
         summaryRender.renderSummaryFiscalMonth(summaryField.monthNameText, summaryField.closingDateText, null, null);

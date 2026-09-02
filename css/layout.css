@@ -10,7 +10,7 @@
 }
 
 .container {
-    inline-size: min(1280px, 100% - var(--space-gutter));
+    inline-size: min(1200px, 100% - var(--space-gutter));
     margin-inline: auto;
 }
 

@@ -1,17 +1,24 @@
 // render calculator tabs
 export function renderCalculator({ calculatorRoot, mode, elements }) {
-    const { tabButtons, descriptionElement } = elements;
+    const { tabButtons, modeDescriptionTitle, modeDescriptionText } = elements;
     tabButtons.forEach(button => {
         button.classList.remove('calculator__tab--active');
         if (button.dataset.modeTrigger === mode) {
             button.classList.add('calculator__tab--active');
         }
     });
-    const descriptions = {
-        'full-load': 'Dedicated shipment\n→ exclusive capacity, direct routing',
-        'partial-load': 'Partial capacity\n→ based on shipment size'
+    const descriptionTitles = {
+        'full-load': 'Dedicated shipment',
+        'partial-load': 'Partial capacity'
     };
-    descriptionElement.textContent = descriptions[mode];
+
+    const descriptionTexts = {
+        'full-load': 'Exclusive capacity, direct routing',
+        'partial-load': 'Based on shipment size'
+    }
+
+    modeDescriptionTitle.textContent = descriptionTitles[mode];
+    modeDescriptionText.textContent = descriptionTexts[mode];
 
     calculatorRoot.classList.remove('calculator--full-load', 'calculator--partial-load');
     calculatorRoot.classList.add(`calculator--${mode}`);
@@ -72,6 +79,9 @@ export function hidePreviousButton(button) {
 export function renderCalculatorStep(calculatorSteps, stepToShow) {
     Object.entries(calculatorSteps).forEach(([stepName, step]) => {
         step.hidden = stepName !== stepToShow;
+        if (stepName === 'result') {
+            step.classList.toggle('calculator--result', stepName === stepToShow);
+        }
     });
 }
 

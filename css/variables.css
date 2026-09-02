@@ -91,36 +91,39 @@
 --fw-medium: 500;
 --fw-bold: 600;
 
---fs-0: 0.875rem; 
---fs-1: 1rem; 
---fs-caption: 0.8rem;
---fs-2: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); 
---fs-3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); 
---fs-4: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem); 
---fs-5: clamp(2rem, 1.7rem + 1vw, 2.5rem); 
+--fs-0: 0.8rem; 
+--fs-1: 0.9rem; 
+--fs-caption: 0.75rem;
+--fs-2: clamp(1.0125rem, 0.945rem + 0.27vw, 1.125rem);
+--fs-3: clamp(1.125rem, 1.035rem + 0.45vw, 1.35rem);
+--fs-4: clamp(1.35rem, 1.215rem + 0.54vw, 1.575rem); 
+--fs-5: clamp(1.8rem, 1.53rem + 0.9vw, 2.25rem);; 
 
 
-    /* ==== SPACING SYSTEM ==== */
+/* ==== SPACING SYSTEM ==== */
 
-    /* micro */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    /* contenuto */
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    /* componenti */
-    --space-5: 1.5rem;
-    --space-6: clamp(1rem, 4vw, 3rem);
-    /* layout / sezioni */
-    --space-7: clamp(2rem, 1.5rem + 1.2vw, 4rem);
-    --space-8: 4rem;
-    --space-9: clamp(2rem, 5vw, 5rem);
-    --space-10: clamp(3rem, 6vw, 6rem);
+/* micro */
+--space-1: 0.25rem;
+--space-2: 0.5rem;
 
-    --space-section: var(--space-7);
-    --space-section-loose-start: var(--space-9);
-    --space-section-loose-end: var(--space-10);
-    --space-gutter: var(--space-7);
+/* contenuto */
+--space-3: 0.7rem;
+--space-4: 0.9rem;
+
+/* componenti */
+--space-5: 1.35rem;
+--space-6: clamp(0.9rem, 3.6vw, 2.7rem);
+
+/* layout / sezioni */
+--space-7: clamp(1.8rem, 1.35rem + 1.1vw, 3.6rem);
+--space-8: 3.6rem;
+--space-9: clamp(1.8rem, 4.5vw, 4.5rem);
+--space-10: clamp(2.7rem, 5.4vw, 5.4rem);
+
+--space-section: var(--space-5);
+--space-section-loose-start: var(--space-9);
+--space-section-loose-end: var(--space-10);
+--space-gutter: var(--space-8);
 
     /* ==== RADIUS ==== */
     --radius-xs: 3px;

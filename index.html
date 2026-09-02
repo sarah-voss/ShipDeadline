@@ -49,19 +49,14 @@
         <div class="container">
             <div class="section stack stack--tight">
 
-                <div class="hero">
-                    <div class="hero__left">
-                        <div class="hero__image-container">
-                            <img src="/assets/images/box-img.png" alt="" class="hero__image">
+                <div class="banner">
+                        <div class="banner__image-container">
+                            <img src="/assets/images/box-img.png" alt="" class="banner__image">
                         </div>
-                        <div class="hero__content">
-                            <h1 class="hero__title">Shipping Planning Tool</h1>
-                            <p class="hero__description">Calculate the latest and recommended departure window based
+                            <h1 class="banner__title">Shipping Planning Tool</h1>
+                            <div class="banner-divider"></div>
+                            <p class="banner__description">Calculate the latest and recommended departure window based
                                 on routing, mode and fiscal deadlines.</p>
-                        </div>
-                    </div>
-
-
                 </div>
 
                 <div class="calculator-page__content-container">
@@ -169,8 +164,11 @@
 
                             <div class="divider"></div>
 
-                            <p class="calculator__description" data-mode-description><i>Dedicated shipment
-                                    → exclusive capacity, direct routing</i></p>
+                            <div class="mode-description">
+                            <p data-mode-description-title><i>Dedicated shipment</i></p>
+                            <div class="mode-description__divider"></div>
+                            <p data-mode-description-text><i>Exclusive capacity, direct routing</i></p>
+                            </div>
 
                             <!-- Calculator Form -->
                             <div class="calculator__main">
@@ -318,8 +316,8 @@
                                                         data-form-title>Desired Arrival within:</h3>
                                                     <div class="label-input-group" data-month-picker-input>
                                                         <button type="button" id="month-picker__trigger"
-                                                            class="month-picker__trigger" data-month-picker-trigger>
-                                                            <span class="field-label">*select fiscal month</span>
+                                                            class="month-picker__trigger">
+                                                            <span class="field-label" data-month-picker-label>*select fiscal month</span>
                                                         </button>
                                                         <span class="helper-icon-success">✔</span>
                                                     </div>
@@ -391,7 +389,7 @@
                                                         </div>
                                                         <p class="result-card__label">Safe Shipping Window</p>
                                                     </header>
-                                                    <h3 class="result-card__title" data-result-card-date-safe>12 Dec - 16 Dec</h3>
+                                                    <h3 class="result-card__title" data-result-card-date-safe></h3>
                                                     <p class="result-card__num-days">4 days</p>
                                                     <p class="result-card__description">This is your recommended
                                                         shipping window
@@ -405,7 +403,7 @@
                                                         </div>
                                                         <p class="result-card__label">Ship no later than</p>
                                                     </header>
-                                                    <h3 class="result-card__title" data-result-card-date-last-date>16 Dec 2026</h3>
+                                                    <h3 class="result-card__title" data-result-card-date-last-date></h3>
                                                     <p class="result-card__description">Last recommended
                                                         shipping date
                                                     </p>
@@ -418,7 +416,7 @@
                                                         </div>
                                                         <p class="result-card__label">Fiscal Deadline</p>
                                                     </header>
-                                                    <h3 class="result-card__title" data-result-card-date-deadline>18 Dec 2026</h3>
+                                                    <h3 class="result-card__title" data-result-card-date-deadline></h3>
                                                     <p class="result-card__description">Delivery must be
                                                         completed by this date
                                                     </p>
@@ -449,7 +447,7 @@
                                                         <span class="timeline__marker-dash"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-safe>12 Dec 2026</p>
+                                                            <p class="timeline__marker-date" data-timeline-marker-date-safe></p>
                                                             <p class="timeline__marker-label">Window Start</p>
                                                         </div>
                                                     </div>
@@ -463,7 +461,7 @@
                                                         <span class="timeline__marker-dash"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-last-date>16 Dec 2026</p>
+                                                            <p class="timeline__marker-date" data-timeline-marker-date-last-date></p>
                                                             <p class="timeline__marker-label">Last recommended shipping
                                                                 date</p>
                                                         </div>
@@ -477,7 +475,7 @@
                                                         <span class="timeline__marker-dash"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-deadline>18 Dec 2026</p>
+                                                            <p class="timeline__marker-date" data-timeline-marker-date-deadline></p>
                                                             <p class="timeline__marker-label">Fiscal Deadline</p>
                                                         </div>
                                                     </div>

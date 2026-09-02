@@ -6,13 +6,14 @@ import { loadFiscalMonths } from '../../fiscal-months/storage.js';
 import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/state.js';
 
 import { getTransitDetails } from "../logic/transit/transit-calculator.js";
+import { renderResult } from '../renderers/result-render.js';
 
 
-export function initResultController({ elements }) {
+export function getResults({ elements }) {
 
     const { result } = elements;
 
-    function getResultDetails() {
+    function getResultData() {
 
         const { departureCoords, destinationCoords } = state.getSelectedCoordinates();
 
@@ -35,11 +36,13 @@ export function initResultController({ elements }) {
             fiscalDeadline
         };
 
-        const details = getTransitDetails({ resultElements });
+        const transitData = getTransitDetails({ resultElements });
 
-        return details;
+        return { transitData, fiscalDeadline };
     }
 
-    
+    const resultData = getResultData();
+
+    renderResult(result, resultData);
 
 }

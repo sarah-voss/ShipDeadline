@@ -20,7 +20,8 @@ function initCalculatorPage() {
 
     const elements = {
         tabButtons: calculatorRoot.querySelectorAll('[data-mode-trigger]'),
-        descriptionElement: calculatorRoot.querySelector('[data-mode-description]'),
+        modeDescriptionTitle: calculatorRoot.querySelector('[data-mode-description-title]'),
+        modeDescriptionText: calculatorRoot.querySelector('[data-mode-description-text]'),
         calculatorBody: calculatorRoot.querySelector('[data-calculator-body]'),
         autocompleteWrapper: calculatorRoot.querySelector('[data-autocomplete-wrapper]'),
         locations: {
@@ -66,8 +67,8 @@ function initCalculatorPage() {
             }
         },
         monthPickerInput: calculatorRoot.querySelector('[data-month-picker-input]'),
-        monthPickerTrigger: calculatorRoot.querySelector('[data-month-picker-trigger]'),
         monthPickerPanel: calculatorRoot.querySelector('[data-month-picker-panel]'),
+        monthPickerLabel: calculatorRoot.querySelector('[data-month-picker-label]'),
         monthPickerYearInput: calculatorRoot.querySelector('[data-month-picker-year-input]'),
         monthPickerGrid: calculatorRoot.querySelector('[data-month-picker-grid]'),
         summaryCard: {
@@ -103,19 +104,16 @@ function initCalculatorPage() {
 
         result: {
                 safe: {
-                    resultCard: calculatorRoot.querySelector('[data-result-card-safe]'),
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-safe]'),
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-safe]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-safe]'),
                 },
                 lastDate: {
-                    resultCard: calculatorRoot.querySelector('[data-result-card-last-date]'),
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-last-date]'),
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-last-date]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-last-date]'),
                 },
                 deadline: {
-                    resultCard: calculatorRoot.querySelector('[data-result-card-deadline]'),
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-deadline]'),
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-deadline]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-deadline]'),

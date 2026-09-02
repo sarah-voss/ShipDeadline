@@ -18,7 +18,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         locations,
         monthPickerPanel,
         monthPickerInput,
-        monthPickerTrigger,
+        monthPickerLabel,
         monthPickerYearInput,
         monthPickerGrid,
     } = elements;
@@ -199,7 +199,8 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             routeRender.closeSuggestions(suggestionsContainer);
         });
 
-        monthPickerTrigger.textContent = 'select fiscal month';
+        monthPickerLabel.textContent = '*select fiscal month';
+        monthPickerLabel.classList.remove('field-label__dynamic-text');
         monthPickerInput.classList.remove('validated');
         state.setSelectedMonth(null);
         state.resetVehicles();
@@ -234,11 +235,13 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const freshMonth = findFiscalMonthById(currentMonths, savedMonth.id);
         
         if (freshMonth) {
-            monthPickerTrigger.textContent = freshMonth.fullLabel;
+            monthPickerLabel.textContent = freshMonth.fullLabel;
             routeRender.validateFiscalMonth(monthPickerInput);
+            monthPickerLabel.classList.add('field-label__dynamic-text');
         }
-            monthPickerTrigger.textContent = savedMonth.fullLabel || freshMonth.fullLabel;
+            monthPickerLabel.textContent = savedMonth.fullLabel || freshMonth.fullLabel;
             routeRender.validateFiscalMonth(monthPickerInput);
+            monthPickerLabel.classList.add('field-label__dynamic-text');
     }
     }
 
@@ -363,7 +366,8 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const monthId = button.dataset.monthId;
         const selectedMonth = fiscalMonths.find(month => month.id === monthId);
 
-        monthPickerTrigger.textContent = selectedMonth.fullLabel;
+        monthPickerLabel.textContent = selectedMonth.fullLabel;
+        monthPickerLabel.classList.add('field-label__dynamic-text');
 
         state.setSelectedMonth({
             id: selectedMonth.id,

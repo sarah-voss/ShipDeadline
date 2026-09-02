@@ -6,9 +6,15 @@
   return `${year}-${month}-${day}`;
 }
 
-export function formatDate(dateString) {
+const DATE_STYLES = {
+    long: undefined,
+    short: { day: 'numeric', month: 'short', year: 'numeric' },
+    compact: { day: 'numeric', month: 'short' }
+};
+
+export function formatDate(dateString, style = 'long') {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB');
+    return date.toLocaleDateString('en-GB', DATE_STYLES[style]);
 }
 
 export function getTodayAtMidnight() {

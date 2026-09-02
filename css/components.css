@@ -16,7 +16,6 @@
 
 .nav-item a {
     letter-spacing: 0.1rem;
-    font-size: 1rem;
     font-weight: 500;
 }
 
@@ -200,7 +199,7 @@
 }
 
 .summary-card__header h3 {
-    font-weight: var(--fw-bold);
+    font-size: var(--fs-2);
 }
 
 .summary-card__rail {
@@ -221,16 +220,16 @@
 .summary-card__step {
   display: grid;
   grid-template-columns: 40px 1fr;
-  column-gap: 1.5rem;
-  min-height: 5rem;
+  column-gap: 1rem;
+  min-height: 4.5rem;
   align-items: center;
   padding-inline-start: 0.7rem;
   padding-inline-end: 1.2rem;
 }
 
 .summary-card__icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: linear-gradient(
   to bottom,
@@ -243,7 +242,7 @@ box-shadow: var(--shadow-1);
   place-items: center;
   position: relative;
   z-index: 2;
-  padding: 0.7rem;
+  padding: 0.55rem;
 }
 
 .summary-card__step-title {
@@ -333,17 +332,17 @@ align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-block: 1rem;
+    padding-block: 0.9rem;
     background-color: inherit;
     border: none;
     font-size: var(--fs-3);
-    font-weight: var(--fw-bold);
+    font-weight: var(--fw-medium);
     line-height: 1.9;
     cursor: pointer;
     color: var(--color-brand);
     text-decoration-line: underline;
     text-decoration-thickness: 4px;
-    text-underline-offset: 0.8rem;
+    text-underline-offset: 0.6rem;
     text-decoration-color: transparent;
     transition: text-decoration-color 0.3s ease;
 }
@@ -356,7 +355,7 @@ transition: text-decoration-color 0.7s ease;
 .calculator__tab--active {
 text-decoration-line: underline;
 text-decoration-thickness: 4px;
-text-underline-offset: 0.8rem;
+text-underline-offset: 0.6rem;
 text-decoration-color: var(--color-primary);
 color: var(--color-brand);
 
@@ -375,12 +374,20 @@ color: var(--color-brand);
     padding-block-end: 1.5rem;
 }
 
-.calculator__description {
-    padding-block: var(--space-5);
+.mode-description {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-block: var(--space-4);
     color: var(--color-brand);
     line-height: 1.2;
-    font-size: var(--fs-1);
-    white-space: pre-line;
+    font-size: var(--fs-0);
+}
+
+.mode-description__divider {
+    background-color: var(--color-brand);
+    width: 1px;
+    height: 0.7rem;
 }
 
 /* FORM */
@@ -455,8 +462,7 @@ margin-top: var(--space-4);
 }
 
 .form-area__title {
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-weight: var(--fw-medium);
 }
 
 .calculator--full-load .form-area__title {
@@ -508,7 +514,7 @@ margin-top: var(--space-4);
 /* INPUTS */
 
 .field-input {
-     padding: 1.7rem 1rem 1.2rem;
+     padding: 1.2rem 1rem;
      font-weight: 500;
 }
 
@@ -534,10 +540,17 @@ margin-top: var(--space-4);
   transition: 0.2s ease;
 }
 
+.field-label__dynamic-text {
+    font-size: var(--fs-1);
+    font-weight: var(--fw-regular);
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
 /* --- MONTH PICKER --- */ 
 
 .month-picker__trigger {
-    padding: 1.7rem 1rem 1.2rem;
+    padding: 1.2rem 1rem;
     font-weight: 500;
     background-color: var(--color-surface-plain);
     border: 1px solid var(--color-border-input);
@@ -546,6 +559,9 @@ margin-top: var(--space-4);
     border-radius: var(--radius-xs);
     block-size: 1.9rem; 
     inline-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .month-picker__panel {
@@ -1173,3 +1189,4 @@ margin-block-start: var(--space-2);
 .timeline__marker-label {
     font-size: var(--fs-0);
 }
+
