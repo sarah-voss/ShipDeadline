@@ -91,14 +91,14 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         const loadType = state.getLoadType();
 
         if (isLoadTypeFullyUnavailable(loadType)) {
-            calculatorRender.renderCalculatorStep(calculatorSteps, 'shipment');
+            calculatorRender.renderCalculatorStep(calculatorSteps, 'shipment', calculatorRoot);
             calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
             calculatorRender.hidePreviousButton(calculatorPreviousButton);
             calculatorRender.disableNextButton(calculatorNextButton);
         return;
         }
 
-        calculatorRender.renderCalculatorStep(calculatorSteps, currentStep);
+        calculatorRender.renderCalculatorStep(calculatorSteps, currentStep, calculatorRoot);
         syncCalculatorUiFromState();
 
 

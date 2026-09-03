@@ -76,11 +76,11 @@ export function hidePreviousButton(button) {
 }
 
 // RENDER / HIDE STEPS
-export function renderCalculatorStep(calculatorSteps, stepToShow) {
+export function renderCalculatorStep(calculatorSteps, stepToShow, calculatorRoot) {
     Object.entries(calculatorSteps).forEach(([stepName, step]) => {
         step.hidden = stepName !== stepToShow;
         if (stepName === 'result') {
-            step.classList.toggle('calculator--result', stepName === stepToShow);
+            calculatorRoot.classList.toggle('calculator--result', stepName === stepToShow);
         }
     });
 }

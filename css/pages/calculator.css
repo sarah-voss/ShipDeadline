@@ -85,6 +85,30 @@ color: var(--color-brand);
 
 }
 
-.calculator--result .summary-card {
+
+/* === RESULT STEP === */
+
+.calculator--result .summary-card,
+.calculator--result .banner,
+.calculator--result .calculator__headline,
+.calculator--result .divider,
+.calculator--result .mode-description {
     display: none;
 }
+
+.calculator--result .calculator {
+inline-size: 100%;
+}
+
+.calculator--result .calculator__main {
+    margin-block-start: 2rem;
+}
+
+.calculator--result .form__button--previous {
+    background-color: var(--color-surface-plain);
+    box-shadow: none;
+    color: var(--color-accent);
+    border:1px solid var(--color-border-subtle);
+    font-weight: var(--fw-medium);
+}
+
