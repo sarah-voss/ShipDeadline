@@ -369,15 +369,22 @@
 
 
                                         <!-- STEP 3: RESULT -->
-                                        <section data-calculator-step="result" hidden>
+                                        <section class="result__container" data-calculator-step="result" hidden>
                                             <!-- RESULT -->
                                             <header class="result__intro">
                                                 <div>
                                                     <img src="assets/icons/result-intro-icon.png" alt="">
                                                 </div>
-                                                <h2 class="result__title">Shipping Recommendation</h2>
-                                                <p>Here are the key dates for your shipment
-                                                </p>
+                                                <div class="result__title-div">
+                                                    <h2 class="result__title">Shipping Recommendation</h2>
+                                                    <p>Here are the key dates for your shipment:</p>
+                                                </div>
+                                                <button type="button" class="btn btn--secondary result__btn--back btn--result"
+                                                 data-calculator-previous-button>
+                                                 <img src="assets/icons/back-icon.png" alt="" class="btn__icon">
+                                                 <span>Back to Shipment</span>
+                                                </button>
+
                                             </header>
 
                                             <!-- RESULT CARDS-->
@@ -423,10 +430,102 @@
                                                 </article>
                                             </div>
 
+                                            <!-- SHIPMENT OVERVIEW -->
+                                            <div class="overview">
+                                                <header class="overview__header">
+                                                    <div class="overview__header-icon">
+                                                        <img src="assets/icons/box-icon.png" alt="">
+                                                    </div>
+                                                    <h3 class="overview__header-title">Shipment Overview</h3>
+                                                </header>
+
+                                                <div class="overview__grid">
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/maps-icon.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">From</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                            <span class="overview__item-value" data-overview-departure-country></span>
+                                                            <span class="overview__item-description" data-overview-departure-location></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/mode-icon.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">Chosen Vehicle</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                                <span class="overview__item-value" data-overview-vehicle>Standard Truck</span>
+                                                                <span class="overview__item-description" data-overview-vehicle-description>13.6m | 33 pallets | 24 t</span>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/clock-icon.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">Est. Transit Time</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                                <span class="overview__item-value" data-overview-transit-time>14 h</span>
+                                                                <span class="overview__item-description">incl. loading / unloading</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/maps-icon.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">To</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                                <span class="overview__item-value" data-overview-destination-country></span>
+                                                                <span class="overview__item-description" data-overview-destination-location></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/calendar-simple--brand.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">Fiscal Month (Arrival)</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                                <span class="overview__item-value" data-overview-month-name>September</span>
+                                                                <span class="overview__item-description" data-overview-closing-date>24/09/2026</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="overview__item">
+                                                        <div class="overview__item-icon-container">
+                                                            <img src="assets/icons/customs-icon.png" class="overview__item-icon" alt="">
+                                                        </div>
+                                                        <div class="overview__item-details">
+                                                            <span class="overview__item-label">Customs Clearance</span>
+                                                            <div class="overview__item-dynamic-text">
+                                                                <span class="overview__item-value" data-overview-customs>Yes</span>
+                                                                <span class="overview__item-description" data-overview-customs-required>Required</span>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- TIMELINE -->
                                             <div class="timeline">
                                                 <header class="timeline__header">
-                                                    <div class="timeline__header-icon">
-                                                        <img src="assets/icons/result-chart-icon.png" alt="">
+                                                    <div class="timeline__header-icon-container">
+                                                        <img src="assets/icons/result-chart-icon.png" class="timeline__header-icon alt="">
                                                     </div>
                                                     <div class="timeline__header-text">
                                                         <h3 class="timeline__title">Shipping Timeline</h3>

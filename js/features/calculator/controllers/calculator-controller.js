@@ -7,7 +7,7 @@ import { MODE_RENDERERS, IMPLEMENTED_SCENARIOS } from "../shipment/config.js";
 import { getDestinationArea, getCountryFieldStatus } from '../logic/geography-rules.js';
 import { saveCalculatorState } from "../storage.js";
 import { initRouteController } from "./route-controller.js";
-import { renderSummaryFromState } from "./summary-controller.js";
+import { renderSummaryFromState } from "./summary-overview-controller.js";
 import { initFullRoadController } from "./shipment-step/full-road-controller.js";
 import { getResults } from "./result-controller.js";
 
@@ -34,7 +34,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         calculatorBody,
         locations,
         calculatorNextButton,
-        calculatorPreviousButton,
+        calculatorPreviousButtons,
         calculatorSteps,
     } = elements;
 
@@ -93,7 +93,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         if (isLoadTypeFullyUnavailable(loadType)) {
             calculatorRender.renderCalculatorStep(calculatorSteps, 'shipment', calculatorRoot);
             calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
-            calculatorRender.hidePreviousButton(calculatorPreviousButton);
+            calculatorRender.hidePreviousButtons(calculatorPreviousButtons);
             calculatorRender.disableNextButton(calculatorNextButton);
         return;
         }
@@ -103,9 +103,9 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
 
         if (currentStep !== 'route') {
-            calculatorRender.renderPreviousButton(calculatorPreviousButton)
+            calculatorRender.renderPreviousButtons(calculatorPreviousButtons)
         } else {
-            calculatorRender.hidePreviousButton(calculatorPreviousButton);
+            calculatorRender.hidePreviousButtons(calculatorPreviousButtons);
         }
 
         if (currentStep === 'shipment') {
@@ -188,7 +188,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
 
     // ----- PREVIOUS BUTTON -----
-    calculatorPreviousButton.addEventListener('click', () => {
+    calculatorPreviousButtons.forEach(button => {
+        button.addEventListener('click', () => {
         const currentStep = state.getCurrentStep();
 
         if (currentStep === 'shipment') {
@@ -200,6 +201,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
             state.setCurrentStep('shipment');
             renderCalculatorFromState();
         }
+    })
     })
 
 

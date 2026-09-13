@@ -8,6 +8,8 @@ import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/sta
 import { getTransitDetails } from "../logic/transit/transit-calculator.js";
 import { renderResult } from '../renderers/result-render.js';
 
+import { renderOverViewValues } from "./summary-overview-controller.js";
+
 
 export function getResults({ elements }) {
 
@@ -20,6 +22,7 @@ export function getResults({ elements }) {
         const vehiclesArr = state.getSelectedVehicles();
 
         const departureCountry = state.getSelectedCountry('departure');
+        
         const destinationCountry = state.getSelectedCountry('destination');
 
         const selectedMonth = state.getSelectedMonth();
@@ -38,11 +41,12 @@ export function getResults({ elements }) {
 
         const transitData = getTransitDetails({ resultElements });
 
-        return { transitData, fiscalDeadline };
+        return { transitData, fiscalDeadline, resultElements };
     }
 
     const resultData = getResultData();
 
     renderResult(result, resultData);
+    renderOverViewValues({ elements })
 
 }

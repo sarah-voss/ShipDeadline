@@ -1,39 +1,30 @@
 import { formatDate } from "../../../utils/date-utils.js";
 
 
-// render Summary Country
-export function renderSummaryCountry(country, summaryField) {
-    if (!country) {
-        summaryField.textContent = summaryField.dataset.placeholder;
-        summaryField.classList.add('placeholder');
-        summaryField.classList.remove('bold');
-        return
-    }
-
-    summaryField.textContent = country;
-    summaryField.classList.remove('placeholder');
-    summaryField.classList.add('bold');
+// render Country Value
+export function renderCountryValue(country, field) {
+    field.textContent = country ?? '';
 }
 
 
-// render Summary Location
-export function renderSummaryLocation(city, postcode, summaryField) {
+// render Location Value
+export function renderLocationValue(city, postcode, field) {
     if (!city) {
-        summaryField.textContent = '';
+        field.textContent = '';
         return;
     }
 
     if (!postcode) {
-        summaryField.textContent = `${city}`;
+        field.textContent = `${city}`;
         return;
     }
 
-    summaryField.textContent = `${city} ${postcode}`;
+    field.textContent = `${postcode} ${city}`;
 }
 
 
-// render summary chosen month
-export function renderSummaryFiscalMonth(monthText, dateText, month, date) {
+// render Fiscal Date Value
+export function renderFiscalDateValue(monthText, dateText, month, date) {
     if (!month || !date) {
         monthText.classList.add('placeholder');
         monthText.classList.remove('bold');

@@ -20,7 +20,7 @@
 --blue-800: hsl(226, 22%, 35%); 
 
     /* Feedback */
---green-200: hsl(120, 64%, 98%);
+--green-200: hsl(120, 64%, 97%);
 --green-300: #7cc57c; 
 --green-500: #7cc588; 
 --green-600: #3e8e4b;
@@ -39,6 +39,7 @@
     /* Surfaces */
 --color-bg: var(--neutral-50);
 --color-surface: var(--neutral-50);
+--color-surface-subtle: var(--blue-300);
 --color-surface-strong: var(--blue-800);
 --color-surface-plain: #FFFFFF;
 --color-overlay: rgba(0, 0, 0, 0.8);

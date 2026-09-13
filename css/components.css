@@ -111,16 +111,13 @@
     justify-content: center;
     border-radius: var(--radius-xs);
     border: 1px solid transparent;
-    color: var(--color-text-inverse);
     text-decoration: none;
     cursor: pointer;
     line-height: 1;
     padding-block: 0.3rem;
     padding-inline: 1rem;
     font: inherit;
-    transition: background-color 0.2s ease, box-shadow 0.5s ease, transform 0.5s ease;
-    box-shadow: var(--shadow-2),
-    inset -8px -8px 9px var(--color-primary-active);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.5s ease;
 }
 
 
@@ -132,8 +129,6 @@
 }
 
 .btn--primary:hover {
-    box-shadow: var(--shadow-3),
-    inset -8px -8px 7px var(--color-primary-active);
     background-color: var(--color-primary-hover);
     transform: translateY(0px);
 }
@@ -141,8 +136,7 @@
 .btn--primary:active {
     transform: translateY(1px);
     background-color: var(--color-primary-active);
-    box-shadow: var(--shadow-1),
-    inset 0px 0px 20px 2px hsl(214, 100%, 40%);
+    box-shadow: var(--shadow-1);
     transition: box-shadow 0.1s ease;
 }
 
@@ -150,6 +144,37 @@
     opacity: 0.7;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+/* Button Secondary */
+
+.btn--secondary {
+    background-color: var(--color-surface-plain);
+    box-shadow: none;
+    color: var(--color-accent);
+    border: 1px solid var(--color-border-subtle);
+    font-weight: var(--fw-medium);
+}
+
+.btn--secondary:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    transform: translateY(0px);
+}
+
+.btn--secondary:active {
+    transform: translateY(1px);
+    background-color: rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.1s ease;
+}
+
+.btn--result {
+    font-size: var(--fs-0);
+    gap: var(--space-3);
+}
+
+.btn__icon {
+    height: 0.5rem;
+    width: 0.5rem;
 }
 
 
@@ -212,8 +237,8 @@
     content: "";
     position: absolute;
     top: 6rem;
-    bottom: 24px;
-    left: 34px;
+    bottom: 30px;
+    left: 30px;
     border-left: 2px dashed var(--neutral-300);
 }
 
@@ -231,13 +256,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(
-  to bottom,
-  hsl(220, 60%, 98%),
-  hsl(220, 60%, 88%) 90%,
-  hsl(220, 60%, 80%) 99%
-);
-box-shadow: var(--shadow-1);
+  background-color: var(--color-surface-subtle);
+  box-shadow: var(--shadow-1);
   display: grid;
   place-items: center;
   position: relative;
@@ -514,7 +534,7 @@ margin-top: var(--space-4);
 /* INPUTS */
 
 .field-input {
-     padding: 1.2rem 1rem;
+     padding: 1.7rem 1rem 1rem;
      font-weight: 500;
 }
 
@@ -543,7 +563,6 @@ margin-top: var(--space-4);
 .field-label__dynamic-text {
     font-size: var(--fs-1);
     font-weight: var(--fw-regular);
-    line-height: 1.5;
     color: var(--color-text);
 }
 
@@ -649,7 +668,7 @@ margin-top: var(--space-4);
 
 .month-card {
     padding: 2.5rem;
-    background-color: var(--blue-300);
+    background-color: var(--color-surface-subtle);
     border-radius: var(--radius-sm);
     border: none;
     cursor: pointer;
@@ -962,22 +981,33 @@ opacity: 0.7;
 
 .result__intro { 
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-2);
+    align-items: flex-start;
+    gap: var(--space-5);
+    margin-block-end: var(--space-7);
+}
+
+.result__title-div {
+    display: grid;
+    gap: var(--space-1);
 }
 
 .result__title {
     color: var(--color-brand);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-5);
 }
+
+.result__btn--back {
+    margin-inline-start: auto;
+}
+
+/* result-cards */
 
 .result__card-container {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
     row-gap: 1rem;
     column-gap: 0.8rem;
-    margin-block: var(--space-5); 
 }
 
 .result-card {
@@ -1036,10 +1066,10 @@ color: var(--color-safe-result-feedback);
 .result-card__title {
     font-size: var(--fs-4);
     color: var(--color-brand);
+    font-weight: var(--fw-bold);
 }
 
 .result-card__num-days {
-
     font-size: var(--fs-1);
 }
 
@@ -1047,6 +1077,97 @@ color: var(--color-safe-result-feedback);
     font-size: var(--fs-0);
 }
 
+/* Results Shipment Overview */
+
+.overview {
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+}
+
+.overview__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-block-end: var(--space-3);
+}
+
+.overview__header-icon {
+    block-size: 2em;
+    inline-size: 2em;
+    flex-shrink: 0;
+}
+
+.overview__header-title {
+    font-size: var(--fs-2);
+    font-weight: var(--fw-bold);
+}
+
+/* Overview Grid */
+
+.overview__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.overview__item:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.overview__item:not(:nth-child(3n)) {
+    border-right: 1px solid var(--color-border-subtle);
+}
+
+.overview__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4);
+
+}
+
+.overview__item-icon-container {
+    padding: 0.3rem;
+    border-radius: 25%;
+    background-color: var(--color-surface-subtle);
+    block-size: 2em;
+    inline-size: 2em;
+}
+
+.overview__item-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.overview__item-details {
+    gap: var(--space-1);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.overview__item-label {
+    font-size: var(--fs-0);
+    font-weight: var(--fw-bold);
+    color: var(--color-brand);
+}
+
+.overview__item-value {
+    font-weight: 800;
+    color: var(--color-brand);
+    font-size: 1rem;
+}
+
+.overview__item-dynamic-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.overview__item-description {
+    font-size: var(--fs-0);
+    color: var(--color-brand);
+}
 
 
 /* -- Results timeline -- */
@@ -1102,10 +1223,18 @@ margin-block-start: var(--space-2);
 
 .timeline__segment-label--safe {
     left: 25%;
+    background-color: var(--color-surface-safe);
+    padding: 0.4rem;
+    border-radius: var(--radius-md);
+    color: var(--color-safe-result-feedback);
 }
 
 .timeline__segment-label--risk {
     left: 75%;
+    background-color: var(--color-critical-surface);
+    padding: 0.4rem;
+    border-radius: var(--radius-md);
+    color: var(--red-500);
 }
 
 .timeline__marker-dash {
@@ -1189,4 +1318,5 @@ margin-block-start: var(--space-2);
 .timeline__marker-label {
     font-size: var(--fs-0);
 }
+
 

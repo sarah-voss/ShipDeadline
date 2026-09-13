@@ -82,9 +82,9 @@ function initCalculatorPage() {
                 locationText: calculatorRoot.querySelector('[data-summary-destination-location]'),
                 successIcon: calculatorRoot.querySelector('[data-summary-destination-success-icon]')
             },
-            within: {
-                monthNameText: calculatorRoot.querySelector('[data-summary-month-name]'),
-                closingDateText: calculatorRoot.querySelector('[data-summary-closing-date]'),
+            fiscalDate: {
+                fiscalMonth: calculatorRoot.querySelector('[data-summary-month-name]'),
+                closingDate: calculatorRoot.querySelector('[data-summary-closing-date]'),
                 successIcon: calculatorRoot.querySelector('[data-summary-within-success-icon]')
             },
             mode: {
@@ -95,7 +95,7 @@ function initCalculatorPage() {
             editAllButton: calculatorRoot.querySelector('[data-summary-edit-all-button]'),
         },
         calculatorNextButton: calculatorRoot.querySelector('[data-calculator-next-button]'),
-        calculatorPreviousButton: calculatorRoot.querySelector('[data-calculator-previous-button]'),
+        calculatorPreviousButtons: calculatorRoot.querySelectorAll('[data-calculator-previous-button]'),
         calculatorSteps: {
             route: calculatorRoot.querySelector('[data-calculator-step="route"]'),
             shipment: calculatorRoot.querySelector('[data-calculator-step="shipment"]'),
@@ -103,6 +103,7 @@ function initCalculatorPage() {
         },
 
         result: {
+            dates: {
                 safe: {
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-safe]'),
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-safe]'),
@@ -118,6 +119,32 @@ function initCalculatorPage() {
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-deadline]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-deadline]'),
                 },
+            },
+            overview: {
+                departure: {
+                    countryText: calculatorRoot.querySelector('[data-overview-departure-country]'),
+                    locationText: calculatorRoot.querySelector('[data-overview-departure-location]'),
+                },
+                destination: {
+                    countryText: calculatorRoot.querySelector('[data-overview-destination-country]'),
+                    locationText: calculatorRoot.querySelector('[data-overview-destination-location]'),
+                },
+                vehicle: {
+                    chosenVehicle: calculatorRoot.querySelector('[data-overview-vehicle]'),
+                    vehicleDescription: calculatorRoot.querySelector('[data-overview-vehicle-description]'),
+                },
+                fiscalDate: {
+                    fiscalMonth: calculatorRoot.querySelector('[data-overview-month-name]'),
+                    closingDate: calculatorRoot.querySelector('[data-overview-closing-date]'),
+                },
+                transitTime: {
+                    fiscalMonth: calculatorRoot.querySelector('[data-overview-transit-time]'),
+                },
+                customs: {
+                    needsCustoms: calculatorRoot.querySelector('[data-overview-customs]'),
+                    requiredText: calculatorRoot.querySelector('[data-overview-customs-required]'),
+                },
+            }
         }
     }
 

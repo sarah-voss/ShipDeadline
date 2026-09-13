@@ -64,15 +64,19 @@ export function disableNextButton(button) {
 }
 
 // Display Previous button
-export function renderPreviousButton(button) {
-    button.disabled = false;
-    button.classList.add('is-visible');
+export function renderPreviousButtons(buttonList) {
+    buttonList.forEach(button => {
+        button.disabled = false;
+        button.classList.add('is-visible');
+    });
 }
 
 // hide previous Button
-export function hidePreviousButton(button) {
-    button.disabled = true;
-    button.classList.remove('is-visible');
+export function hidePreviousButtons(buttonList) {
+    buttonList.forEach(button => {
+        button.disabled = true;
+        button.classList.remove('is-visible');
+    })
 }
 
 // RENDER / HIDE STEPS
