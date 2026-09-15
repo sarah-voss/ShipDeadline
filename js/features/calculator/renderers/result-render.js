@@ -2,8 +2,8 @@ import { formatDate } from "../../../utils/date-utils.js";
 
 export function renderResult(result, resultData) {
 
-const { transitData, fiscalDeadline, resultElements } = resultData;
-const { windowStart, lastShippingDate, customsDelay } = transitData;
+const { transitData, fiscalDeadline } = resultData;
+const { windowStart, lastShippingDate } = transitData;
 
 
 const calculatedDates = [

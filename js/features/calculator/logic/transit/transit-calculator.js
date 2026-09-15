@@ -18,8 +18,22 @@ export function getTransitDetails({ resultElements }) {
 
     const vehicleTypes = vehiclesArr.map(v => v.type);
 
-    const speeds = vehicleTypes.map(type => VEHICLE_CONFIG[type].speedKmh);
-    const kmh = Math.min(...speeds);
+    const speeds = vehicleTypes.map(type => {
+      return  {
+        type,
+        speedKmh: VEHICLE_CONFIG[type].speedKmh
+        }
+    });
+
+    const slowestVehicle = speeds.reduce((slowest, current) => {
+        return current.speedKmh < slowest.speedKmh
+        ? current
+        : slowest;
+    });
+
+    const kmh = slowestVehicle.speedKmh;
+    const slowestVehicleType = slowestVehicle.type;
+
     const drivingHours = distanceKm / kmh;
     
     const customsDelay = getCustomsDelayHours(departureCountry, destinationCountry);
@@ -31,8 +45,7 @@ export function getTransitDetails({ resultElements }) {
 
     const { windowStart, lastShippingDate } = calculateShippingWindow(fiscalDeadline, totalHours);
 
-    return { windowStart, lastShippingDate, customsDelay };
+    return { windowStart, lastShippingDate, customsDelay, totalHours, slowestVehicleType };
 }
-
 
 

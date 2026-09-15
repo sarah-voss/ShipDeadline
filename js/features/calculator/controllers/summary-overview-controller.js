@@ -6,11 +6,12 @@ import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/sta
 import { MONTHS } from '../../fiscal-months/config.js';
 
 
+
 // === SHARED ===
 
 // DISPLAY LOCATION VALUE
 function displayLocationValue(component, locationName) {
-    const field = component[locationName]; 
+    const field = component[locationName];
 
     const country = state.getSelectedLocation(locationName, 'country');
     const postcode = state.getSelectedLocation(locationName, 'postcode');
@@ -18,7 +19,7 @@ function displayLocationValue(component, locationName) {
 
     const isComplete = state.isFieldAreaComplete(locationName);
 
-    summaryOverviewRender.renderCountryValue(country, field.countryText); 
+    summaryOverviewRender.renderCountryValue(country, field.countryText);
     summaryOverviewRender.renderLocationValue(city, postcode, field.locationText);
 
     if (field.successIcon) {
@@ -30,32 +31,42 @@ function displayLocationValue(component, locationName) {
             field.countryText.textContent = field.countryText.dataset.placeholder;
         }
 
-        summaryOverviewRender.renderSummarySuccess(field.successIcon, isComplete); 
+        summaryOverviewRender.renderSummarySuccess(field.successIcon, isComplete);
     }
 }
 
-
 // DISPLAY FISCAL DATE VALUE
-function displayFiscalDateValue(elements) {
-    const summaryField = elements.summaryCard.fiscalDate; 
-    const selectedMonth = state.getSelectedMonth(); 
+function displayFiscalDateValue(field) {
+    const selectedMonth = state.getSelectedMonth();
 
-    if (!selectedMonth) {
-        summaryOverviewRender.renderFiscalDateValue(summaryField.monthNameText, summaryField.closingDateText, null, null);
-        summaryOverviewRender.renderSummarySuccess(summaryField.successIcon, false);
+    if (!selectedMonth && field.successIcon) { 
+        field.fiscalMonth.textContent = 'Choose fiscal month';
+        field.closingDate.textContent = '';
+        summaryOverviewRender.renderSummarySuccess(field.successIcon, false);
+        field.fiscalMonth.classList.add('placeholder');
+        field.fiscalMonth.classList.remove('bold');
         return;
     }
 
     const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
     const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
 
-    summaryOverviewRender.renderFiscalDateValue(summaryField.fiscalMonth, summaryField.closingDate, freshMonth.label, freshMonth.closingDate);
-    summaryOverviewRender.renderSummarySuccess(summaryField.successIcon, true);
+    summaryOverviewRender.renderFiscalDateValue(field.fiscalMonth, field.closingDate, freshMonth.label, freshMonth.closingDate);
+
+    if (field.successIcon) {
+        field.fiscalMonth.classList.remove('placeholder');
+        field.fiscalMonth.classList.add('bold');
+
+        summaryOverviewRender.renderSummarySuccess(field.successIcon, true);
+    }
 }
 
 
-// UPDATE SUMMARY MODE
-function updateSummaryMode(elements, scenario) {
+
+// === SUMMARY ===
+
+// display Summary Mode and Vehicle
+function displaySummaryMode(elements, scenario) {
     const summaryField = elements.summaryCard.mode;
     const modeText = summaryField.modeText;
     const isConfirmed = state.getCurrentStep() !== 'route';
@@ -75,18 +86,31 @@ function updateSummaryMode(elements, scenario) {
 }
 
 
-// === SUMMARY ===
-
 export function renderSummaryFromState({ elements, scenario }) {
     displayLocationValue(elements.summaryCard, 'departure');
     displayLocationValue(elements.summaryCard, 'destination');
-    displayFiscalDateValue(elements);
-    updateSummaryMode(elements, scenario);
+    displayFiscalDateValue(elements.summaryCard.fiscalDate);
+    displaySummaryMode(elements, scenario);
 }
 
 
+
 // === OVERVIEW ===
-export function renderOverViewValues({ elements }) {
+
+const VEHICLE_DESCRIPTION = {
+    'standard-truck': { vehicleType: 'Standard Truck', description: '13.6m | 33 pallets | 24 t' },
+    'van': { vehicleType: 'Van', description: '3.5 t | up to 5 pallets' },
+    'exceptional-load': { vehicleType: 'Exceptional Load', description: 'Special dimensions | permit required' },
+}
+
+function displayVehicleValue(field, vehicle) {
+field.chosenVehicle.innerText = VEHICLE_DESCRIPTION[vehicle].vehicleType;
+field.vehicleDescription.innerText = VEHICLE_DESCRIPTION[vehicle].description;
+}
+
+export function renderOverViewValues({ elements, transitData }) {
     displayLocationValue(elements.result.overview, 'departure');
     displayLocationValue(elements.result.overview, 'destination');
+    displayFiscalDateValue(elements.result.overview.fiscalDate);
+    displayVehicleValue(elements.result.overview.vehicle, transitData.slowestVehicleType);
 }

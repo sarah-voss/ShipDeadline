@@ -41,12 +41,13 @@ export function getResults({ elements }) {
 
         const transitData = getTransitDetails({ resultElements });
 
-        return { transitData, fiscalDeadline, resultElements };
+        return { transitData, fiscalDeadline };
     }
 
     const resultData = getResultData();
+    const transitData = resultData.transitData;
 
     renderResult(result, resultData);
-    renderOverViewValues({ elements })
+    renderOverViewValues({ elements, transitData });
 
 }

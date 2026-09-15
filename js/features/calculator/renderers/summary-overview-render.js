@@ -24,21 +24,17 @@ export function renderLocationValue(city, postcode, field) {
 
 
 // render Fiscal Date Value
-export function renderFiscalDateValue(monthText, dateText, month, date) {
+export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     if (!month || !date) {
-        monthText.classList.add('placeholder');
-        monthText.classList.remove('bold');
-        monthText.textContent = 'Choose fiscal month';
-        dateText.textContent = '';
         return;
     }
 
     const formattedDate = formatDate(date);
-    monthText.textContent = month;
-    monthText.classList.remove('placeholder');
-    monthText.classList.add('bold');
-    dateText.textContent = formattedDate;
+    fiscalMonth.textContent = month;
+
+    closingDate.textContent = formattedDate;
 }
+
 
 //render summary mode 
 export function renderSummaryMode(text, scenario) {
