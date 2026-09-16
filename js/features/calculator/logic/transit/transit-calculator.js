@@ -45,7 +45,7 @@ export function getTransitDetails({ resultElements }) {
 
     const { windowStart, lastShippingDate } = calculateShippingWindow(fiscalDeadline, totalHours);
 
-    return { windowStart, lastShippingDate, customsDelay, totalHours, slowestVehicleType };
+    return { windowStart, lastShippingDate, customsDelay, drivingHours, slowestVehicleType };
 }
 
 

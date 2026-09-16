@@ -39,7 +39,7 @@ function displayLocationValue(component, locationName) {
 function displayFiscalDateValue(field) {
     const selectedMonth = state.getSelectedMonth();
 
-    if (!selectedMonth && field.successIcon) { 
+    if (!selectedMonth && field.successIcon) {
         field.fiscalMonth.textContent = 'Choose fiscal month';
         field.closingDate.textContent = '';
         summaryOverviewRender.renderSummarySuccess(field.successIcon, false);
@@ -97,20 +97,18 @@ export function renderSummaryFromState({ elements, scenario }) {
 
 // === OVERVIEW ===
 
-const VEHICLE_DESCRIPTION = {
+const VEHICLE_OVERVIEW_CONFIG = {
     'standard-truck': { vehicleType: 'Standard Truck', description: '13.6m | 33 pallets | 24 t' },
     'van': { vehicleType: 'Van', description: '3.5 t | up to 5 pallets' },
     'exceptional-load': { vehicleType: 'Exceptional Load', description: 'Special dimensions | permit required' },
 }
 
-function displayVehicleValue(field, vehicle) {
-field.chosenVehicle.innerText = VEHICLE_DESCRIPTION[vehicle].vehicleType;
-field.vehicleDescription.innerText = VEHICLE_DESCRIPTION[vehicle].description;
-}
-
 export function renderOverViewValues({ elements, transitData }) {
-    displayLocationValue(elements.result.overview, 'departure');
-    displayLocationValue(elements.result.overview, 'destination');
-    displayFiscalDateValue(elements.result.overview.fiscalDate);
-    displayVehicleValue(elements.result.overview.vehicle, transitData.slowestVehicleType);
+    const overview = elements.result.overview;
+    displayLocationValue(overview, 'departure');
+    displayLocationValue(overview, 'destination');
+    displayFiscalDateValue(overview.fiscalDate);
+    summaryOverviewRender.renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, overview.vehicle, transitData.slowestVehicleType);
+    summaryOverviewRender.renderTransitValue(transitData.drivingHours, overview.transitTime.fiscalMonth);
+    summaryOverviewRender.renderCustomsValue(transitData.customsDelay, overview.customs);
 }

@@ -1,11 +1,11 @@
 import { formatDate } from "../../../utils/date-utils.js";
 
+// === SHARED ===
 
 // render Country Value
 export function renderCountryValue(country, field) {
     field.textContent = country ?? '';
 }
-
 
 // render Location Value
 export function renderLocationValue(city, postcode, field) {
@@ -22,7 +22,6 @@ export function renderLocationValue(city, postcode, field) {
     field.textContent = `${postcode} ${city}`;
 }
 
-
 // render Fiscal Date Value
 export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     if (!month || !date) {
@@ -35,6 +34,9 @@ export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     closingDate.textContent = formattedDate;
 }
 
+
+
+// === SUMMARY ===
 
 //render summary mode 
 export function renderSummaryMode(text, scenario) {
@@ -77,8 +79,31 @@ export function renderSummaryVehicles(div, vehicles) {
     })
 }
 
-
 // render summary success
 export function renderSummarySuccess(icon, isValid) {
     icon.classList.toggle('is-active', isValid);
+}
+
+
+// === OVERVIEW ===
+
+export function renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, field, vehicle) {
+    if (!VEHICLE_OVERVIEW_CONFIG) return;
+    field.chosenVehicle.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].vehicleType;
+    field.vehicleDescription.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].description;
+}
+
+export function renderTransitValue(transitTime, field) {
+    field.innerText = `${Math.round(transitTime)} hours`;
+}
+
+export function renderCustomsValue(customsDelay, field) {
+    if (!customsDelay) {
+        field.needsCustoms.innerText = 'No';
+        field.requiredText.innerText = 'Not required';
+        return;
+    }
+
+    field.needsCustoms.innerText = 'Yes';
+    field.requiredText.innerText = 'Required';
 }
