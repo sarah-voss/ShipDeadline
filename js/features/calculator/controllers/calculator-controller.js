@@ -17,13 +17,13 @@ import { getResults } from "./result-controller.js";
 export function initCalculatorController({ calculatorRoot, elements, pageOverlay }) {
 
     // init sub-controllers
-    const { resetRouteForm } = initRouteController({ 
-        elements, 
-        pageOverlay, 
-        onRouteChange: syncCalculatorUiFromState 
+    const { resetRouteForm } = initRouteController({
+        elements,
+        pageOverlay,
+        onRouteChange: syncCalculatorUiFromState
     });
 
-    initFullRoadController({ 
+    initFullRoadController({
         elements,
         onFullRoadChange: syncCalculatorUiFromState
     });
@@ -36,6 +36,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         calculatorNextButton,
         calculatorPreviousButtons,
         calculatorSteps,
+        startNewButton,
     } = elements;
 
 
@@ -95,7 +96,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
             calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
             calculatorRender.hidePreviousButtons(calculatorPreviousButtons);
             calculatorRender.disableNextButton(calculatorNextButton);
-        return;
+            return;
         }
 
         calculatorRender.renderCalculatorStep(calculatorSteps, currentStep, calculatorRoot);
@@ -130,14 +131,19 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
             }
         }
 
-        if (currentStep === 'result') { 
-            getResults({ elements }); 
+        if (currentStep === 'result') {
+            getResults({ elements });
         }
+    }
+
+    // START NEW CALCULATION 
+    function startNewCalculation() {
+        resetRouteForm();
+        renderCalculatorFromState();
     }
 
     // INIT 
     renderCalculatorFromState();
-    
 
 
     // ==========================================
@@ -161,8 +167,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
                 calculatorBody, mode
             })
 
-            resetRouteForm();
-            renderCalculatorFromState();
+            startNewCalculation();
         })
     });
 
@@ -190,18 +195,18 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     // ----- PREVIOUS BUTTON -----
     calculatorPreviousButtons.forEach(button => {
         button.addEventListener('click', () => {
-        const currentStep = state.getCurrentStep();
+            const currentStep = state.getCurrentStep();
 
-        if (currentStep === 'shipment') {
-            state.setCurrentStep('route');
-            renderCalculatorFromState();
-        }
+            if (currentStep === 'shipment') {
+                state.setCurrentStep('route');
+                renderCalculatorFromState();
+            }
 
-        if (currentStep === 'result') {
-            state.setCurrentStep('shipment');
-            renderCalculatorFromState();
-        }
-    })
+            if (currentStep === 'result') {
+                state.setCurrentStep('shipment');
+                renderCalculatorFromState();
+            }
+        })
     })
 
 
@@ -212,6 +217,10 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         calculatorRender.focusFirstRouteField(locations.departure.country.input);
     })
 
-
+    // START NEW BUTTON
+    startNewButton.addEventListener('click', () => {
+        state.setCurrentStep('route');
+        startNewCalculation();
+    })
 
 }

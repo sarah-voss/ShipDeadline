@@ -825,13 +825,13 @@ opacity: 0.7;
 .error input,
 .error select {
     outline: none;
-    border: 1px solid var(--color-error);
+    border: 1px solid var(--color-error-subtle);
 }
 
 .error input:focus-visible,
 .error select:focus-visible {
     outline: none;
-    border: 1px solid var(--color-error);
+    border: 1px solid var(--color-error-subtle);
     box-shadow: 1px 2px 3px 1px hsla(0, 49%, 59%, 0.4), 
     0 1px 2px rgba(0, 0, 0, 0.22);
 }
@@ -843,7 +843,7 @@ opacity: 0.7;
 .error .error-message {
     font-size: var(--fs-caption);
     margin-inline-start: 0.6rem;
-    color: var(--color-error-strong);
+    color: var(--color-error);
     font-weight: 500;
 }
 
@@ -1006,11 +1006,14 @@ opacity: 0.7;
 .result__card-container {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
-    row-gap: 1rem;
+    grid-template-rows: repeat(4, auto);
     column-gap: 0.8rem;
 }
 
 .result-card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
     border: 1px solid var(--color-border-subtle);
     padding: var(--space-4);
     border-radius: var(--radius-md);
@@ -1189,10 +1192,6 @@ color: var(--color-safe-result-feedback);
     flex-shrink: 0;
 }
 
-.timeline__header-icon img {
-    height: 100%;
-    width: 100%;
-}
 
 .timeline__header-text * + * {
 margin-block-start: var(--space-2);
@@ -1234,7 +1233,7 @@ margin-block-start: var(--space-2);
     background-color: var(--color-critical-surface);
     padding: 0.4rem;
     border-radius: var(--radius-md);
-    color: var(--red-500);
+    color: var(--color-error-strong);
 }
 
 .timeline__marker-dash {
@@ -1289,7 +1288,7 @@ margin-block-start: var(--space-2);
 }
 
 .timeline__marker--deadline .timeline__marker-dot {
-    color: var(--color-error-strong);
+    color: var(--color-error);
 }
 
 .timeline__marker-text {
@@ -1320,3 +1319,117 @@ margin-block-start: var(--space-2);
 }
 
 
+/* -- Results Notes-- */
+
+.notes {
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-subtle);
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+}
+
+.notes__icon {
+    position: relative;
+    bottom: 0.2rem;
+    block-size: 2em;
+    inline-size: 2em;
+    flex-shrink: 0;
+}
+
+.notes__title {
+    font-weight: var(--fw-bold);
+    margin-block-end: var(--space-1);
+}
+
+.notes__list {
+    padding-inline-start: 1.1rem;
+}
+
+.notes__list-item {
+    list-style: disc;
+    font-size: var(--fs-0);
+}
+
+.notes__image {
+    margin-inline-start: auto;
+    inline-size: 16rem;
+    block-size: 4rem;
+    align-self: center;
+}
+
+
+/* -- Start New Button-- */
+
+.start-new {
+display: flex;
+justify-content: flex-end;
+}
+
+.start-new__button {
+    gap: var(--space-4);
+}
+
+.start-new__button-icon {
+    height: 1em;
+    width: 1em;
+}
+
+/* DEADLINE MATCH */
+
+.deadlineMatchNote {
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: var(--fw-bold);
+}
+
+.deadlineMatchNote--last-date {
+    color: var(--color-warning-strong);
+}
+
+.deadlineMatchNote--deadline {
+    color: var(--color-error-strong);
+}
+
+.deadlineMatchNote__img {
+    width: 1em;
+    height: 1em;
+}
+
+.result--deadline-match .deadlineMatchNote {
+    display: flex;
+}
+
+.deadlineMatch-important {
+    gap: var(--space-4);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--color-warning-surface-subtle);
+}
+
+.result--deadline-match .deadlineMatch-important {
+    display: flex;
+}
+
+.deadlineMatch-important__icon {
+    width: 2em;
+    height: 2em;
+}
+
+/* TIMELINE */
+
+.result--deadline-match .timeline__marker--last-date,
+.result--deadline-match  .timeline__segment-label--risk {
+    display: none;
+}
+
+.result--deadline-match  .timeline__marker-dash--safe {
+    border-left-color: transparent;
+}
+
+.result--deadline-match  .timeline__segment-label--safe {
+    left: 50%;
+}

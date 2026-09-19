@@ -47,7 +47,19 @@ export function getResults({ elements }) {
     const resultData = getResultData();
     const transitData = resultData.transitData;
 
-    renderResult(result, resultData);
+    function isSameDay(dateA, dateB) {
+        return (
+            dateA.getFullYear() === dateB.getFullYear() &&
+            dateA.getMonth() === dateB.getMonth() &&
+            dateA.getDate() === dateB.getDate()
+        );
+    }
+
+    const isDeadlineMatch = isSameDay(transitData.lastShippingDate, transitData.adjustedDeadline);
+
+    elements.calculatorSteps.result.classList.toggle('result--deadline-match', isDeadlineMatch);
+
+    renderResult(result, resultData, isDeadlineMatch);
     renderOverViewValues({ elements, transitData });
 
 }

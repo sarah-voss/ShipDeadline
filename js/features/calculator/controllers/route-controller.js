@@ -204,7 +204,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         monthPickerInput.classList.remove('validated');
         state.setSelectedMonth(null);
         state.resetVehicles();
-        console.log(state.calculatorState.shipmentDetails);
 
         updateRouteStep();
         onRouteChange();

@@ -29,9 +29,15 @@ function subtractWorkingDays(date, days) {
 }
 
 const MAX_DRIVING_HOURS_PER_DAY = 9;
+const SAME_DAY_MAX_HOURS = 8;
 
 function calculateTransitDays(totalHours) {
-return Math.max(0, Math.ceil(totalHours / MAX_DRIVING_HOURS_PER_DAY) - 1);
+
+    if (totalHours <= SAME_DAY_MAX_HOURS) {
+        return 0;
+    }
+
+return Math.max(1, Math.ceil(totalHours / MAX_DRIVING_HOURS_PER_DAY) - 1);
 }
 
 export function calculateShippingWindow(fiscalDeadline, totalHours) {
@@ -41,6 +47,6 @@ export function calculateShippingWindow(fiscalDeadline, totalHours) {
     const SAFE_WINDOW_DAYS = 4;
     const windowStart = subtractWorkingDays(lastShippingDate, SAFE_WINDOW_DAYS);
 
-    return { windowStart, lastShippingDate };
+    return { windowStart, lastShippingDate, adjustedDeadline };
 }
 

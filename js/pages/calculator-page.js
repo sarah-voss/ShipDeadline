@@ -111,6 +111,8 @@ function initCalculatorPage() {
                 },
                 lastDate: {
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-last-date]'),
+                    resultCardDescription: calculatorRoot.querySelector('[data-result-card-last-date-description]'),
+                    resultCardNote: calculatorRoot.querySelector('[data-result-card-last-date-note]'),
                     timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-last-date]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-last-date]'),
                 },
@@ -144,8 +146,9 @@ function initCalculatorPage() {
                     needsCustoms: calculatorRoot.querySelector('[data-overview-customs]'),
                     requiredText: calculatorRoot.querySelector('[data-overview-customs-required]'),
                 },
-            }
-        }
+            },
+        },
+        startNewButton: calculatorRoot.querySelector('[data-start-new-button]'),
     }
 
   

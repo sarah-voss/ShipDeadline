@@ -50,13 +50,13 @@
             <div class="section stack stack--tight">
 
                 <div class="banner">
-                        <div class="banner__image-container">
-                            <img src="/assets/images/box-img.png" alt="" class="banner__image">
-                        </div>
-                            <h1 class="banner__title">Shipping Planning Tool</h1>
-                            <div class="banner-divider"></div>
-                            <p class="banner__description">Calculate the latest and recommended departure window based
-                                on routing, mode and fiscal deadlines.</p>
+                    <div class="banner__image-container">
+                        <img src="/assets/images/box-img.png" alt="" class="banner__image">
+                    </div>
+                    <h1 class="banner__title">Shipping Planning Tool</h1>
+                    <div class="banner-divider"></div>
+                    <p class="banner__description">Calculate the latest and recommended departure window based
+                        on routing, mode and fiscal deadlines.</p>
                 </div>
 
                 <div class="calculator-page__content-container">
@@ -165,9 +165,9 @@
                             <div class="divider"></div>
 
                             <div class="mode-description">
-                            <p data-mode-description-title><i>Dedicated shipment</i></p>
-                            <div class="mode-description__divider"></div>
-                            <p data-mode-description-text><i>Exclusive capacity, direct routing</i></p>
+                                <p data-mode-description-title><i>Dedicated shipment</i></p>
+                                <div class="mode-description__divider"></div>
+                                <p data-mode-description-text><i>Exclusive capacity, direct routing</i></p>
                             </div>
 
                             <!-- Calculator Form -->
@@ -317,7 +317,8 @@
                                                     <div class="label-input-group" data-month-picker-input>
                                                         <button type="button" id="month-picker__trigger"
                                                             class="month-picker__trigger">
-                                                            <span class="field-label" data-month-picker-label>*select fiscal month</span>
+                                                            <span class="field-label" data-month-picker-label>*select
+                                                                fiscal month</span>
                                                         </button>
                                                         <span class="helper-icon-success">✔</span>
                                                     </div>
@@ -379,10 +380,11 @@
                                                     <h2 class="result__title">Shipping Recommendation</h2>
                                                     <p>Here are the key dates for your shipment:</p>
                                                 </div>
-                                                <button type="button" class="btn btn--secondary result__btn--back btn--result"
-                                                 data-calculator-previous-button>
-                                                 <img src="assets/icons/back-icon.png" alt="" class="btn__icon">
-                                                 <span>Back to Shipment</span>
+                                                <button type="button"
+                                                    class="btn btn--secondary result__btn--back btn--result"
+                                                    data-calculator-previous-button>
+                                                    <img src="assets/icons/back-icon.png" alt="" class="btn__icon">
+                                                    <span>Back to Shipment</span>
                                                 </button>
 
                                             </header>
@@ -403,7 +405,8 @@
                                                     </p>
                                                 </article>
 
-                                                <article class="result-card result-card--last-date" data-result-card-last-date>
+                                                <article class="result-card result-card--last-date"
+                                                    data-result-card-last-date>
                                                     <header class="result-card__header">
                                                         <div class="result-card__icon">
                                                             <img src="assets/icons/result-icon__truck.png" alt="">
@@ -411,12 +414,19 @@
                                                         <p class="result-card__label">Ship no later than</p>
                                                     </header>
                                                     <h3 class="result-card__title" data-result-card-date-last-date></h3>
-                                                    <p class="result-card__description">Last recommended
+                                                    <p class="result-card__description"
+                                                        data-result-card-last-date-description>Last recommended
                                                         shipping date
                                                     </p>
+                                                    <div class="deadlineMatchNote deadlineMatchNote--last-date" hidden>
+                                                        <img src="assets/icons/clock-icon-orange.png" alt=""
+                                                            class="deadlineMatchNote__img">
+                                                        <p data-result-card-last-date-note></p>
+                                                    </div>
                                                 </article>
 
-                                                <article class="result-card result-card--deadline" data-result-card-deadline>
+                                                <article class="result-card result-card--deadline"
+                                                    data-result-card-deadline>
                                                     <header class="result-card__header">
                                                         <div class="result-card__icon">
                                                             <img src="assets/icons/result-icon__deadline.png" alt="">
@@ -427,94 +437,127 @@
                                                     <p class="result-card__description">Delivery must be
                                                         completed by this date
                                                     </p>
+                                                    <div class="deadlineMatchNote deadlineMatchNote--deadline" hidden>
+                                                        <img src="assets/icons/success-icon-red.png" alt=""
+                                                            class="deadlineMatchNote__img">
+                                                        <p>Same day delivery possible</p>
+                                                    </div>
                                                 </article>
+                                            </div>
+
+                                            <div class="deadlineMatch-important" hidden>
+                                                <img src="assets/icons/warning.png" alt="" class="deadlineMatch-important__icon">
+                                                <div class="deadlineMatch-important__text">
+                                                    <p><strong>Important:</strong>
+                                                    The calculated transit time is very short. Shipment is possible on the fiscal deadline itself.</p>
+                                                    <p>To ensure on time delivery, load early in the morning and 
+                                                        verify with the forwarder and receiver that goods can be received on the same day.</p>
+                                                </div>
                                             </div>
 
                                             <!-- SHIPMENT OVERVIEW -->
                                             <div class="overview">
                                                 <header class="overview__header">
-                                                    <div class="overview__header-icon">
-                                                        <img src="assets/icons/box-icon.png" alt="">
-                                                    </div>
+                                                    <img src="assets/icons/box-icon.png" class="overview__header-icon"
+                                                        alt="">
                                                     <h3 class="overview__header-title">Shipment Overview</h3>
                                                 </header>
 
                                                 <div class="overview__grid">
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/maps-icon.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/maps-icon.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
                                                             <span class="overview__item-label">From</span>
                                                             <div class="overview__item-dynamic-text">
-                                                            <span class="overview__item-value" data-overview-departure-country></span>
-                                                            <span class="overview__item-description" data-overview-departure-location></span>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-departure-country></span>
+                                                                <span class="overview__item-description"
+                                                                    data-overview-departure-location></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/mode-icon.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/mode-icon.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
                                                             <span class="overview__item-label">Chosen Vehicle</span>
                                                             <div class="overview__item-dynamic-text">
-                                                                <span class="overview__item-value" data-overview-vehicle></span>
-                                                                <span class="overview__item-description" data-overview-vehicle-description></span>
-                                                                </div>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-vehicle></span>
+                                                                <span class="overview__item-description"
+                                                                    data-overview-vehicle-description></span>
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/clock-icon.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/clock-icon.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
                                                             <span class="overview__item-label">Est. Transit Time</span>
                                                             <div class="overview__item-dynamic-text">
-                                                                <span class="overview__item-value" data-overview-transit-time></span>
-                                                                <span class="overview__item-description">excl. loading / unloading / customs</span>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-transit-time></span>
+                                                                <span class="overview__item-description">excl. loading /
+                                                                    unloading / customs</span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/maps-icon.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/maps-icon.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
                                                             <span class="overview__item-label">To</span>
                                                             <div class="overview__item-dynamic-text">
-                                                                <span class="overview__item-value" data-overview-destination-country></span>
-                                                                <span class="overview__item-description" data-overview-destination-location></span>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-destination-country></span>
+                                                                <span class="overview__item-description"
+                                                                    data-overview-destination-location></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/calendar-simple--brand.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/calendar-simple--brand.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
-                                                            <span class="overview__item-label">Fiscal Month (Arrival)</span>
+                                                            <span class="overview__item-label">Fiscal Month
+                                                                (Arrival)</span>
                                                             <div class="overview__item-dynamic-text">
-                                                                <span class="overview__item-value" data-overview-month-name></span>
-                                                                <span class="overview__item-description" data-overview-closing-date></span>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-month-name></span>
+                                                                <span class="overview__item-description"
+                                                                    data-overview-closing-date></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="overview__item">
                                                         <div class="overview__item-icon-container">
-                                                            <img src="assets/icons/customs-icon.png" class="overview__item-icon" alt="">
+                                                            <img src="assets/icons/customs-icon.png"
+                                                                class="overview__item-icon" alt="">
                                                         </div>
                                                         <div class="overview__item-details">
                                                             <span class="overview__item-label">Customs Clearance</span>
                                                             <div class="overview__item-dynamic-text">
-                                                                <span class="overview__item-value" data-overview-customs></span>
-                                                                <span class="overview__item-description" data-overview-customs-required></span>
-                                                                </div>
+                                                                <span class="overview__item-value"
+                                                                    data-overview-customs></span>
+                                                                <span class="overview__item-description"
+                                                                    data-overview-customs-required></span>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -524,9 +567,8 @@
                                             <!-- TIMELINE -->
                                             <div class="timeline">
                                                 <header class="timeline__header">
-                                                    <div class="timeline__header-icon-container">
-                                                        <img src="assets/icons/result-chart-icon.png" class="timeline__header-icon" alt="">
-                                                    </div>
+                                                    <img src="assets/icons/result-chart-icon.png"
+                                                        class="timeline__header-icon" alt="">
                                                     <div class="timeline__header-text">
                                                         <h3 class="timeline__title">Shipping Timeline</h3>
                                                         <p>Plan your shipment within the safe window to deliver within
@@ -542,11 +584,13 @@
 
 
 
-                                                    <div class="timeline__marker timeline__marker--safe" data-timeline-marker-safe>
-                                                        <span class="timeline__marker-dash"></span>
+                                                    <div class="timeline__marker timeline__marker--safe"
+                                                        data-timeline-marker-safe>
+                                                        <span class="timeline__marker-dash timeline__marker-dash--safe"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-safe></p>
+                                                            <p class="timeline__marker-date"
+                                                                data-timeline-marker-date-safe></p>
                                                             <p class="timeline__marker-label">Window Start</p>
                                                         </div>
                                                     </div>
@@ -556,11 +600,13 @@
                                                         <span class="timeline__segment-subtitle">4 days</span>
                                                     </div>
 
-                                                    <div class="timeline__marker timeline__marker--last-date" data-timeline-marker-last-date>
+                                                    <div class="timeline__marker timeline__marker--last-date"
+                                                        data-timeline-marker-last-date>
                                                         <span class="timeline__marker-dash"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-last-date></p>
+                                                            <p class="timeline__marker-date"
+                                                                data-timeline-marker-date-last-date></p>
                                                             <p class="timeline__marker-label">Last recommended shipping
                                                                 date</p>
                                                         </div>
@@ -570,15 +616,45 @@
                                                         <span class="timeline__segment-title">INCREASING RISK</span>
                                                     </div>
 
-                                                    <div class="timeline__marker timeline__marker--deadline" data-timeline-marker-deadline>
+                                                    <div class="timeline__marker timeline__marker--deadline"
+                                                        data-timeline-marker-deadline>
                                                         <span class="timeline__marker-dash"></span>
                                                         <span class="timeline__marker-dot"></span>
                                                         <div class="timeline__marker-text">
-                                                            <p class="timeline__marker-date" data-timeline-marker-date-deadline></p>
+                                                            <p class="timeline__marker-date"
+                                                                data-timeline-marker-date-deadline></p>
                                                             <p class="timeline__marker-label">Fiscal Deadline</p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <!-- IMPORTANT NOTES -->
+                                            <div class="notes">
+                                                <img src="assets/icons/info-icon.png" alt="" class="notes__icon">
+                                                <div class="notes__text">
+                                                    <h4 class="notes__title">Important Notes</h4>
+                                                    <ul class="notes__list">
+                                                        <li class="notes__list-item">If multiple vehicles are selected,
+                                                            transit time is calculated using the slowest vehicle.</li>
+                                                        <li class="notes__list-item">If customs clearance is required,
+                                                            a 6-hour customs delay is included.</li>
+                                                        <li class="notes__list-item">Shipping dates already include
+                                                            loading and unloading time.</li>
+                                                    </ul>
+                                                </div>
+                                                <img src="assets/images/truck-routing-img.png" alt=""
+                                                    class="notes__image">
+                                            </div>
+
+                                            <!-- START NEW BUTTON-->
+                                            <div class="start-new">
+                                                <button type="button" class="btn btn--primary start-new__button"
+                                                    data-start-new-button>
+                                                    <img src="assets/icons/restart-icon.png" alt=""
+                                                        class="start-new__button-icon">
+                                                    <span>Start New Calculation</span>
+                                                </button>
                                             </div>
                                         </section>
                                     </div>
