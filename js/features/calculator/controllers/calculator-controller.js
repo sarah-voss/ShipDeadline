@@ -132,7 +132,11 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
 
         if (currentStep === 'result') {
+            calculatorRender.showResultLoading(calculatorRoot);
             getResults({ elements });
+            elements.loadingElement.addEventListener('animationend', () => {
+            calculatorRender.hideResultLoading(calculatorRoot);
+            })
         }
     }
 

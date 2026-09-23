@@ -94,6 +94,10 @@ export function renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, field, vehicle) {
 }
 
 export function renderTransitValue(transitTime, field) {
+    if (transitTime <= 1) {
+        field.innerText = `${Math.round(transitTime)} hour`;
+        return
+    }
     field.innerText = `${Math.round(transitTime)} hours`;
 }
 

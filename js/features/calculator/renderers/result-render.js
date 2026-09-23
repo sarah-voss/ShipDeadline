@@ -27,8 +27,7 @@ const lastDate = result.dates.lastDate;
 
 if (isDeadlineMatch) {
     lastDate.resultCardDescription.textContent = 'You can still ship on this day';
-    lastDate.resultCardNote.textContent = `Estimated transit time: ~${Math.round(transitData.drivingHours)} hours`;
-    return;
+    lastDate.resultCardNote.textContent = `Estimated transit time: ~${Math.round(transitData.drivingHours)} hr`;
 }
 
 lastDate.resultCardDescription.textContent = 'Last recommended shipping date';

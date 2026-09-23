@@ -115,3 +115,11 @@ export function renderComingSoonMode(container, vehicles, scenario) {
 
     container.replaceChildren(title, message);
 }
+
+export function showResultLoading(calculatorRoot) {
+    calculatorRoot.classList.add('is-loading');
+}
+
+export function hideResultLoading(calculatorRoot) {
+    calculatorRoot.classList.remove('is-loading');
+}

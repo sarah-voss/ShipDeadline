@@ -149,11 +149,12 @@ function initCalculatorPage() {
             },
         },
         startNewButton: calculatorRoot.querySelector('[data-start-new-button]'),
+        loadingElement: calculatorRoot.querySelector('[data-loading-element]'),
     }
 
-  
-  setActiveNav(navItems, 'calculator');
-  initCalculatorController({ calculatorRoot, elements, pageOverlay });
-    }
 
-    export { initCalculatorPage };
+    setActiveNav(navItems, 'calculator');
+    initCalculatorController({ calculatorRoot, elements, pageOverlay });
+}
+
+export { initCalculatorPage };

@@ -82,12 +82,14 @@ color: var(--color-brand);
     .summary-card {
         inline-size: 40%;
     }
-
 }
 
 
 /* === RESULT STEP === */
 
+.result__content > * + * {
+    margin-top: var(--space-6);
+}
 
 
 
@@ -106,12 +108,15 @@ color: var(--color-brand);
 inline-size: 100%;
 }
 
-
-.calculator--result .result__container > * + * {
-    margin-top: var(--space-5);
-}
-
 .calculator--result .form__container {
     border: none;
 }
 
+/* STATE-CLASS: IS-LOADING */
+
+.is-loading .calculator,
+.is-loading .result__container {
+    box-shadow: none;
+    background-color: transparent;
+    block-size: 70vh;
+    }
