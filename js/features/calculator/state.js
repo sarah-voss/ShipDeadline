@@ -5,6 +5,8 @@ export const calculatorState = {
     currentStep: 'route',
     loadType: 'full-road',
 
+    hasResultBeenShown: false,
+
     steps: {
     route: { isValid: false },
     shipment: { isValid: false },
@@ -114,6 +116,18 @@ calculatorState.shipmentDetails.fullRoad.vehicles = [
 
 export function getSelectedVehicles() {
     return calculatorState.shipmentDetails.fullRoad.vehicles;
+}
+
+export function hasResultBeenShown() {
+    return calculatorState.hasResultBeenShown;
+}
+
+export function setResultAsShown() {
+    calculatorState.hasResultBeenShown = true;
+}
+
+export function setResultAsStale() {
+    calculatorState.hasResultBeenShown = false;
 }
 
 

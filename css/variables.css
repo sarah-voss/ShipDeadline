@@ -3,7 +3,7 @@
     /* ==== PALETTE ==== */
 
     /* Neutrals */
-    --neutral-50: #F6F7FB;
+    --neutral-50: hsl(228, 33%, 97%);
     --neutral-100: hsl(5 6% 95%);
     --neutral-200: hsl(5 6% 92%);
     --neutral-300: hsl(0, 2%, 70%);
@@ -11,9 +11,10 @@
     --neutral-900: #2d2a2a;
 
     /* Accent */
-    --blue-200: hsl(214 25% 93%);
+    --blue-100: hsl(214, 100%, 97%);
+    --blue-200: hsl(214 100% 92%);
     --blue-300: hsl(214, 80%, 94%);
-    --blue-400: #2e89ff;
+    --blue-400: hsl(214, 100%, 59%);
     --blue-500: #3c445d;
     --blue-600: #1a7dff;
     --blue-700: #006eff;
@@ -55,6 +56,7 @@
     /* Text */
     --color-text: var(--neutral-900);
     --color-text-inverse: var(--neutral-50);
+    --color-text-muted: var(--neutral-300);
 
     /* Borders */
     --color-border-subtle: rgba(204, 204, 204, 0.5);

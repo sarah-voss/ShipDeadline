@@ -20,12 +20,12 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     const { resetRouteForm } = initRouteController({
         elements,
         pageOverlay,
-        onRouteChange: syncCalculatorUiFromState
+        onRouteChange: handleCalculatorChange
     });
 
     initFullRoadController({
         elements,
-        onFullRoadChange: syncCalculatorUiFromState
+        onFullRoadChange: handleCalculatorChange
     });
 
 
@@ -84,6 +84,11 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         saveCurrentState();
     }
 
+    function handleCalculatorChange() {
+        state.setResultAsStale();
+        syncCalculatorUiFromState();
+    }
+
 
     // RENDER CALCULATOR FROM STATE
     function renderCalculatorFromState() {
@@ -132,11 +137,16 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
 
         if (currentStep === 'result') {
-            calculatorRender.showResultLoading(calculatorRoot);
             getResults({ elements });
-            elements.loadingElement.addEventListener('animationend', () => {
-            calculatorRender.hideResultLoading(calculatorRoot);
-            })
+
+            if (!state.hasResultBeenShown()) {
+                calculatorRender.showResultLoading(calculatorRoot);
+                elements.loadingElement.addEventListener('animationend', () => {
+                    calculatorRender.hideResultLoading(calculatorRoot);
+                    state.setResultAsShown();
+                    saveCurrentState();
+                }, { once: true });
+            }
         }
     }
 
@@ -185,6 +195,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
         if (currentStep === 'route') {
             state.setCurrentStep('shipment');
+            calculatorSteps.shipment.classList.add('step-enter-next');
+            calculatorSteps.shipment.classList.remove('step-enter-back');
             renderCalculatorFromState();
         }
 
@@ -203,11 +215,14 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
             if (currentStep === 'shipment') {
                 state.setCurrentStep('route');
+                calculatorSteps.route.classList.add('step-enter-back');
                 renderCalculatorFromState();
             }
 
             if (currentStep === 'result') {
                 state.setCurrentStep('shipment');
+                calculatorSteps.shipment.classList.remove('step-enter-next');
+                calculatorSteps.shipment.classList.add('step-enter-back');
                 renderCalculatorFromState();
             }
         })

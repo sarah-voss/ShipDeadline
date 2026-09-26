@@ -251,7 +251,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     let fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
 
 
-
     // ==========================================
     //  === EVENT LISTENERS ===
     // ==========================================

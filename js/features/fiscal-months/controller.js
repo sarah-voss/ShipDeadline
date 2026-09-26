@@ -4,7 +4,7 @@ import * as render from './render.js';
 import { saveFiscalMonths, loadFiscalMonths } from './storage.js';
 
 export function initFiscalMonthsController(elements) {
-    
+
     // destructure values
     const {
         grid,
@@ -27,10 +27,10 @@ export function initFiscalMonthsController(elements) {
 
     /* Select Year */
     selectFiscalYear.addEventListener('change', (e) => {
-          year = Number(e.target.value);
-          fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
-          render.renderFiscalMonths(fiscalMonths, grid);
-       });
+        year = Number(e.target.value);
+        fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+        render.renderFiscalMonths(fiscalMonths, grid);
+    });
 
 
     /* Save All */
@@ -43,13 +43,38 @@ export function initFiscalMonthsController(elements) {
 
     /* --- GRID --- */
     grid.addEventListener('change', (event) => {
-        const input = event.target.closest('[data-month-id]');
+        const input = event.target.closest('[data-input-month-id]');
         if (!input) return;
-            const monthId = input.dataset.monthId;
-            const newDate = input.value;
+        const monthId = input.dataset.inputMonthId;
+        const newDate = input.value;
 
-            setClosingDate(fiscalMonths, monthId, newDate);
-            render.renderFiscalMonths(fiscalMonths, grid);
+        setClosingDate(fiscalMonths, monthId, newDate);
+        render.renderFiscalMonths(fiscalMonths, grid);
     });
+
+    grid.addEventListener('click', (event) => {
+        const card = event.target.closest('.fiscal-month__card');
+        if (!card) return;
+        const input = card.querySelector('[data-input-month-id]');
+        input?.showPicker();
+    })
+
+
+    grid.addEventListener('click', (event) => {
+        const saveButton = event.target.closest('[data-button-month-id]');
+        if (!saveButton) return;
+
+        const card = saveButton.closest('.fiscal-month__card');
+        const input = card.querySelector('[data-input-month-id]');
+
+        const monthId = saveButton.dataset.buttonMonthId;
+
+        const newDate = input.value;
+
+        setClosingDate(fiscalMonths, monthId, newDate);
+        markFiscalMonthsAsSaved(fiscalMonths);
+        saveFiscalMonths(year, fiscalMonths);
+        render.renderFiscalMonths(fiscalMonths, grid);
+    })
 
 }

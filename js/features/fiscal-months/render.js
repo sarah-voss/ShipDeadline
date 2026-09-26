@@ -17,8 +17,10 @@ export function renderFiscalMonths(arr, grid) {
         const calendarIcon = document.createElement('img');
 
         const footer = document.createElement('footer');
+        const stateDiv = document.createElement('div');
         const footerIcon = document.createElement('img');
         const stateText = document.createElement('span');
+        const saveButton = document.createElement('button');
 
         // assign css classes 
         card.classList.add('fiscal-month__card');
@@ -30,15 +32,22 @@ export function renderFiscalMonths(arr, grid) {
         input.classList.add('fiscal-month-card__input');    
         calendarIcon.classList.add('fiscal-month-card__calendar-icon');
         
-        if (element.status === 'modify closing date') {
-            input.classList.add('placeholder');
+        if (element.status === 'unsaved') {
+            card.classList.add('month-value-unsaved');
+            saveButton.hidden = false;
+        } else if (element.status === 'saved') {
+            card.classList.add('month-value-saved');
+            saveButton.hidden = true;
         } else {
-            input.classList.remove('placeholder');
+            card.classList.add('month-value-modify');
+            saveButton.hidden =  true;
         }
 
         footer.classList.add('fiscal-month-card__footer');
+        stateDiv.classList.add('fiscal-month-card__state-div')
         footerIcon.classList.add('fiscal-month-card__footer-icon')
         stateText.classList.add('fiscal-month-card__state');
+        saveButton.classList.add('btn--secondary', 'fiscal-month-card__save-button');
 
         // assign values
         title.textContent = element.fullLabel;
@@ -46,18 +55,22 @@ export function renderFiscalMonths(arr, grid) {
         input.type = 'date';
         input.id = element.id;
         input.value = element.closingDate;
-        input.dataset.monthId = element.id;
+        input.dataset.inputMonthId = element.id;
         label.htmlFor = element.id;
 
         calendarIcon.src = 'assets/icons/calendar-simple.png';
         footerIcon.src = element.footerIcon;
         stateText.textContent = element.status;
+        saveButton.textContent = 'save';
+        saveButton.dataset.buttonMonthId = element.id;
+        
 
         // assembly
         header.append(title);
         label.append(input, calendarIcon);
         body.append(label);
-        footer.append(footerIcon, stateText);
+        stateDiv.append(footerIcon, stateText)
+        footer.append( stateDiv, saveButton);
 
         card.append(header, body, footer);
         grid.append(card);

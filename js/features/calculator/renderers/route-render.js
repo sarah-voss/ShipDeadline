@@ -1,5 +1,6 @@
 import { calculatorState } from "../state.js";
-import { getTodayAtMidnight } from "../../../utils/date-utils.js";
+import { isFiscalMonthSelectable } from "../logic/business-rules.js"
+
 
 
 // highlight matching substring
@@ -151,8 +152,9 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
         cardName.classList.add('month-card__name');
         cardYear.classList.add('month-card__year');
 
-        const isPast = new Date(element.closingDate) < getTodayAtMidnight();
-        if (isPast) {
+        const isSelectable = isFiscalMonthSelectable(element);
+
+        if (!isSelectable) {
             button.disabled = true;
             button.classList.add('month-card--disabled');
         };
