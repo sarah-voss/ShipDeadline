@@ -38,6 +38,42 @@
     text-decoration-thickness: 2px;
 }
 
+/* ==== LOGO ==== */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.logo__title {
+    font-family: "Zen Dots", sans-serif;
+    font-size: 1.5rem;
+    color: var(--color-brand);
+}
+
+.logo__title:visited {
+    color: var(--color-brand);
+}
+
+.logo__img-container {
+    block-size: 3em;
+}
+
+.logo__img {
+    block-size: 100%;
+    aspect-ratio: 3 / 2;
+}
+
+@media (max-width: 630px) {
+    .logo__title {
+        font-size: var(--fs-3);
+    }
+
+    .nav-item {
+        font-size: var(--fs-0);
+    }
+}
+
 /* ==== FOOTER ==== */
 
 .footer {
@@ -179,32 +215,6 @@
 }
 
 
-/* ==== LOGO ==== */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.logo__title {
-    font-family: "Zen Dots", sans-serif;
-    font-size: 1.5rem;
-    color: var(--color-brand);
-}
-
-.logo__title:visited {
-    color: var(--color-brand);
-}
-
-.logo__img-container {
-    block-size: 3em;
-}
-
-.logo__img {
-    block-size: 100%;
-    aspect-ratio: 3 / 2;
-}
-
 /* ==== GLOBAL COMPONENT STATES ==== */
 
 .active-state {
@@ -332,6 +342,47 @@
     display: none;
 }
 
+@media (max-width: 1150px) {
+    .summary-card__rail {
+        display: contents;
+    }
+
+    .summary-card__rail::before {
+        display: none;
+    }
+
+    .summary-card__header,
+    .summary-card__footer {
+        grid-column: 1 / -1;
+    }
+
+    .summary-card__icon {
+        width: 27px;
+        height: 27px;
+        padding: 0.3rem;
+    }
+
+    .summary-card__success-icon {
+        width: 1.2em;
+    }
+
+    .summary-card__rail .summary-card__step:nth-of-type(4) .summary-card__content {
+        border-bottom: none;
+    }
+
+    .summary-card__step {
+        padding-inline: var(--space-6);
+    }
+    .summary-card__step-title {
+        padding-bottom: 0.2rem;
+    }
+
+    .summary-card__content {
+        padding-block: var(--space-2);
+    }
+}
+
+
 /* ==== CALCULATOR ==== */
 .calculator {
     background-color: var(--color-surface-plain);
@@ -377,9 +428,9 @@
 }
 
 .calculator__tab:hover {
-text-decoration-color: var(--color-primary);
-color: var(--color-primary);
-transition: all 0.7s ease;
+    text-decoration-color: var(--color-primary);
+    color: var(--color-primary);
+    transition: all 0.7s ease;
 }
 
 
@@ -426,6 +477,12 @@ transition: all 0.7s ease;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--radius-xs);
     transition: opacity 180ms ease, transform 180ms ease;
+}
+
+@media (max-width: 850px) {
+    .form__container {
+        padding-inline: 0;
+    }
 }
 
 .form__container.is-switching {

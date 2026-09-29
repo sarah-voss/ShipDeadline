@@ -30,6 +30,7 @@
 .fiscal-intro__title {
     font-size: var(--fs-4);
     font-weight: var(--fw-bold);
+    color: var(--color-brand);
 }
 
 .fiscal-intro__text {
@@ -231,4 +232,153 @@
     block-size: 1.3em;
     inline-size: 1.3em;
     pointer-events: none;
+}
+
+
+@media (max-width: 1050px) {
+    .fiscal-intro {
+        gap: 1.5rem;
+        padding: 1.25rem;
+    }
+
+    .fiscal-intro__left {
+        inline-size: auto;
+        flex: 1 1 25rem;
+        gap: 1rem;
+    }
+
+    .calendar-badge {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .intro__right {
+        flex: 0 0 auto;
+    }
+
+    .fiscal-months__grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .fiscal-intro {
+        display: grid;
+        gap: var(--space-5);
+        padding: var(--space-5);
+        border-width: 2px;
+    }
+
+    .fiscal-intro__left {
+        inline-size: 100%;
+        align-items: flex-start;
+        gap: var(--space-4);
+    }
+
+    .calendar-badge {
+        width: 3em;
+        height: 3em;
+        padding: 0.4rem;
+    }
+
+    .fiscal-intro__title {
+        font-size: var(--fs-3);
+    }
+
+    .fiscal-intro__text br {
+        display: none;
+    }
+
+    .fiscal-intro__text {
+        font-size: var(--fs-0);
+    }
+
+    .intro__right {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding-block-start: var(--space-4);
+        border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .fiscal-year__label {
+        padding-inline-end: 0;
+    }
+
+    .btn-save-all {
+        margin-left: auto;
+    }
+
+    .fiscal-months {
+        padding-block: var(--space-3);
+    }
+
+    .fiscal-months__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-6);
+        padding: var(--space-6);
+    }
+
+    .fiscal-month__card {
+        min-inline-size: 0;
+        gap: 1.5rem;
+        padding: var(--space-4);
+    }
+
+    .fiscal-month-card__input {
+        min-inline-size: 0;
+        block-size: 2.6rem;
+        padding-inline-start: 0.5rem;
+        padding-inline-end: 0.25rem;
+        font-size: var(--fs-1);
+    }
+
+
+    .fiscal-month-card__footer-icon {
+        width: 1em;
+        height: 1em;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .fiscal-months__grid {
+        gap: var(--space-4);
+    }
+
+    .fiscal-month__card {
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+
+    .fiscal-month-card__state {
+        font-size: var(--fs-caption);
+    }
+
+}
+
+
+@media (max-width: 380px) {
+    .fiscal-months__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-5);
+        padding-inline: var(--space-7);
+    }
+
+    .fiscal-month__card {
+        padding: var(--space-7);
+        gap: var(--space-4);
+    }
+
+
+    .fiscal-month-card__title {
+        font-size: var(--fs-2);
+    }
+
+    .fiscal-month-card__state {
+         font-size: var(--fs-1); 
+    }
 }
