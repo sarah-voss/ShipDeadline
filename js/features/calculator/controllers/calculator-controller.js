@@ -156,7 +156,12 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         renderCalculatorFromState();
     }
 
-    // INIT 
+    // INIT
+    calculatorRender.renderCalculator({
+        mode: state.getLoadType(),
+        elements,
+        calculatorRoot
+    });
     renderCalculatorFromState();
 
 

@@ -37,6 +37,17 @@ export function markFiscalMonthsAsSaved(fiscalMonths) {
     });
 }
 
+export function markFiscalMonthAsSaved(fiscalMonths, monthId) {
+    const month = findFiscalMonthById(fiscalMonths, monthId);
+    if (!month) return;
+    month.status = 'saved';
+    month.footerIcon = 'assets/icons/success.png';
+}
+
+export function replaceFiscalMonth(fiscalMonths, updatedMonth) {
+    return fiscalMonths.map(month => month.id === updatedMonth.id ? { ...updatedMonth } : month);
+}
+
 export function findFiscalMonthById(fiscalMonths, monthId) {
     return fiscalMonths.find(month => month.id  === monthId);
 }

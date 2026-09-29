@@ -14,7 +14,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
     // destructure imported values
     const {
-        autocompleteWrapper,
         locations,
         monthPickerPanel,
         monthPickerInput,
@@ -238,9 +237,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             routeRender.validateFiscalMonth(monthPickerInput);
             monthPickerLabel.classList.add('field-label__dynamic-text');
         }
-            monthPickerLabel.textContent = savedMonth.fullLabel || freshMonth.fullLabel;
-            routeRender.validateFiscalMonth(monthPickerInput);
-            monthPickerLabel.classList.add('field-label__dynamic-text');
     }
     }
 
@@ -331,14 +327,16 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     });
 
     // ----- CLOSE SUGGESTIONS -----
+    // close every suggestion list except the one of the field that was clicked
     document.addEventListener('click', (e) => {
-        if (!autocompleteWrapper.contains(e.target)) {
-            getFields(locations, field => field.suggestionsContainer).forEach(({
-                suggestionsContainer
-            }) => {
+        getFields(locations).forEach(({
+            field,
+            suggestionsContainer
+        }) => {
+            if (!field.contains(e.target)) {
                 routeRender.closeSuggestions(suggestionsContainer);
-            })
-        }
+            }
+        })
     })
 
     // ----- MONTH PICKER -----

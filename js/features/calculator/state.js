@@ -3,7 +3,7 @@
 // ======== STATE STEP 1 ========= //
 export const calculatorState = {
     currentStep: 'route',
-    loadType: 'full-road',
+    loadType: 'full-load',
 
     hasResultBeenShown: false,
 

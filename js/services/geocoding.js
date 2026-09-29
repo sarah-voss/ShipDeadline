@@ -11,13 +11,14 @@ export async function searchLocation(fieldType, query, selectedCountry) {
         const countryQuery = `${BASE_URL}?text=${encodeURIComponent(query)}&lang=en&type=country&limit=10&apiKey=${API_KEY}`;
         const jsonResponse = await fetchData(countryQuery);
 
+        // skip results without name or country code: they can't be rendered or selected
         const filtered = jsonResponse.features.filter(element => {
-        return element.properties.name.toLowerCase().includes(query.toLowerCase());
-        }); 
+        const { name, country_code } = element.properties;
+        return name && country_code && name.toLowerCase().includes(query.toLowerCase());
+        });
 
        const countries = filtered.map(element => {
        const name = element.properties.name;
-       if (!element.properties.country_code) return;
        const countryCode = element.properties.country_code.toLowerCase();
         return {
             name, 
@@ -41,9 +42,13 @@ export async function searchLocation(fieldType, query, selectedCountry) {
         jsonResponse = await fetchData(cityQuery);
     }
 
-    if (!jsonResponse) return;
+    if (!jsonResponse) return [];
 
-    const filtered = jsonResponse.features.filter(element => element.properties[fieldType].toLowerCase().includes(query.toLowerCase()));
+    // skip results missing the searched value or the city (needed to fill both fields)
+    const filtered = jsonResponse.features.filter(element => {
+        const value = element.properties[fieldType];
+        return value && element.properties.city && value.toLowerCase().includes(query.toLowerCase());
+    });
 
     const locations = filtered.map(element => {
             const postcode = normalisePostcode(selectedCountry, element.properties.postcode);

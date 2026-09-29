@@ -23,7 +23,6 @@ function initCalculatorPage() {
         modeDescriptionTitle: calculatorRoot.querySelector('[data-mode-description-title]'),
         modeDescriptionText: calculatorRoot.querySelector('[data-mode-description-text]'),
         calculatorBody: calculatorRoot.querySelector('[data-calculator-body]'),
-        autocompleteWrapper: calculatorRoot.querySelector('[data-autocomplete-wrapper]'),
         locations: {
             departure: {
                 area: calculatorRoot.querySelector('[data-form-area-departure]'),
