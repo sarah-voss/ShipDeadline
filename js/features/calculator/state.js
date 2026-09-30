@@ -151,7 +151,7 @@ export function setSelectedPostcodeCity(locationName, postcode, city) {
     calculatorState[locationName].postcode.selected = postcode;
 }
 
-export function getSelectedCountry(locationName) {
+export function getSelectedCountryCode(locationName) {
    return calculatorState[locationName].country.code;
 }
 

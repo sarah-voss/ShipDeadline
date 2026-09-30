@@ -1,9 +1,9 @@
-// render calculator tabs
-export function renderCalculator({ calculatorRoot, mode, elements }) {
+// render load type tabs
+export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
     const { tabButtons, modeDescriptionTitle, modeDescriptionText } = elements;
     tabButtons.forEach(button => {
         button.classList.remove('calculator__tab--active');
-        if (button.dataset.modeTrigger === mode) {
+        if (button.dataset.loadType === loadType) {
             button.classList.add('calculator__tab--active');
         }
     });
@@ -17,11 +17,11 @@ export function renderCalculator({ calculatorRoot, mode, elements }) {
         'partial-load': 'Based on shipment size'
     }
 
-    modeDescriptionTitle.textContent = descriptionTitles[mode];
-    modeDescriptionText.textContent = descriptionTexts[mode];
+    modeDescriptionTitle.textContent = descriptionTitles[loadType];
+    modeDescriptionText.textContent = descriptionTexts[loadType];
 
     calculatorRoot.classList.remove('calculator--full-load', 'calculator--partial-load');
-    calculatorRoot.classList.add(`calculator--${mode}`);
+    calculatorRoot.classList.add(`calculator--${loadType}`);
 }
 
 export function switchMode({ calculatorBody }) {
@@ -47,8 +47,8 @@ export function renderFieldState(field, status) {
 }
 
 
-// VALIDATE NEXT BUTTON
-export function validateNextButton(button) {
+// ENABLE NEXT BUTTON
+export function enableNextButton(button) {
     button.disabled = false;
 }
 
@@ -96,7 +96,7 @@ const SCENARIO_LABELS = {
 
 
 // vehicles is unused here but kept so this matches the (container, vehicles, scenario)
-// signature every MODE_RENDERERS entry is called with in calculator-controller.js
+// signature every SCENARIO_RENDERERS entry is called with in calculator-controller.js
 export function renderComingSoonMode(container, vehicles, scenario) {
     const title = document.createElement('h2');
     const message = document.createElement('p');

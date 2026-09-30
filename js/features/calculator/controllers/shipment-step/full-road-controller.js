@@ -3,7 +3,7 @@ import * as calculatorRender from "../../renderers/calculator-render.js";
 import * as state from "../../state.js";
 
 import { getCalculatorScenario } from "../../logic/scenarios.js";
-import { MODE_RENDERERS, MAX_FULL_ROAD_VEHICLES } from "../../shipment/config.js";
+import { SCENARIO_RENDERERS, MAX_FULL_ROAD_VEHICLES } from "../../shipment/config.js";
 import { getDestinationArea } from '../../logic/geography-rules.js';
 import { renderAddButtonVisibility, renderDuplicateWarning } from "../../renderers/shipment-step/full-road-step-render.js";
 
@@ -40,7 +40,7 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
     }
 
     function getCurrentFullRoadScenario() {
-        const selectedCountryCode = state.getSelectedCountry('destination');
+        const selectedCountryCode = state.getSelectedCountryCode('destination');
         return getCalculatorScenario({
             loadType: state.getLoadType(),
             destinationArea: getDestinationArea(selectedCountryCode),
@@ -78,7 +78,7 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
         state.addFullRoadVehicle();
 
         const scenario = getCurrentFullRoadScenario();
-        const renderMode = MODE_RENDERERS[scenario];
+        const renderMode = SCENARIO_RENDERERS[scenario];
         renderMode(calculatorSteps.shipment, vehicles);
 
         recalculateShipmentValidity();
@@ -97,7 +97,7 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
 
         const vehicles = state.calculatorState.shipmentDetails.fullRoad.vehicles;
         const scenario = getCurrentFullRoadScenario();
-        const renderMode = MODE_RENDERERS[scenario];
+        const renderMode = SCENARIO_RENDERERS[scenario];
         renderMode(calculatorSteps.shipment, vehicles);
 
         recalculateShipmentValidity();

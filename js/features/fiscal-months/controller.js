@@ -1,4 +1,4 @@
-import { createFiscalMonths, markFiscalMonthsAsSaved, markFiscalMonthAsSaved, replaceFiscalMonth, findFiscalMonthById, setClosingDate } from './state.js'
+import { createFiscalMonths, markUnsavedFiscalMonthsAsSaved, markFiscalMonthAsSaved, replaceFiscalMonth, findFiscalMonthById, setClosingDate } from './state.js'
 import { MONTHS } from './config.js';
 import * as render from './render.js';
 import { saveFiscalMonths, loadFiscalMonths } from './storage.js';
@@ -35,7 +35,7 @@ export function initFiscalMonthsController(elements) {
 
     /* Save All */
     saveAllButton.addEventListener('click', () => {
-        markFiscalMonthsAsSaved(fiscalMonths);
+        markUnsavedFiscalMonthsAsSaved(fiscalMonths);
         saveFiscalMonths(year, fiscalMonths);
         render.renderFiscalMonths(fiscalMonths, grid);
     })
@@ -54,7 +54,7 @@ export function initFiscalMonthsController(elements) {
 
     grid.addEventListener('click', (event) => {
         if (event.target.closest('[data-button-month-id]')) return;
-        const card = event.target.closest('.fiscal-month__card');
+        const card = event.target.closest('.fiscal-month-card');
         if (!card) return;
         const input = card.querySelector('[data-input-month-id]');
         input?.showPicker();
@@ -65,7 +65,7 @@ export function initFiscalMonthsController(elements) {
         const saveButton = event.target.closest('[data-button-month-id]');
         if (!saveButton) return;
 
-        const card = saveButton.closest('.fiscal-month__card');
+        const card = saveButton.closest('.fiscal-month-card');
         const input = card.querySelector('[data-input-month-id]');
 
         const monthId = saveButton.dataset.buttonMonthId;

@@ -104,7 +104,7 @@
         grid-column-start: 2;
     }
 
-    .section__shipment {
+    .shipment-step {
         padding-inline: var(--space-5);
     }
 }
@@ -522,15 +522,15 @@
         padding-block: var(--space-2);
     }
 
-    .result--deadline-match .deadlineMatch-important {
+    .result--deadline-match .deadline-match-warning {
         flex-direction: column;
     }
 
-    .deadlineMatch-important__text>*+* {
+    .deadline-match-warning__text>*+* {
         margin-block-start: var(--space-2);
     }
 
-    .deadlineMatch-important__text p {
+    .deadline-match-warning__text p {
         font-size: var(--fs-caption);
     }
 

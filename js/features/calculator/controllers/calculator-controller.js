@@ -3,13 +3,13 @@ import * as calculatorRender from "../renderers/calculator-render.js";
 import * as state from "../state.js";
 
 import { getCalculatorScenario, isLoadTypeFullyUnavailable } from "../logic/scenarios.js";
-import { MODE_RENDERERS, IMPLEMENTED_SCENARIOS } from "../shipment/config.js";
+import { SCENARIO_RENDERERS, IMPLEMENTED_SCENARIOS } from "../shipment/config.js";
 import { getDestinationArea, getCountryFieldStatus } from '../logic/geography-rules.js';
 import { saveCalculatorState } from "../storage.js";
 import { initRouteController } from "./route-controller.js";
 import { renderSummaryFromState } from "./summary-overview-controller.js";
 import { initFullRoadController } from "./shipment-step/full-road-controller.js";
-import { getResults } from "./result-controller.js";
+import { renderResultStep } from "./result-controller.js";
 
 
 
@@ -17,7 +17,7 @@ import { getResults } from "./result-controller.js";
 export function initCalculatorController({ calculatorRoot, elements, pageOverlay }) {
 
     // init sub-controllers
-    const { resetRouteForm } = initRouteController({
+    const { resetCalculatorForm } = initRouteController({
         elements,
         pageOverlay,
         onRouteChange: handleCalculatorChange
@@ -51,8 +51,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
     // GET CURRENT SCENARIO
     function getCurrentScenario() {
-        const departureCountryCode = state.getSelectedCountry('departure');
-        const destinationCountryCode = state.getSelectedCountry('destination');
+        const departureCountryCode = state.getSelectedCountryCode('departure');
+        const destinationCountryCode = state.getSelectedCountryCode('destination');
 
         if (!destinationCountryCode) return null;
         if (getCountryFieldStatus('departure', departureCountryCode) === 'error') return null;
@@ -70,7 +70,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         const isCurrentStepValid = state.getStepValidity(currentStep);
 
         if (isCurrentStepValid) {
-            calculatorRender.validateNextButton(calculatorNextButton);
+            calculatorRender.enableNextButton(calculatorNextButton);
         } else {
             calculatorRender.disableNextButton(calculatorNextButton);
         }
@@ -123,7 +123,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
                 return;
             }
 
-            const renderMode = MODE_RENDERERS[scenario];
+            const renderMode = SCENARIO_RENDERERS[scenario];
             renderMode(
                 calculatorSteps.shipment,
                 state.calculatorState.shipmentDetails.fullRoad.vehicles,
@@ -137,7 +137,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
 
         if (currentStep === 'result') {
-            getResults({ elements });
+            renderResultStep({ elements });
 
             if (!state.hasResultBeenShown()) {
                 calculatorRender.showResultLoading(calculatorRoot);
@@ -152,13 +152,13 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
     // START NEW CALCULATION 
     function startNewCalculation() {
-        resetRouteForm();
+        resetCalculatorForm();
         renderCalculatorFromState();
     }
 
     // INIT
-    calculatorRender.renderCalculator({
-        mode: state.getLoadType(),
+    calculatorRender.renderLoadTypeTabs({
+        loadType: state.getLoadType(),
         elements,
         calculatorRoot
     });
@@ -172,13 +172,13 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     // EVENT LISTENERS TAB BUTTONS
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const mode = button.dataset.modeTrigger;
+            const loadType = button.dataset.loadType;
 
-            state.setLoadType(mode);
+            state.setLoadType(loadType);
             state.setCurrentStep('route');
 
-            calculatorRender.renderCalculator({
-                mode,
+            calculatorRender.renderLoadTypeTabs({
+                loadType,
                 elements,
                 calculatorRoot
             });

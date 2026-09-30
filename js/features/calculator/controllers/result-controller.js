@@ -7,10 +7,10 @@ import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/sta
 import { getTransitDetails } from "../logic/transit/transit-calculator.js";
 import { renderResult } from '../renderers/result-render.js';
 
-import { renderOverViewValues } from "./summary-overview-controller.js";
+import { renderOverviewValues } from "./summary-overview-controller.js";
 
 
-export function getResults({ elements }) {
+export function renderResultStep({ elements }) {
 
     const { result } = elements;
 
@@ -20,16 +20,16 @@ export function getResults({ elements }) {
 
         const vehiclesArr = state.getSelectedVehicles();
 
-        const departureCountry = state.getSelectedCountry('departure');
+        const departureCountry = state.getSelectedCountryCode('departure');
         
-        const destinationCountry = state.getSelectedCountry('destination');
+        const destinationCountry = state.getSelectedCountryCode('destination');
 
         const selectedMonth = state.getSelectedMonth();
         const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
         const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
         const fiscalDeadline = new Date(freshMonth.closingDate);
 
-        const resultElements = {
+        const transitInput = {
             departureCoords,
             destinationCoords,
             vehiclesArr,
@@ -38,7 +38,7 @@ export function getResults({ elements }) {
             fiscalDeadline
         };
 
-        const transitData = getTransitDetails({ resultElements });
+        const transitData = getTransitDetails({ transitInput });
 
         return { transitData, fiscalDeadline };
     }
@@ -59,6 +59,6 @@ export function getResults({ elements }) {
     elements.calculatorSteps.result.classList.toggle('result--deadline-match', isDeadlineMatch);
 
     renderResult(result, resultData, isDeadlineMatch);
-    renderOverViewValues({ elements, transitData });
+    renderOverviewValues({ elements, transitData });
 
 }

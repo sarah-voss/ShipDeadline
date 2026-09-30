@@ -4,7 +4,7 @@ import { getCustomsDelayHours } from './customs-rules.js';
 import { calculateShippingWindow } from './shipping-window.js';
 
 
-export function getTransitDetails({ resultElements }) {
+export function getTransitDetails({ transitInput }) {
     const {
         departureCoords, 
         destinationCoords,
@@ -12,7 +12,7 @@ export function getTransitDetails({ resultElements }) {
         departureCountry,
         destinationCountry,
         fiscalDeadline
-    } = resultElements;
+    } = transitInput;
 
     const distanceKm = calculateDistance(departureCoords, destinationCoords);
 

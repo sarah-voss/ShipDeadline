@@ -623,7 +623,7 @@
     transition: 0.2s ease;
 }
 
-.field-label__dynamic-text {
+.field-label--selected {
     font-size: var(--fs-1);
     font-weight: var(--fw-regular);
     color: var(--color-text);
@@ -1434,30 +1434,30 @@
 
 /* DEADLINE MATCH */
 
-.deadlineMatchNote {
+.deadline-match-note {
     align-items: center;
     gap: var(--space-2);
     font-weight: var(--fw-bold);
 }
 
-.deadlineMatchNote--last-date {
+.deadline-match-note--last-date {
     color: var(--color-warning-strong);
 }
 
-.deadlineMatchNote--deadline {
+.deadline-match-note--deadline {
     color: var(--color-error-strong);
 }
 
-.deadlineMatchNote__img {
+.deadline-match-note__img {
     width: 1em;
     height: 1em;
 }
 
-.result--deadline-match .deadlineMatchNote {
+.result--deadline-match .deadline-match-note {
     display: flex;
 }
 
-.deadlineMatch-important {
+.deadline-match-warning {
     gap: var(--space-4);
     border: 1px solid var(--color-border-subtle);
     padding: var(--space-5);
@@ -1465,11 +1465,11 @@
     background-color: var(--color-warning-surface-subtle);
 }
 
-.result--deadline-match .deadlineMatch-important {
+.result--deadline-match .deadline-match-warning {
     display: flex;
 }
 
-.deadlineMatch-important__icon {
+.deadline-match-warning__icon {
     width: 2em;
     height: 2em;
 }

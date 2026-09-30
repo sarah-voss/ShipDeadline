@@ -103,12 +103,12 @@ const VEHICLE_OVERVIEW_CONFIG = {
     'exceptional-load': { vehicleType: 'Exceptional Load', description: 'Special dimensions | permit required' },
 }
 
-export function renderOverViewValues({ elements, transitData }) {
+export function renderOverviewValues({ elements, transitData }) {
     const overview = elements.result.overview;
     displayLocationValue(overview, 'departure');
     displayLocationValue(overview, 'destination');
     displayFiscalDateValue(overview.fiscalDate);
     summaryOverviewRender.renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, overview.vehicle, transitData.slowestVehicleType);
-    summaryOverviewRender.renderTransitValue(transitData.drivingHours, overview.transitTime.fiscalMonth);
+    summaryOverviewRender.renderTransitValue(transitData.drivingHours, overview.transitTime.valueText);
     summaryOverviewRender.renderCustomsValue(transitData.customsDelay, overview.customs);
 }

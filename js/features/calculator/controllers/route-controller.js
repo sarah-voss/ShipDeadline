@@ -92,7 +92,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     // SHOW SUGGESTIONS
     async function showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input) {
         // get selected country
-        const selectedCountry = state.getSelectedCountry(locationName);
+        const selectedCountry = state.getSelectedCountryCode(locationName);
 
         // send api request
         const suggestions = await searchLocation(fieldType, checkedValue, selectedCountry);
@@ -199,7 +199,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         });
 
         monthPickerLabel.textContent = '*select fiscal month';
-        monthPickerLabel.classList.remove('field-label__dynamic-text');
+        monthPickerLabel.classList.remove('field-label--selected');
         monthPickerInput.classList.remove('validated');
         state.setSelectedMonth(null);
         state.resetVehicles();
@@ -235,7 +235,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         if (freshMonth) {
             monthPickerLabel.textContent = freshMonth.fullLabel;
             routeRender.validateFiscalMonth(monthPickerInput);
-            monthPickerLabel.classList.add('field-label__dynamic-text');
+            monthPickerLabel.classList.add('field-label--selected');
         }
     }
     }
@@ -363,7 +363,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const selectedMonth = fiscalMonths.find(month => month.id === monthId);
 
         monthPickerLabel.textContent = selectedMonth.fullLabel;
-        monthPickerLabel.classList.add('field-label__dynamic-text');
+        monthPickerLabel.classList.add('field-label--selected');
 
         state.setSelectedMonth({
             id: selectedMonth.id,
@@ -397,5 +397,5 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     // INIT 
     restoreRouteForm();
 
-    return { resetRouteForm: resetCalculatorForm };
+    return { resetCalculatorForm };
 }

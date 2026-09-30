@@ -28,7 +28,7 @@ export function setClosingDate(fiscalMonths, monthId, newDate) {
     });
     };
 
-export function markFiscalMonthsAsSaved(fiscalMonths) {
+export function markUnsavedFiscalMonthsAsSaved(fiscalMonths) {
     fiscalMonths.forEach(month => {
         if (month.status === 'unsaved') {
             month.status = 'saved';

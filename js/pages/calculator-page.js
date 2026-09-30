@@ -19,7 +19,7 @@ function initCalculatorPage() {
     const pageOverlay = document.querySelector('[data-page-overlay]');
 
     const elements = {
-        tabButtons: calculatorRoot.querySelectorAll('[data-mode-trigger]'),
+        tabButtons: calculatorRoot.querySelectorAll('[data-load-type]'),
         modeDescriptionTitle: calculatorRoot.querySelector('[data-mode-description-title]'),
         modeDescriptionText: calculatorRoot.querySelector('[data-mode-description-text]'),
         calculatorBody: calculatorRoot.querySelector('[data-calculator-body]'),
@@ -136,7 +136,7 @@ function initCalculatorPage() {
                     closingDate: calculatorRoot.querySelector('[data-overview-closing-date]'),
                 },
                 transitTime: {
-                    fiscalMonth: calculatorRoot.querySelector('[data-overview-transit-time]'),
+                    valueText: calculatorRoot.querySelector('[data-overview-transit-time]'),
                 },
                 customs: {
                     needsCustoms: calculatorRoot.querySelector('[data-overview-customs]'),

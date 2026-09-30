@@ -1,7 +1,7 @@
 import { renderFullRoadMode } from "../renderers/shipment-step/full-road-step-render.js";
 import { renderComingSoonMode } from "../renderers/calculator-render.js";
 
-export const MODE_RENDERERS = {
+export const SCENARIO_RENDERERS = {
     'full-road': renderFullRoadMode,
     'full-sea': renderComingSoonMode,
     'partial-road': renderComingSoonMode,

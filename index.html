@@ -153,11 +153,11 @@
                             <!-- Calculator Headline -->
                             <div class="calculator__headline">
                                 <button class="calculator__tab calculator__tab--active" type="button"
-                                    data-mode-trigger="full-load">
+                                    data-load-type="full-load">
                                     Full Load
                                 </button>
                                 <button class="calculator__tab" type="button"
-                                    data-mode-trigger="partial-load">
+                                    data-load-type="partial-load">
                                     Partial Load
                                 </button>
                             </div>
@@ -363,7 +363,7 @@
 
 
                                         <!-- STEP 2: SHIPMENT DETAILS -->
-                                        <section data-calculator-step="shipment" class="section__shipment" hidden>
+                                        <section data-calculator-step="shipment" class="shipment-step" hidden>
                                             <!-- created with js -->
                                         </section>
 
@@ -427,10 +427,10 @@
                                                             data-result-card-last-date-description>Last recommended
                                                             shipping date
                                                         </p>
-                                                        <div class="deadlineMatchNote deadlineMatchNote--last-date"
+                                                        <div class="deadline-match-note deadline-match-note--last-date"
                                                             hidden>
                                                             <img src="assets/icons/clock-icon-orange.png" alt=""
-                                                                class="deadlineMatchNote__img">
+                                                                class="deadline-match-note__img">
                                                             <p data-result-card-last-date-note></p>
                                                         </div>
                                                     </article>
@@ -448,19 +448,19 @@
                                                         <p class="result-card__description">Delivery must be
                                                             completed by this date
                                                         </p>
-                                                        <div class="deadlineMatchNote deadlineMatchNote--deadline"
+                                                        <div class="deadline-match-note deadline-match-note--deadline"
                                                             hidden>
                                                             <img src="assets/icons/success-icon-red.png" alt=""
-                                                                class="deadlineMatchNote__img">
+                                                                class="deadline-match-note__img">
                                                             <p>Same day delivery possible</p>
                                                         </div>
                                                     </article>
                                                 </div>
 
-                                                <div class="deadlineMatch-important" hidden>
+                                                <div class="deadline-match-warning" hidden>
                                                     <img src="assets/icons/warning.png" alt=""
-                                                        class="deadlineMatch-important__icon">
-                                                    <div class="deadlineMatch-important__text">
+                                                        class="deadline-match-warning__icon">
+                                                    <div class="deadline-match-warning__text">
                                                         <p><strong>Important:</strong>
                                                             The calculated transit time is very short. Shipment is
                                                             possible on the fiscal deadline itself.</p>

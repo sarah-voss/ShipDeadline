@@ -23,7 +23,7 @@ export function renderFiscalMonths(arr, grid) {
         const saveButton = document.createElement('button');
 
         // assign css classes 
-        card.classList.add('fiscal-month__card');
+        card.classList.add('fiscal-month-card');
         header.classList.add('fiscal-month-card__header');
         title.classList.add('fiscal-month-card__title');
 

@@ -86,9 +86,9 @@ export function renderSummarySuccess(icon, isValid) {
 
 // === OVERVIEW ===
 
-export function renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, field, vehicle) {
-    field.chosenVehicle.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].vehicleType;
-    field.vehicleDescription.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].description;
+export function renderVehicleValue(vehicleConfig, field, vehicle) {
+    field.chosenVehicle.innerText = vehicleConfig[vehicle].vehicleType;
+    field.vehicleDescription.innerText = vehicleConfig[vehicle].description;
 }
 
 export function renderTransitValue(transitTime, field) {
