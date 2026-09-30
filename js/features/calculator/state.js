@@ -112,6 +112,8 @@ export function resetVehicles() {
 calculatorState.shipmentDetails.fullRoad.vehicles = [
                 { id: Date.now(), type: '', status: 'idle' }
             ]
+    // no vehicle selected anymore: shipment step can't stay valid
+    calculatorState.steps.shipment.isValid = false;
 }
 
 export function getSelectedVehicles() {

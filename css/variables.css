@@ -42,11 +42,9 @@
 
     /* Surfaces */
     --color-bg: var(--neutral-50);
-    --color-surface: var(--neutral-50);
     --color-surface-subtle: var(--blue-300);
     --color-surface-strong: var(--blue-800);
     --color-surface-plain: #FFFFFF;
-    --color-overlay: rgba(0, 0, 0, 0.8);
 
     --color-surface-safe: var(--green-200);
     --color-critical-surface: var(--red-200);
@@ -131,15 +129,12 @@
     --space-10: clamp(2.7rem, 5.4vw, 5.4rem);
 
     --space-section: var(--space-5);
-    --space-section-loose-start: var(--space-9);
-    --space-section-loose-end: var(--space-10);
     --space-gutter: var(--space-8);
 
     /* ==== RADIUS ==== */
     --radius-xs: 3px;
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
-    --radius-full: 9999px;
 
     /* ==== BOX SHADOWS ==== */
     --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12),

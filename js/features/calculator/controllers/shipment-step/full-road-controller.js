@@ -4,8 +4,7 @@ import * as state from "../../state.js";
 
 import { getCalculatorScenario } from "../../logic/scenarios.js";
 import { MODE_RENDERERS, MAX_FULL_ROAD_VEHICLES } from "../../shipment/config.js";
-import { getDestinationArea, getCountryFieldStatus } from '../../logic/geography-rules.js';
-import { saveCalculatorState } from "../../storage.js";
+import { getDestinationArea } from '../../logic/geography-rules.js';
 import { renderAddButtonVisibility, renderDuplicateWarning } from "../../renderers/shipment-step/full-road-step-render.js";
 
 
@@ -64,7 +63,6 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
         state.setFullRoadVehicleType(vehicleIndex, value);
 
         recalculateShipmentValidity();
-        saveCalculatorState(state.calculatorState);
         onFullRoadChange();
        })
 
@@ -84,7 +82,6 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
         renderMode(calculatorSteps.shipment, vehicles);
 
         recalculateShipmentValidity();
-        saveCalculatorState(state.calculatorState);
         onFullRoadChange();
 
        })
@@ -104,7 +101,6 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
         renderMode(calculatorSteps.shipment, vehicles);
 
         recalculateShipmentValidity();
-        saveCalculatorState(state.calculatorState);
         onFullRoadChange();
        })
 

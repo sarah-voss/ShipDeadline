@@ -61,7 +61,6 @@ export function renderFullRoadMode(container, vehicles) {
     
 
     vehicleContainer.classList.add('vehicle-container');
-    vehicleContainer.dataset.vehicleContainer = '';
     vehicleContainer.dataset.vehicleId = vehicle.id;
 
     vehicleContent.classList.add('vehicle-content');
@@ -75,12 +74,10 @@ export function renderFullRoadMode(container, vehicles) {
     select.dataset.vehicleSelect = 'true';
     select.dataset.vehicleId = vehicle.id;
 
-    successIcon.dataset.successIcon = '';
     successIcon.classList.add('helper-icon-success');
     successIcon.textContent = '✔';
 
 
-    warning.dataset.duplicateWarning = '';
     warning.classList.add('error-message', 'error-message--duplicate');
     warning.textContent = 'Duplicate vehicle type. Each vehicle must be a different type, as transit time varies by vehicle - not by quantity';
 

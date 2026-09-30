@@ -24,7 +24,7 @@ export function renderCalculator({ calculatorRoot, mode, elements }) {
     calculatorRoot.classList.add(`calculator--${mode}`);
 }
 
-export function switchMode({ calculatorBody, mode }) {
+export function switchMode({ calculatorBody }) {
     calculatorBody.classList.add('is-switching');
 
     setTimeout(() => {
@@ -34,7 +34,7 @@ export function switchMode({ calculatorBody, mode }) {
 
 
 export function renderFieldState(field, status) {
-    field.classList.remove('validated', 'error', 'idle');
+    field.classList.remove('validated', 'error');
 
     if (status === 'valid') {
         field.classList.add('validated');
@@ -44,23 +44,17 @@ export function renderFieldState(field, status) {
         field.classList.add('error');
     }
 
-    if (status === 'idle') {
-        field.classList.add('idle');
-    }
-
 }
 
 
 // VALIDATE NEXT BUTTON
 export function validateNextButton(button) {
     button.disabled = false;
-    button.classList.remove('disabled');
 }
 
 // disable next button
 export function disableNextButton(button) {
     button.disabled = true;
-    button.classList.add('disabled');
 }
 
 // Display Previous button

@@ -27,16 +27,7 @@
     margin-inline: auto;
 }
 
-.container--narrow {
-    inline-size: min(900px, 100% - var(--space-gutter));
-}
-
 .section {
     padding-block: var(--space-section);
-}
-
-.section--loose {
-    padding-block-start: var(--space-section-loose-start);
-    padding-block-end: var(--space-section-loose-end);
 }
 

@@ -261,7 +261,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }) => {
 
         input.addEventListener('input', (e) => {
-            handleLocationInput(locationName, fieldType, suggestionsContainer, e.target.value, input, field, area);
+            handleLocationInput(locationName, fieldType, suggestionsContainer, e.target.value, input, field);
         });
 
 

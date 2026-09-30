@@ -1,4 +1,4 @@
-export const CONTINENTAL_EUROPE_COUNTRIES = [
+const CONTINENTAL_EUROPE_COUNTRIES = [
     'it',
     'de',
     'fr',
@@ -31,7 +31,7 @@ export const CONTINENTAL_EUROPE_COUNTRIES = [
 ];
 
 
-export function isSupportedOriginCountry(countryCode) {
+function isSupportedOriginCountry(countryCode) {
     return CONTINENTAL_EUROPE_COUNTRIES.includes(countryCode);
 }
 
@@ -52,7 +52,7 @@ export function getDestinationArea(countryCode) {
 // countries whose official postcode format includes a hyphen as a structural character
 // (PL: NN-NNN, PT: NNNN-NNN) must never be split, unlike hyphenated postcode ranges
 // returned by Geoapify for other countries (e.g. Trieste: "34121-34151")
-export const HYPHENATED_POSTCODE_COUNTRIES = [
+const HYPHENATED_POSTCODE_COUNTRIES = [
     'pl',
     'pt',
 ];

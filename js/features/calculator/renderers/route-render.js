@@ -161,7 +161,6 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
 
         // add values
         button.dataset.monthId = element.id;
-        button.dataset.name = element.label;
         cardName.textContent = element.label;
         cardYear.textContent = year;
 

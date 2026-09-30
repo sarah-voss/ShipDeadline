@@ -183,7 +183,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
                 calculatorRoot
             });
             calculatorRender.switchMode({
-                calculatorBody, mode
+                calculatorBody
             })
 
             startNewCalculation();

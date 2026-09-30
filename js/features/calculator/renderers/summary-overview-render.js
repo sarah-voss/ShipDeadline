@@ -72,7 +72,6 @@ export function renderSummaryVehicles(div, vehicles) {
         if (v.status === 'valid') {
         const vehicleText = document.createElement('p');
         vehicleText.classList.add('vehicle-labels');
-        const vehicleLabel = v.type.split('-');
         vehicleText.textContent = v.type.replace('-', ' ');
         div.append(vehicleText);
         }
@@ -88,7 +87,6 @@ export function renderSummarySuccess(icon, isValid) {
 // === OVERVIEW ===
 
 export function renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, field, vehicle) {
-    if (!VEHICLE_OVERVIEW_CONFIG) return;
     field.chosenVehicle.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].vehicleType;
     field.vehicleDescription.innerText = VEHICLE_OVERVIEW_CONFIG[vehicle].description;
 }

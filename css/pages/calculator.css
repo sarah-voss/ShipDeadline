@@ -103,6 +103,10 @@
     .banner__description {
         grid-column-start: 2;
     }
+
+    .section__shipment {
+        padding-inline: var(--space-5);
+    }
 }
 
 

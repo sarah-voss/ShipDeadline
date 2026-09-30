@@ -105,19 +105,16 @@ function initCalculatorPage() {
             dates: {
                 safe: {
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-safe]'),
-                    timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-safe]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-safe]'),
                 },
                 lastDate: {
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-last-date]'),
                     resultCardDescription: calculatorRoot.querySelector('[data-result-card-last-date-description]'),
                     resultCardNote: calculatorRoot.querySelector('[data-result-card-last-date-note]'),
-                    timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-last-date]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-last-date]'),
                 },
                 deadline: {
                     resultCardDate: calculatorRoot.querySelector('[data-result-card-date-deadline]'),
-                    timelineMarker: calculatorRoot.querySelector('[data-timeline-marker-deadline]'),
                     timelineMarkerDate: calculatorRoot.querySelector('[data-timeline-marker-date-deadline]'),
                 },
             },
