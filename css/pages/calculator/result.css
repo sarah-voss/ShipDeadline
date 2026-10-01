@@ -1,4 +1,4 @@
-/* === RESULTS === */
+/* ==== RESULT ==== */
 
 .result__content>*+* {
     margin-top: var(--space-6);
@@ -27,7 +27,7 @@
     margin-inline-start: auto;
 }
 
-/* result-cards */
+/* -- CARDS -- */
 
 .result__card-container {
     display: grid;
@@ -106,7 +106,7 @@
     font-size: var(--fs-0);
 }
 
-/* Results Shipment Overview */
+/* ==== SHIPMENT OVERVIEW ==== */
 
 .overview {
     border: 1px solid var(--color-border-subtle);
@@ -133,7 +133,7 @@
     font-weight: var(--fw-bold);
 }
 
-/* Overview Grid */
+/* -- GRID -- */
 
 .overview__grid {
     display: grid;
@@ -200,7 +200,7 @@
 }
 
 
-/* -- Results timeline -- */
+/* ==== TIMELINE ==== */
 
 .timeline {
     border: 1px solid var(--color-border-subtle);
@@ -344,7 +344,7 @@
 }
 
 
-/* -- Results Notes-- */
+/* ==== NOTES ==== */
 
 .notes {
     border: 1px solid var(--color-border-subtle);
@@ -386,7 +386,7 @@
 }
 
 
-/* -- Start New Button-- */
+/* ==== START NEW ==== */
 
 .start-new {
     display: flex;
@@ -403,7 +403,9 @@
     width: 1em;
 }
 
-/* DEADLINE MATCH */
+/* ==== DEADLINE MATCH ==== */
+/* When the last shipping date is the fiscal deadline (.result--deadline-match on the result step):
+   these elements have the hidden attribute in the HTML, and the display rules below show them only in this state */
 
 .deadline-match-note {
     align-items: center;
@@ -445,7 +447,7 @@
     height: 2em;
 }
 
-/* TIMELINE */
+/* -- TIMELINE -- */
 
 .result--deadline-match .timeline__marker--last-date,
 .result--deadline-match .timeline__segment-label--risk {
@@ -499,7 +501,7 @@
 }
 
 
-/* RESULT LOADING */
+/* ==== LOADING ==== */
 
 .result__loading {
     position: relative;
@@ -557,7 +559,7 @@
     }
 }
 
-/* is-loading state class */
+/* -- LOADING STATE -- */
 
 .is-loading .result__loading {
     display: block;
@@ -568,7 +570,7 @@
 }
 
 
-/* MOBILE */
+/* ==== RESPONSIVE ==== */
 
 @media (max-width: 700px) {
     .result__intro {
@@ -605,6 +607,7 @@
     }
 
     .overview__item {
+        /* !important overrides the desktop border rules, which use more specific :nth-child selectors */
         border-right: 0 !important;
         border-bottom: 1px solid var(--color-border-subtle);
     }

@@ -1,14 +1,12 @@
 import { formatDate } from "../../../utils/date-utils.js";
 import { VEHICLES } from "../shipment/vehicles.js";
 
-// === SHARED ===
+// ==== SHARED ====
 
-// render Country Value
 export function renderCountryValue(country, field) {
     field.textContent = country ?? '';
 }
 
-// render Location Value
 export function renderLocationValue(city, postcode, field) {
     if (!city) {
         field.textContent = '';
@@ -23,7 +21,6 @@ export function renderLocationValue(city, postcode, field) {
     field.textContent = `${postcode} ${city}`;
 }
 
-// render Fiscal Date Value
 export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     if (!month || !date) {
         return;
@@ -35,7 +32,7 @@ export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     closingDate.textContent = formattedDate;
 }
 
-// render summary value: bold when set, grey placeholder text when empty
+// Bold when a value is set, grey placeholder text when empty
 export function renderSummaryValue(element, value, placeholderText = '') {
     const hasValue = Boolean(value);
     element.textContent = hasValue ? value : placeholderText;
@@ -43,7 +40,6 @@ export function renderSummaryValue(element, value, placeholderText = '') {
     element.classList.toggle('placeholder', !hasValue);
 }
 
-// render summary fiscal date when no month is selected yet
 export function renderEmptyFiscalDate(fiscalMonth, closingDate) {
     renderSummaryValue(fiscalMonth, null, 'Choose fiscal month');
     closingDate.textContent = '';
@@ -51,9 +47,8 @@ export function renderEmptyFiscalDate(fiscalMonth, closingDate) {
 
 
 
-// === SUMMARY ===
+// ==== SUMMARY ====
 
-//render summary mode 
 export function renderSummaryMode(text, scenario) {
     if (!scenario) {
         text.classList.add('placeholder');
@@ -93,13 +88,12 @@ export function renderSummaryVehicles(div, vehicles) {
     })
 }
 
-// render summary success
 export function renderSummarySuccess(icon, isValid) {
     icon.classList.toggle('is-active', isValid);
 }
 
 
-// === OVERVIEW ===
+// ==== OVERVIEW ====
 
 export function renderVehicleValue(field, vehicleType) {
     field.chosenVehicle.innerText = VEHICLES[vehicleType].label;

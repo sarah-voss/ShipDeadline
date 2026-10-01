@@ -1,6 +1,5 @@
 import { LOAD_TYPE_DESCRIPTIONS, SCENARIO_LABELS } from "../labels.js";
 
-// render load type tabs
 export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
     const { tabButtons, modeDescriptionTitle, modeDescriptionText } = elements;
     tabButtons.forEach(button => {
@@ -17,6 +16,7 @@ export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
     calculatorRoot.classList.add(`calculator--${loadType}`);
 }
 
+// Plays the transition only: the load type itself is switched by the controller
 export function switchMode({ calculatorBody }) {
     calculatorBody.classList.add('is-switching');
 
@@ -40,17 +40,14 @@ export function renderFieldState(field, status) {
 }
 
 
-// ENABLE NEXT BUTTON
 export function enableNextButton(button) {
     button.disabled = false;
 }
 
-// disable next button
 export function disableNextButton(button) {
     button.disabled = true;
 }
 
-// Display Previous button
 export function renderPreviousButtons(buttonList) {
     buttonList.forEach(button => {
         button.disabled = false;
@@ -58,7 +55,6 @@ export function renderPreviousButtons(buttonList) {
     });
 }
 
-// hide previous Button
 export function hidePreviousButtons(buttonList) {
     buttonList.forEach(button => {
         button.disabled = true;
@@ -66,7 +62,6 @@ export function hidePreviousButtons(buttonList) {
     })
 }
 
-// RENDER / HIDE STEPS
 export function renderCalculatorStep(calculatorSteps, stepToShow, calculatorRoot) {
     Object.entries(calculatorSteps).forEach(([stepName, step]) => {
         step.hidden = stepName !== stepToShow;
@@ -76,19 +71,18 @@ export function renderCalculatorStep(calculatorSteps, stepToShow, calculatorRoot
     });
 }
 
-// step enter animation: 'next' slides in from the right, 'back' from the left
+// Direction 'next' slides the step in from the right, 'back' from the left
 export function renderStepEnter(step, direction) {
     step.classList.toggle('step-enter-next', direction === 'next');
     step.classList.toggle('step-enter-back', direction === 'back');
 }
 
-// focus first input
 export function focusFirstRouteField(input) {
     input.focus();
 }
 
-// vehicles is unused here but kept so this matches the (container, vehicles, scenario)
-// signature every SCENARIO_RENDERERS entry is called with in calculator-controller.js
+// The vehicles parameter is unused here, but kept so the signature matches the
+// (container, vehicles, scenario) call every SCENARIO_RENDERERS entry receives
 export function renderComingSoonMode(container, vehicles, scenario) {
     const title = document.createElement('h2');
     const message = document.createElement('p');

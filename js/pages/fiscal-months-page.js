@@ -1,3 +1,4 @@
+// Finds the page DOM nodes and passes them to the controller
 import { setActiveNav } from "../utils/dom-utils.js";
 import { initFiscalMonthsController } from "../features/fiscal-months/controller.js";
 

@@ -1,6 +1,7 @@
 
 
-// ======== STATE STEP 1 ========= //
+// ==== STATE ====
+
 export const calculatorState = {
     currentStep: 'route',
     loadType: 'full-load',
@@ -82,9 +83,9 @@ export const calculatorState = {
 
 
 
-// ==== GENERAL ==== //
+// ==== GENERAL ====
 
-// merge the state saved in localStorage into the default state
+// Merges the state saved in localStorage into the default state
 export function restoreCalculatorState(savedState) {
     if (!savedState) return;
     Object.assign(calculatorState, savedState);
@@ -118,7 +119,7 @@ export function resetVehicles() {
 calculatorState.shipmentDetails.fullRoad.vehicles = [
                 { id: Date.now(), type: '', status: 'idle' }
             ]
-    // no vehicle selected anymore: shipment step can't stay valid
+    // No vehicle selected anymore: the shipment step can't stay valid
     calculatorState.steps.shipment.isValid = false;
 }
 
@@ -139,8 +140,9 @@ export function setResultAsStale() {
 }
 
 
-// ==== ROUTE ==== //
+// ==== ROUTE ====
 
+// Typing clears the previous selection: a value counts as selected only when picked from the suggestions
 export function setInputValue(locationName, fieldType, value) {
     calculatorState[locationName][fieldType].inputValue = value;
     calculatorState[locationName][fieldType].selected = null;
@@ -200,8 +202,6 @@ export function getSelectedMonth() {
 
 
 
-// COORDINATES
-
 export function setSelectedCoordinates(locationName, coordinates) {
 calculatorState[locationName].coordinates = coordinates;
 }
@@ -213,7 +213,7 @@ export function getSelectedCoordinates() {
 }
 
 
-// ======== FULL ROAD ========= //
+// ==== FULL ROAD ====
 
 
 export function setFullRoadVehicleType(index, type) {
@@ -237,7 +237,6 @@ export function isFullRoadComplete() {
     );
 }
 
-// add new vehicle
 export function addFullRoadVehicle() {
     const vehicles = calculatorState.shipmentDetails.fullRoad.vehicles;
     const newVehicle = {
@@ -252,7 +251,6 @@ export function addFullRoadVehicle() {
 }
 
 
-// remove vehicle
 export function removeFullRoadVehicle(vehicleId) {
     const vehicles = calculatorState.shipmentDetails.fullRoad.vehicles;
 
@@ -262,7 +260,7 @@ export function removeFullRoadVehicle(vehicleId) {
 }
 
 
-// vehicle duplicate control
+// A vehicle is a duplicate when an earlier one has the same type, so only the later one is flagged
 export function isVehicleDuplicate(vehicleId) {
     const vehicles = calculatorState.shipmentDetails.fullRoad.vehicles;
     const target = vehicles.find(v => v.id === vehicleId);

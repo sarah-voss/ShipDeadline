@@ -16,10 +16,9 @@ import { renderResultStep } from "./result-controller.js";
 
 export function initCalculatorController({ calculatorRoot, elements, pageOverlay }) {
 
-    // restore saved state first: the sub-controllers read it while initialising
+    // Restore the saved state first: the sub-controllers read it while initialising
     state.restoreCalculatorState(loadCalculatorState());
 
-    // init sub-controllers
     const { resetCalculatorForm } = initRouteController({
         elements,
         pageOverlay,
@@ -33,7 +32,6 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     });
 
 
-    // destructure imported values
     const { tabButtons,
         calculatorBody,
         locations,
@@ -44,16 +42,13 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     } = elements;
 
 
-    // ==========================================
-    //  ===  CALCULATOR FORM ===
-    // ==========================================
+    // ==== HELPERS ====
 
-    // SAVE CALCULATOR STATE
     function saveCurrentState() {
         saveCalculatorState(state.calculatorState);
     }
 
-    // GET CURRENT SCENARIO
+    // Returns null while the route is incomplete or the departure country is not supported
     function getCurrentScenario() {
         const departureCountryCode = state.getSelectedCountryCode('departure');
         const destinationCountryCode = state.getSelectedCountryCode('destination');
@@ -68,7 +63,6 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     }
 
 
-    // SYNC NEXT BUTTON
     function syncNextButton() {
         const currentStep = state.getCurrentStep();
         const isCurrentStepValid = state.getStepValidity(currentStep);
@@ -80,7 +74,6 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
     }
 
-    // SYNC CALCULATOR UI FROM STATE
     function syncCalculatorUiFromState() {
         const scenario = getCurrentScenario();
         renderSummaryFromState({ elements, scenario });
@@ -88,18 +81,19 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         saveCurrentState();
     }
 
+    // Any change to the inputs invalidates the result, so the loading animation plays again
     function handleCalculatorChange() {
         state.setResultAsStale();
         syncCalculatorUiFromState();
     }
 
 
-    // RENDER CALCULATOR FROM STATE
     function renderCalculatorFromState() {
         const currentStep = state.getCurrentStep();
         const scenario = getCurrentScenario();
         const loadType = state.getLoadType();
 
+        // Load types with no implemented scenario skip the route and show the coming soon message
         if (isLoadTypeFullyUnavailable(loadType)) {
             calculatorRender.renderCalculatorStep(calculatorSteps, 'shipment', calculatorRoot);
             calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
@@ -119,7 +113,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
 
         if (currentStep === 'shipment') {
-            // scenario can be null if route state is missing/corrupted (e.g. restored from stale storage)
+            // Scenario can be null if the route state is missing or corrupted (e.g. restored from stale storage)
             if (!scenario) {
                 calculatorRender.renderComingSoonMode(calculatorSteps.shipment);
                 state.setStepValidity('shipment', false);
@@ -143,6 +137,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         if (currentStep === 'result') {
             renderResultStep({ elements });
 
+            // The loading animation plays only the first time a result is shown
             if (!state.hasResultBeenShown()) {
                 calculatorRender.showResultLoading(calculatorRoot);
                 elements.loadingElement.addEventListener('animationend', () => {
@@ -154,13 +149,14 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
         }
     }
 
-    // START NEW CALCULATION 
     function startNewCalculation() {
         resetCalculatorForm();
         renderCalculatorFromState();
     }
 
-    // INIT
+
+    // ==== INIT ====
+
     calculatorRender.renderLoadTypeTabs({
         loadType: state.getLoadType(),
         elements,
@@ -169,11 +165,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     renderCalculatorFromState();
 
 
-    // ==========================================
-    //  === EVENT LISTENERS CALCULATOR FORM ===
-    // ==========================================
+    // ==== EVENT LISTENERS ====
 
-    // EVENT LISTENERS TAB BUTTONS
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const loadType = button.dataset.loadType;
@@ -198,7 +191,6 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
 
 
-    // ----- NEXT BUTTON -----
     calculatorNextButton.addEventListener('click', () => {
         const currentStep = state.getCurrentStep();
 
@@ -216,7 +208,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     })
 
 
-    // ----- PREVIOUS BUTTON -----
+    // Two previous buttons: the one under the form and "Back to Shipment" in the result
     calculatorPreviousButtons.forEach(button => {
         button.addEventListener('click', () => {
             const currentStep = state.getCurrentStep();
@@ -236,14 +228,12 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
     })
 
 
-    // EDIT ALL SUMMARY BUTTON 
     elements.summaryCard.editAllButton.addEventListener('click', () => {
         state.setCurrentStep('route');
         renderCalculatorFromState();
         calculatorRender.focusFirstRouteField(locations.departure.country.input);
     })
 
-    // START NEW BUTTON
     startNewButton.addEventListener('click', () => {
         state.setCurrentStep('route');
         startNewCalculation();

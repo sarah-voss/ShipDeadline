@@ -1,4 +1,4 @@
-/* === STEP 2 COMPONENTS === */
+/* ==== SHIPMENT STEP ==== */
 
 .description-container {
     margin-block: 1.5rem;
@@ -109,7 +109,7 @@
 }
 
 
-/* RESPONSIVE */
+/* ==== RESPONSIVE ==== */
 
 @media (max-width: 1050px) {
     .shipment-step {

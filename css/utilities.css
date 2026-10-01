@@ -1,8 +1,8 @@
-/* Vertical Spacing */
+/* ==== SPACING ==== */
 
 .stack {
     display: grid;
-    gap: var(--space-7); 
+    gap: var(--space-7);
 }
 
 .stack--tight {
@@ -10,19 +10,19 @@
 }
 
 
-/* Items + Content align  */
+/* ==== LAYOUT ==== */
 
 .row {
     display: flex;
 }
 
 
+/* ==== STATES ==== */
+/* Toggled by the JS: they come last in main.css so they override the components they are added to */
+
 .is-active {
     display: block;
 }
-
-
-/* STATES */
 
 .visually-hidden {
   position: absolute;

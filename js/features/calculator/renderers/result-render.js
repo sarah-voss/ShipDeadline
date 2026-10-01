@@ -1,6 +1,6 @@
 import { formatDate } from "../../../utils/date-utils.js";
 
-// deadline match: shows the extra notes and the simplified timeline (see .result--deadline-match in result.css)
+// Shows the extra notes and the simplified timeline (see .result--deadline-match in result.css)
 export function renderDeadlineMatchState(resultStep, isDeadlineMatch) {
     resultStep.classList.toggle('result--deadline-match', isDeadlineMatch);
 }

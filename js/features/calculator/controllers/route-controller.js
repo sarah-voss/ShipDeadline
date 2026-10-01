@@ -11,7 +11,6 @@ import { getFiscalMonths, getFiscalMonth } from '../../fiscal-months/queries.js'
 
 export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
-    // destructure imported values
     const {
         locations,
         monthPickerPanel,
@@ -22,12 +21,8 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     } = elements;
 
 
-    // ==========================================
-    //  === HELPER FUNCTIONS + SETUP ===
-    // ==========================================
+    // ==== HELPERS ====
 
-
-    // CHECK & UPDATE VALIDITY
     function updateRouteStep() {
         const areLocationsComplete = Object.entries(locations).every(([locationName]) => {
             return state.isFieldAreaComplete(locationName);
@@ -41,7 +36,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }
 
 
-    // SET FIELD UI STATE
     function setFieldUiState(locationName, fieldType, status, field, errorType) {
         state.setFieldStatus(locationName, fieldType, status, errorType);
         const currentStatus = state.getFieldStatus(locationName, fieldType);
@@ -52,7 +46,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         }
     }
 
-    // UPDATE POSTCODE CITY GROUP (reveal / disable it based on the country state)
+    // Reveals or disables the postcode and city fields depending on the country state
     function updatePostcodeCityGroup(locationName, area) {
         routeRender.renderPostcodeCityGroup(
             area,
@@ -62,7 +56,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         );
     }
 
-    // APPLY SELECTED COUNTRY
     function applySelectedCountry(locationName, fieldType, button, input) {
         const name = button.dataset.name;
         const code = button.dataset.code;
@@ -71,7 +64,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         state.setSelectedCountry(locationName, fieldType, name, code);
     }
 
-    // APPLY SELECTED POSTCODE OR CITY
     function applySelectedPostcodeOrCity(locationName, fieldType, button, input) {
         const postcode = button.dataset.postcode;
         const city = button.dataset.city;
@@ -98,28 +90,23 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }
 
 
-    // SHOW SUGGESTIONS
     async function showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input) {
-        // get selected country
         const selectedCountry = state.getSelectedCountryCode(locationName);
 
-        // send api request
         const suggestions = await searchLocation(fieldType, checkedValue, selectedCountry);
 
-        // value still up to date?
+        // Ignore late responses: the user may have kept typing while the request was pending
         if (input.value.trim() !== checkedValue) return;
 
-        // render suggestions
         routeRender.renderSuggestions(suggestions, suggestionsContainer, checkedValue, fieldType);
     }
     
 
-    // HANDLE LOCATION INPUT
     async function handleLocationInput(locationName, fieldType, suggestionsContainer, value, input, field) {
         const checkedValue = value.trim();
-        // set input
         state.setInputValue(locationName, fieldType, checkedValue);
 
+        // A new country invalidates the postcode and city already chosen
         if (fieldType === 'country') {
             resetPostcodeCity(locationName);
         }
@@ -133,14 +120,11 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             setFieldUiState(locationName, fieldType, 'idle', field);
             return;
         }
-        // typing
         setFieldUiState(locationName, fieldType, 'typing', field);
-        // show suggestions
         await showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input);
     }
 
 
-    // IS DESTINATION SAME AS DEPARTURE
     function isSameAsDeparture() {
         return (
             state.getSelectedLocation('departure', 'country') === state.getSelectedLocation('destination', 'country') &&
@@ -149,7 +133,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         )
     }
 
-    // UPDATE DUPLICATE DESTINATION
+    // Flags the destination when it matches the departure and clears only that error once they differ again
      function updateDuplicateDestinationState() {
         const isDuplicate = isSameAsDeparture();
         const cityWasFlagged = state.calculatorState.destination.city.errorType === 'same-as-departure';
@@ -169,7 +153,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 }
 
 
-    // RESET POSTCODE CITY
     function resetPostcodeCity(locationName) {
         state.setFieldStatus(locationName, 'postcode', 'idle');
         state.setFieldStatus(locationName, 'city', 'idle');
@@ -186,7 +169,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }
 
 
-    // RESET CALCULATOR FORM
     function resetCalculatorForm() {
         getFields(locations).forEach(({
             locationName,
@@ -216,7 +198,6 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }
 
 
-    // RESTORE ROUTE FORM
     function restoreRouteForm() {
         getFields(locations).forEach(({
             locationName,
@@ -235,6 +216,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
         const savedMonth = state.getSelectedMonth(); 
 
+        // Reload the month from the fiscal months: its closing date may have changed on the other page
         if (savedMonth) {
         const freshMonth = getFiscalMonth(savedMonth);
         
@@ -246,11 +228,11 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
     
 
-    // CREATE / LOAD MONTHS FOR CALENDAR
+    // Months shown in the picker, reloaded when the year changes
     let year = Number(monthPickerYearInput.value);
     let fiscalMonths = getFiscalMonths(year);
 
-    // OPEN MONTH PANEL (marks which months can be selected before rendering them)
+    // Selectability is a business rule, so it is decided here and passed to the renderer
     function openMonthPanel() {
         const months = fiscalMonths.map(month => ({
             ...month,
@@ -260,9 +242,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     }
 
 
-    // ==========================================
-    //  === EVENT LISTENERS ===
-    // ==========================================
+    // ==== EVENT LISTENERS ====
 
     getFields(locations).forEach(({
         locationName,
@@ -278,12 +258,12 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         });
 
 
-        // ----- SUGGESTIONS -----
+        // Uses mousedown: fires before the input blur, so the selection is applied before the blur validation runs
         suggestionsContainer.addEventListener('mousedown', (e) => {
             const button = e.target.closest('button');
             if (!button) return;
 
-            let status = 'valid'; //
+            let status = 'valid';
             let errorType = null;
 
             if (fieldType === 'country') {
@@ -320,7 +300,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         })
 
 
-        // ----- BLUR -----
+        // Leaving a field with text but no selected suggestion marks it as invalid
         input.addEventListener('blur', () => {
             const value = input.value.trim();
             if (!value) {
@@ -339,8 +319,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         })
     });
 
-    // ----- CLOSE SUGGESTIONS -----
-    // close every suggestion list except the one of the field that was clicked
+    // Close every suggestion list except the one of the field that was clicked
     document.addEventListener('click', (e) => {
         getFields(locations).forEach(({
             field,
@@ -352,21 +331,16 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         })
     })
 
-    // ----- MONTH PICKER -----
-
-    // open month panel
     monthPickerInput.addEventListener('click', () => {
         openMonthPanel();
     });
 
-    // select year
     monthPickerYearInput.addEventListener('change', (e) => {
         year = Number(e.target.value);
         fiscalMonths = getFiscalMonths(year);
         openMonthPanel();
     })
 
-    // month button event
     monthPickerGrid.addEventListener('click', (e) => {
         const button = e.target.closest('[data-month-id]');
 
@@ -387,7 +361,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     })
 
 
-    // close month picker
+    // Close the month panel on any click outside it and its trigger
     document.addEventListener('click', (e) => {
         const isPanelOpen = monthPickerPanel.classList.contains('is-open');
 
@@ -404,7 +378,8 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     })
 
 
-    // INIT 
+    // ==== INIT ====
+
     restoreRouteForm();
 
     return { resetCalculatorForm };

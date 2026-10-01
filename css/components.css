@@ -199,7 +199,7 @@
 }
 
 
-/* Button Primary */
+/* -- PRIMARY -- */
 
 .btn--primary {
     background-color: var(--color-primary);
@@ -224,7 +224,7 @@
     pointer-events: none;
 }
 
-/* Button Secondary */
+/* -- SECONDARY -- */
 
 .btn--secondary {
     background-color: var(--color-surface-plain);
@@ -258,7 +258,7 @@
 
 
 /* ==== FISCAL YEAR SELECT ==== */
-/* shared by the fiscal months page and the calculator month picker */
+/* Shared by the fiscal months page and the calculator month picker */
 
 .fiscal-year__label {
     padding-inline-end: 0.5rem;
@@ -282,7 +282,7 @@
 }
 
 
-/* ==== GLOBAL COMPONENT STATES ==== */
+/* ==== NAVIGATION STATE ==== */
 
 .active-state {
     text-decoration: underline;

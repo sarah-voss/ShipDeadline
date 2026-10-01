@@ -5,13 +5,14 @@ import { getFiscalMonths } from './queries.js';
 
 export function initFiscalMonthsController(elements) {
 
-    // destructure values
     const {
         grid,
         fiscalYearSettings,
     } = elements;
 
-    /* Set inital values Fiscal Year */
+
+    // ==== INIT ====
+
     const saveAllButton = fiscalYearSettings.saveAllButton;
     const selectFiscalYear = fiscalYearSettings.selectFiscalYear;
     let year = Number(selectFiscalYear.value);
@@ -19,13 +20,9 @@ export function initFiscalMonthsController(elements) {
 
     render.renderFiscalMonths(fiscalMonths, grid);
 
-    // ==========================================
-    //  === EVENT LISTENERS FISCAL MONTHS ===
-    // ==========================================
 
-    /* --- SETTINGS --- */
+    // ==== EVENT LISTENERS ====
 
-    /* Select Year */
     selectFiscalYear.addEventListener('change', (e) => {
         year = Number(e.target.value);
         fiscalMonths = getFiscalMonths(year);
@@ -33,7 +30,6 @@ export function initFiscalMonthsController(elements) {
     });
 
 
-    /* Save All */
     saveAllButton.addEventListener('click', () => {
         markUnsavedFiscalMonthsAsSaved(fiscalMonths);
         saveFiscalMonths(year, fiscalMonths);
@@ -41,7 +37,7 @@ export function initFiscalMonthsController(elements) {
     })
 
 
-    /* --- GRID --- */
+    // Changing a date marks the month as unsaved
     grid.addEventListener('change', (event) => {
         const input = event.target.closest('[data-input-month-id]');
         if (!input) return;
@@ -52,6 +48,7 @@ export function initFiscalMonthsController(elements) {
         render.renderFiscalMonths(fiscalMonths, grid);
     });
 
+    // Clicking anywhere on a card opens its date picker, except on the save button
     grid.addEventListener('click', (event) => {
         if (event.target.closest('[data-button-month-id]')) return;
         const card = event.target.closest('.fiscal-month-card');
@@ -61,6 +58,7 @@ export function initFiscalMonthsController(elements) {
     })
 
 
+    // Saves only this month: other unsaved cards keep their stored value
     grid.addEventListener('click', (event) => {
         const saveButton = event.target.closest('[data-button-month-id]');
         if (!saveButton) return;

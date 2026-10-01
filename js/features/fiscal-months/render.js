@@ -6,7 +6,7 @@ export function renderFiscalMonths(arr, grid) {
 
     arr.forEach(element => {
 
-        // build html elements
+        // Create elements
         const card = document.createElement('article');
         const header = document.createElement('header');
         const title = document.createElement('h2');
@@ -22,7 +22,7 @@ export function renderFiscalMonths(arr, grid) {
         const stateText = document.createElement('span');
         const saveButton = document.createElement('button');
 
-        // assign css classes 
+        // Classes
         card.classList.add('fiscal-month-card');
         header.classList.add('fiscal-month-card__header');
         title.classList.add('fiscal-month-card__title');
@@ -49,7 +49,7 @@ export function renderFiscalMonths(arr, grid) {
         stateText.classList.add('fiscal-month-card__state');
         saveButton.classList.add('btn--secondary', 'fiscal-month-card__save-button');
 
-        // assign values
+        // Content and attributes
         title.textContent = element.fullLabel;
 
         input.type = 'date';
@@ -65,7 +65,7 @@ export function renderFiscalMonths(arr, grid) {
         saveButton.dataset.buttonMonthId = element.id;
         
 
-        // assembly
+        // Assemble
         header.append(title);
         label.append(input, calendarIcon);
         body.append(label);

@@ -7,14 +7,12 @@ import { renderAddButtonVisibility, renderDuplicateWarning } from "../../rendere
 
 
 
-// getCurrentScenario comes from calculator-controller, so the scenario is calculated in one place only
+// The scenario comes from calculator-controller (getCurrentScenario), so it is calculated in one place only
 export function initFullRoadController({ elements, onFullRoadChange, getCurrentScenario }) {
 
     const { calculatorSteps } = elements;
-    
-    // ==========================================
-    //  ===  HELPER FUNCTIONS ===
-    // ==========================================
+
+    // ==== HELPERS ====
 
         function recalculateShipmentValidity() {
             const vehicles = state.calculatorState.shipmentDetails.fullRoad.vehicles;
@@ -38,9 +36,7 @@ export function initFullRoadController({ elements, onFullRoadChange, getCurrentS
         state.setStepValidity('shipment', isComplete);
     }
 
-    // ==========================================
-    //  ===  EVENT LISTENERS ===
-    // ==========================================
+    // ==== EVENT LISTENERS ====
 
        calculatorSteps.shipment.addEventListener('change', (e) => {
         const select = e.target.closest('[data-vehicle-select]');
@@ -58,7 +54,7 @@ export function initFullRoadController({ elements, onFullRoadChange, getCurrentS
        })
 
 
-    // add Vehicle
+    // Add vehicle
        calculatorSteps.shipment.addEventListener('click', (e) => {
         const addButton = e.target.closest('[data-add-vehicle]');
         if (!addButton) return;
@@ -79,7 +75,7 @@ export function initFullRoadController({ elements, onFullRoadChange, getCurrentS
 
       
 
-      // remove Vehicle
+    // Remove vehicle
        calculatorSteps.shipment.addEventListener('click', (e) => {
         const removeButton = e.target.closest('[data-remove-vehicle]');
         if (!removeButton) return;

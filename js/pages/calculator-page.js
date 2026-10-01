@@ -1,4 +1,4 @@
-// RESPONSABILITA': TROVA I NODI NEL DOM E CHIAMA IL CONTROLLER
+// Finds the page DOM nodes and passes them to the controller
 import { setActiveNav } from "../utils/dom-utils.js";
 import { initCalculatorController } from "../features/calculator/controllers/calculator-controller.js";
 

@@ -1,4 +1,5 @@
-// highlight matching substring
+// ==== SUGGESTIONS ====
+
 function highlightMatch(text, value) {
     const index = text.toLowerCase().indexOf(value.toLowerCase());
     if (index === -1) return text;
@@ -10,7 +11,6 @@ function highlightMatch(text, value) {
     return `${first}<strong>${match}</strong>${after}`;
 }
 
-// render suggestions
 export function renderSuggestions(
     suggestions,
     suggestionsContainer,
@@ -44,7 +44,7 @@ export function renderSuggestions(
             btn.dataset.city = location.city;
             btn.dataset.lat = location.coordinates.lat;
             btn.dataset.lon = location.coordinates.lon;
-            
+
             btn.dataset.postcode = location.postcode || '';
         }
 
@@ -54,15 +54,13 @@ export function renderSuggestions(
     });
 }
 
-// Close suggestions
 export function closeSuggestions(suggestionsContainer) {
     suggestionsContainer.innerHTML = '';
     suggestionsContainer.classList.remove('is-open');
 }
 
 
-// FORM VALIDATION
-
+// ==== FIELD STATE ====
 
 export function renderErrorMessage(field, errorType) {
     field.classList.remove('not-valid', 'not-europe', 'same-as-departure');
@@ -83,7 +81,6 @@ export function renderErrorMessage(field, errorType) {
 }
 
 
-// render postcode label /*
 export function renderPostcodeLabel(label, status) {
     if (status === 'not-applicable') {
         label.textContent = '*no fixed postcode';
@@ -92,25 +89,9 @@ export function renderPostcodeLabel(label, status) {
     }
         label.textContent = '*select postcode';
         label.classList.remove('not-applicable');
-} 
-
-
-// render selected fiscal month (month = null shows the empty picker)
-export function renderSelectedMonth(label, input, month) {
-    if (!month) {
-        label.textContent = '*select fiscal month';
-        label.classList.remove('field-label--selected');
-        input.classList.remove('validated');
-        return;
-    }
-
-    label.textContent = month.fullLabel;
-    label.classList.add('field-label--selected');
-    input.classList.add('validated');
 }
 
 
-// render Postcode City group
 export function renderPostcodeCityGroup(area, locationName, countryStatus, hasCountryBeenValidated) {
     const postcodeCityGroup = area.querySelector(`[data-${locationName}-postcode-city-group]`);
     const inputs = postcodeCityGroup.querySelectorAll('input');
@@ -133,7 +114,23 @@ export function renderPostcodeCityGroup(area, locationName, countryStatus, hasCo
 }
 
 
-// render Month Panel
+// ==== MONTH PICKER ====
+
+// Month = null shows the empty picker
+export function renderSelectedMonth(label, input, month) {
+    if (!month) {
+        label.textContent = '*select fiscal month';
+        label.classList.remove('field-label--selected');
+        input.classList.remove('validated');
+        return;
+    }
+
+    label.textContent = month.fullLabel;
+    label.classList.add('field-label--selected');
+    input.classList.add('validated');
+}
+
+
 export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year) {
     grid.innerHTML = '';
     monthPickerPanel.classList.add('is-open');
@@ -141,29 +138,29 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
 
     arr.forEach(element => {
 
-        // create html elements
+        // Create elements
         const button = document.createElement('button');
         const cardName = document.createElement('span');
         const cardYear = document.createElement('span');
 
-        // add classes & attrivutes
+        // Classes
         button.classList.add('month-card');
         button.type = 'button';
         cardName.classList.add('month-card__name');
         cardYear.classList.add('month-card__year');
 
-        // isSelectable is decided by the controller
+        // Selectability is decided by the controller
         if (!element.isSelectable) {
             button.disabled = true;
             button.classList.add('month-card--disabled');
         };
 
-        // add values
+        // Content and attributes
         button.dataset.monthId = element.id;
         cardName.textContent = element.label;
         cardYear.textContent = year;
 
-        // assembly
+        // Assemble
         button.append(cardName, cardYear);
         grid.append(button);
     })

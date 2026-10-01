@@ -20,6 +20,7 @@ export function isFiscalMonthSelectable(fiscalMonth) {
         return true;
     }
 
+    // A past month stays selectable while its closing date, set in the following month, has not passed
     const closingDate = new Date(fiscalMonth.closingDate);
 
     const allowedSpilloverMonth = new Date(

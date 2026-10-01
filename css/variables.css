@@ -2,7 +2,7 @@
 
     /* ==== PALETTE ==== */
 
-    /* Neutrals */
+    /* -- NEUTRALS -- */
     --neutral-50: hsl(228, 33%, 97%);
     --neutral-100: hsl(5 6% 95%);
     --neutral-200: hsl(5 6% 92%);
@@ -10,7 +10,7 @@
     --neutral-500: hsl(12, 3%, 63%);
     --neutral-900: #2d2a2a;
 
-    /* Accent */
+    /* -- BLUES -- */
     --blue-100: hsl(214, 100%, 97%);
     --blue-200: hsl(214 100% 92%);
     --blue-300: hsl(214, 80%, 94%);
@@ -20,7 +20,7 @@
     --blue-700: #006eff;
     --blue-800: hsl(226, 22%, 35%);
 
-    /* Feedback */
+    /* -- FEEDBACK -- */
     --green-200: hsl(120, 64%, 97%);
     --green-300: #7cc57c;
     --green-500: #7cc588;
@@ -40,7 +40,7 @@
 
     /* ==== SEMANTIC COLORS ==== */
 
-    /* Surfaces */
+    /* -- SURFACES -- */
     --color-bg: var(--neutral-50);
     --color-surface-subtle: var(--blue-300);
     --color-surface-strong: var(--blue-800);
@@ -51,29 +51,29 @@
     --color-warning-surface: var(--orange-300);
     --color-warning-surface-subtle: var(--orange-200);
 
-    /* Text */
+    /* -- TEXT -- */
     --color-text: var(--neutral-900);
     --color-text-inverse: var(--neutral-50);
     --color-text-muted: var(--neutral-300);
 
-    /* Borders */
+    /* -- BORDERS -- */
     --color-border-subtle: rgba(204, 204, 204, 0.5);
     --color-border-input: rgba(0, 0, 0, 0.25);
     --color-border-input-strong: rgba(0, 0, 0, 0.4);
 
-    /* Brand */
+    /* -- BRAND -- */
     --color-brand: var(--blue-500);
     --color-accent: var(--blue-400);
 
-    /* Primary */
+    /* -- PRIMARY -- */
     --color-primary: var(--blue-400);
     --color-primary-hover: var(--blue-600);
     --color-primary-active: var(--blue-700);
 
-    /* Focus */
+    /* -- FOCUS -- */
     --color-focus: var(--blue-700);
 
-    /* Feedback */
+    /* -- FEEDBACK -- */
     --color-success: var(--green-300);
     --color-success-strong: var(--green-500);
     --color-error-subtle: var(--red-300);
@@ -108,21 +108,21 @@
     ;
 
 
-    /* ==== SPACING SYSTEM ==== */
+    /* ==== SPACING ==== */
 
-    /* micro */
+    /* -- MICRO -- */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
 
-    /* contenuto */
+    /* -- CONTENT -- */
     --space-3: 0.7rem;
     --space-4: 0.9rem;
 
-    /* componenti */
+    /* -- COMPONENTS -- */
     --space-5: 1.35rem;
     --space-6: clamp(0.9rem, 3.6vw, 2.7rem);
 
-    /* layout / sezioni */
+    /* -- LAYOUT AND SECTIONS -- */
     --space-7: clamp(1.8rem, 1.35rem + 1.1vw, 3.6rem);
     --space-8: 3.6rem;
     --space-9: clamp(1.8rem, 4.5vw, 4.5rem);

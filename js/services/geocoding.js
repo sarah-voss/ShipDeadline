@@ -1,7 +1,7 @@
 import { fetchData } from "./api.js";  
 import { GEOAPIFY_CONFIG } from "./config.js";
 
-// countries whose official postcode format includes a hyphen as a structural character
+// Countries whose official postcode format includes a hyphen as a structural character
 // (PL: NN-NNN, PT: NNNN-NNN) must never be split, unlike hyphenated postcode ranges
 // returned by Geoapify for other countries (e.g. Trieste: "34121-34151")
 const HYPHENATED_POSTCODE_COUNTRIES = [
@@ -28,7 +28,7 @@ export async function searchLocation(fieldType, query, selectedCountry) {
         const countryQuery = `${BASE_URL}?text=${encodeURIComponent(query)}&lang=en&type=country&limit=10&apiKey=${API_KEY}`;
         const jsonResponse = await fetchData(countryQuery);
 
-        // skip results without name or country code: they can't be rendered or selected
+        // Skip results without name or country code: they can't be rendered or selected
         const filtered = jsonResponse.features.filter(element => {
         const { name, country_code } = element.properties;
         return name && country_code && name.toLowerCase().includes(query.toLowerCase());
@@ -61,7 +61,7 @@ export async function searchLocation(fieldType, query, selectedCountry) {
 
     if (!jsonResponse) return [];
 
-    // skip results missing the searched value or the city (needed to fill both fields)
+    // Skip results missing the searched value or the city (needed to fill both fields)
     const filtered = jsonResponse.features.filter(element => {
         const value = element.properties[fieldType];
         return value && element.properties.city && value.toLowerCase().includes(query.toLowerCase());

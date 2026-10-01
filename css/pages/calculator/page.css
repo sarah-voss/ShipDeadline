@@ -1,4 +1,4 @@
-/* ==== MAIN CONTENT ==== */
+/* ==== PAGE LAYOUT ==== */
 
 .calculator-page__content-container {
     container-type: inline-size;
@@ -19,7 +19,7 @@
     }
 }
 
-/* ==== Banner ==== */
+/* ==== BANNER ==== */
 
 .banner {
     display: flex;
@@ -82,7 +82,10 @@
 }
 
 
-/* STATE-CLASS: RESULT */
+/* ==== PAGE STATES ==== */
+
+/* -- RESULT STEP -- */
+/* On the result step the calculator takes the full width and everything around it is hidden */
 
 .calculator--result .summary-card,
 .calculator--result .banner,
@@ -101,7 +104,8 @@
     border: none;
 }
 
-/* STATE-CLASS: IS-LOADING */
+/* -- LOADING -- */
+/* While the result loading animation plays, the cards lose their background and keep the page height */
 
 .is-loading .calculator,
 .is-loading .result__container {
@@ -111,7 +115,7 @@
 }
 
 
-/* step-switching */
+/* ==== STEP ANIMATIONS ==== */
 
 .step-enter-back {
     animation: step-back 520ms ease-out;
@@ -145,7 +149,7 @@
     }
 }
 
-/* MOBILE */
+/* ==== RESPONSIVE ==== */
 
 @media (max-width: 700px) {
     .banner {

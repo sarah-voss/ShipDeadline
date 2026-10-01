@@ -3,7 +3,7 @@ import { renderFieldState } from '../calculator-render.js';
 
 export function renderFullRoadMode(container, vehicles) {
    
-    // create html elements
+    // Create elements
     const title = document.createElement('h2');
     const descriptionContainer = document.createElement('div');
     const descriptionIcon = document.createElement('img');
@@ -14,7 +14,7 @@ export function renderFullRoadMode(container, vehicles) {
     const buttonText = document.createElement('span');
 
 
-    // add css classes and properties
+    // Classes, content and attributes
     title.textContent = 'Road Transport details';
     descriptionContainer.classList.add('description-container');
     descriptionIcon.classList.add('description-icon');
@@ -37,7 +37,7 @@ export function renderFullRoadMode(container, vehicles) {
     }
 
 
-    // assembly
+    // Assemble
     descriptionContainer.append(descriptionIcon, descriptionText);
     addButton.append(buttonIcon, buttonText);
     container.replaceChildren(title, descriptionContainer, vehiclesList, addButton);

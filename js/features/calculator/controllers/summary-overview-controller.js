@@ -5,9 +5,9 @@ import { getFiscalMonth } from '../../fiscal-months/queries.js';
 
 
 
-// === SHARED ===
+// ==== SHARED ====
+// Used by both the summary card and the result overview: only the summary has success icons and placeholders
 
-// DISPLAY LOCATION VALUE
 function displayLocationValue(component, locationName) {
     const field = component[locationName];
 
@@ -26,7 +26,6 @@ function displayLocationValue(component, locationName) {
     }
 }
 
-// DISPLAY FISCAL DATE VALUE
 function displayFiscalDateValue(field) {
     const selectedMonth = state.getSelectedMonth();
 
@@ -48,9 +47,8 @@ function displayFiscalDateValue(field) {
 
 
 
-// === SUMMARY ===
+// ==== SUMMARY ====
 
-// display Summary Mode and Vehicle
 function displaySummaryMode(elements, scenario) {
     const summaryField = elements.summaryCard.mode;
     const modeText = summaryField.modeText;
@@ -80,7 +78,7 @@ export function renderSummaryFromState({ elements, scenario }) {
 
 
 
-// === OVERVIEW ===
+// ==== OVERVIEW ====
 
 export function renderOverviewValues({ elements, transitData }) {
     const overview = elements.result.overview;

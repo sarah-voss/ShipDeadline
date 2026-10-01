@@ -18,6 +18,7 @@ export function getTransitDetails({ transitInput }) {
 
     const vehicleTypes = vehiclesArr.map(v => v.type);
 
+    // With more vehicles, driving time follows the slowest one and loading time the longest one
     const speeds = vehicleTypes.map(type => {
       return  {
         type,

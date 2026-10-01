@@ -10,7 +10,7 @@
     background-color: var(--blue-100);
 }
 
-/* Intro Left */
+/* -- LEFT -- */
 .fiscal-intro__left {
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@
     height: 100%;
 }
 
-/* Intro Right */
+/* -- RIGHT -- */
 
 .fiscal-intro__right {
     display: flex;
@@ -61,7 +61,7 @@
     min-block-size: 2.5rem;
 }
 
-/* FISCAL MONTHS GRID */
+/* ==== MONTHS GRID ==== */
 
 .fiscal-months {
     padding-block: 1rem;
@@ -102,7 +102,8 @@
 }
 
 
-/* state value */
+/* -- CARD STATES -- */
+/* Set by render.js from the month status: saved, unsaved, or not modified yet (modify) */
 
 .month-value-saved {
     background-color: hsl(120, 64%, 98%);
@@ -183,6 +184,7 @@
     align-items: center;
 }
 
+/* The native calendar icon is stretched invisibly over the whole input, so a click anywhere opens the date picker */
 .fiscal-month-card__input::-webkit-calendar-picker-indicator {
     opacity: 0;
     position: absolute;
@@ -211,6 +213,8 @@
     pointer-events: none;
 }
 
+
+/* ==== RESPONSIVE ==== */
 
 @media (max-width: 1050px) {
     .fiscal-intro {

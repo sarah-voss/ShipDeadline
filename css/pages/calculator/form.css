@@ -1,4 +1,4 @@
-/* ==== CALCULATOR ==== */
+/* ==== CALCULATOR CARD ==== */
 .calculator {
     background-color: var(--color-surface-plain);
     box-shadow: var(--shadow-4);
@@ -10,7 +10,7 @@
     min-block-size: 35rem;
 }
 
-/* HEADLINE */
+/* -- LOAD TYPE TABS -- */
 .calculator__headline {
     display: flex;
     gap: 2.5rem;
@@ -57,7 +57,7 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-/* MAIN */
+/* -- MAIN -- */
 
 .calculator__main {
     height: 100%;
@@ -81,7 +81,7 @@
     height: 0.7rem;
 }
 
-/* FORM */
+/* ==== FORM ==== */
 .form {
     display: flex;
     flex-direction: column;
@@ -211,7 +211,7 @@
 }
 
 
-/* INPUTS */
+/* -- INPUTS -- */
 
 .field-input {
     padding: 1.7rem 1rem 1rem;
@@ -247,7 +247,7 @@
 }
 
 
-/* -- SUGGESTION LIST -- */
+/* -- SUGGESTIONS -- */
 .suggestions-container {
     display: none;
     position: absolute;
@@ -290,7 +290,8 @@
     background-color: var(--neutral-200);
 }
 
-/* POSTCODE & CITY */
+/* -- POSTCODE AND CITY -- */
+/* Hidden until a valid country is chosen (.is-revealed), dimmed if the country becomes invalid (.is-disabled) */
 .postcode-city-group {
     position: absolute;
     opacity: 0;
@@ -312,9 +313,10 @@
     opacity: 0.7;
 }
 
-/* ==== FORM FIELD STATES ==== */
+/* ==== FIELD STATES ==== */
+/* Classes set by the JS on the field container: validated, error and the error type */
 
-/* Success */
+/* -- VALID -- */
 .validated input,
 .validated select {
     outline: none;
@@ -348,7 +350,7 @@
     color: var(--color-success-strong);
 }
 
-/* Error */
+/* -- ERROR -- */
 .error input,
 .error select {
     outline: none;
@@ -374,6 +376,7 @@
     font-weight: 500;
 }
 
+/* Each message shows only for its own error type */
 .error.not-valid .error-message--not-valid {
     display: block;
 }
@@ -396,7 +399,7 @@
 }
 
 
-/* RESPONSIVE */
+/* ==== RESPONSIVE ==== */
 
 @media (max-width: 1150px) {
     .calculator {

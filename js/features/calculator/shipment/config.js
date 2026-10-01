@@ -11,7 +11,7 @@ export const SCENARIO_RENDERERS = {
 
 export const IMPLEMENTED_SCENARIOS = ['full-road'];
 
-// select options built from VEHICLES, so labels can't drift apart
+// Select options built from VEHICLES, so the labels cannot drift apart
 export const VEHICLE_OPTIONS = [
     { value: '', label: 'Select vehicle type' },
     ...Object.entries(VEHICLES).map(([value, vehicle]) => ({ value, label: vehicle.label })),

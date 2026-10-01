@@ -1,3 +1,4 @@
+// Countries reachable by road within Europe (EU and non-EU): the supported departures and road destinations
 const CONTINENTAL_EUROPE_COUNTRIES = [
     'it',
     'de',

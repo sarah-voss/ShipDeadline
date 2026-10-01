@@ -1,4 +1,4 @@
-// single source for every vehicle: labels for the UI, speed and loading time for the transit calculation
+// Single source for every vehicle: labels for the UI, speed and loading time for the transit calculation
 export const VEHICLES = {
     'standard-truck': {
         label: 'Standard Truck',

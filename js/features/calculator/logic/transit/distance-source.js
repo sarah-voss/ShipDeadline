@@ -1,10 +1,12 @@
 const EARTH_RADIUS_KM = 6371;
+// Roads are on average about 30% longer than the straight-line distance
 const ROAD_DISTANCE_CORRECTION_FACTOR = 1.3;
 
 function toRadians(deg) {
     return deg * (Math.PI / 180);
 }
 
+// Straight-line (haversine) distance between the two points, corrected to approximate the road distance
 export function calculateDistance(departureCoords, destinationCoords) {
     const { lat: lat1, lon: lon1 } = departureCoords;
     const { lat: lat2, lon: lon2 } = destinationCoords;

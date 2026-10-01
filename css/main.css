@@ -1,19 +1,12 @@
-/* Reset */
 @import url("./reset.css");
-
-/* Variables  */
 @import url("./variables.css");
-
-/* Base */
 @import url("./base.css");
-
-/* Layout */
 @import url("./layout.css");
 
-/* Components (shared by both pages) */
+/* -- SHARED COMPONENTS -- */
 @import url("./components.css");
 
-/* Pages - Calculator */
+/* -- CALCULATOR PAGE -- */
 @import url("./pages/calculator/page.css");
 @import url("./pages/calculator/summary-card.css");
 @import url("./pages/calculator/form.css");
@@ -21,8 +14,8 @@
 @import url("./pages/calculator/shipment-step.css");
 @import url("./pages/calculator/result.css");
 
-/* Pages - Fiscal Months */
+/* -- FISCAL MONTHS PAGE -- */
 @import url("./pages/fiscal-months.css");
 
-/* Utilities (last, so they win over components and pages) */
+/* -- UTILITIES -- */
 @import url("./utilities.css");
