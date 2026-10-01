@@ -18,7 +18,7 @@ export function renderFullRoadMode(container, vehicles) {
     title.textContent = 'Road Transport details';
     descriptionContainer.classList.add('description-container');
     descriptionIcon.classList.add('description-icon');
-    descriptionIcon.src = 'assets/icons/right-arrow.png';
+    descriptionIcon.src = 'assets/icons/arrow-right.png';
     descriptionText.classList.add('description-text');
     descriptionText.textContent = 'The selected vehicle type may slightly affect the estimated transit time.';
 
@@ -106,7 +106,7 @@ export function renderFullRoadMode(container, vehicles) {
         removeButton.dataset.vehicleId = vehicle.id;
         
         removeIcon.classList.add('remove-icon');
-        removeIcon.src = 'assets/icons/remove-icon.png';
+        removeIcon.src = 'assets/icons/trash.png';
 
         removeButton.append(removeIcon);
         vehicleContainer.append(removeButton);

@@ -17,7 +17,7 @@
 <body class="page">
     <div data-page-overlay></div>
 
-    <!-- HEADER-->
+    <!-- ==== HEADER ==== -->
     <header class="header">
         <div class="container">
             <div class="header__layout">
@@ -29,7 +29,6 @@
                     <a href="index.html" class="logo__title">ShipDeadline</a>
                 </div>
 
-                <!-- Header Nav List-->
                 <nav>
                     <ul class="header__nav-list row">
                         <li class="nav-item">
@@ -44,14 +43,14 @@
         </div>
     </header>
 
-    <!-- MAIN -->
+    <!-- ==== MAIN ==== -->
     <main class="page__main" data-calculator>
         <div class="container">
             <div class="section stack stack--tight">
 
                 <div class="banner">
                     <div class="banner__image-container">
-                        <img src="assets/images/box-img.png" alt="" class="banner__image">
+                        <img src="assets/images/box-badge.png" alt="" class="banner__image">
                     </div>
                     <h1 class="banner__title">Shipping Planning Tool</h1>
                     <div class="banner-divider"></div>
@@ -62,7 +61,7 @@
                 <div class="calculator-page__content-container">
                     <div class="calculator-page__content">
 
-                        <!-- SUMMARY CARD-->
+                        <!-- ==== SUMMARY CARD ==== -->
                         <div class="summary-card">
                             <div class="summary-card__rail">
 
@@ -72,7 +71,7 @@
 
                                 <div class="summary-card__step">
                                     <div class="summary-card__icon">
-                                        <img src="assets/icons/maps-icon.png" alt="">
+                                        <img src="assets/icons/map-pin.png" alt="">
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
@@ -84,14 +83,14 @@
                                             <p class="summary-card__dynamic-text" data-summary-departure-location></p>
                                         </div>
                                         <div class="summary-card__success-icon" data-summary-departure-success-icon>
-                                            <img src="assets/icons/success.png" alt="">
+                                            <img src="assets/icons/check-circle.png" alt="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="summary-card__step">
                                     <div class="summary-card__icon">
-                                        <img src="assets/icons/maps-icon.png" alt="">
+                                        <img src="assets/icons/map-pin.png" alt="">
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
@@ -102,14 +101,14 @@
                                             <p class="summary-card__dynamic-text" data-summary-destination-location></p>
                                         </div>
                                         <div class="summary-card__success-icon" data-summary-destination-success-icon>
-                                            <img src="assets/icons/success.png" alt="">
+                                            <img src="assets/icons/check-circle.png" alt="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="summary-card__step">
                                     <div class="summary-card__icon">
-                                        <img src="assets/icons/stopwatch-icon.png" alt="">
+                                        <img src="assets/icons/stopwatch.png" alt="">
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
@@ -119,7 +118,7 @@
                                             <p class="summary-card__dynamic-text" data-summary-closing-date></p>
                                         </div>
                                         <div class="summary-card__success-icon" data-summary-within-success-icon>
-                                            <img src="assets/icons/success.png" alt="">
+                                            <img src="assets/icons/check-circle.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +126,7 @@
                             </div>
                             <div class="summary-card__step">
                                 <div class="summary-card__icon">
-                                    <img src="assets/icons/mode-icon.png" alt="">
+                                    <img src="assets/icons/truck-fast.png" alt="">
                                 </div>
                                 <div class="summary-card__content">
                                     <div class="summary-card__content-text">
@@ -137,7 +136,7 @@
                                         <div class="summary-card__dynamic-text" data-summary-mode-vehicles></div>
                                     </div>
                                     <div class="summary-card__success-icon" data-summary-mode-success-icon>
-                                        <img src="assets/icons/success.png" alt="">
+                                        <img src="assets/icons/check-circle.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -148,9 +147,9 @@
                             </div>
                         </div>
 
-                        <!-- CALCULATOR -->
+                        <!-- ==== CALCULATOR ==== -->
                         <section class="calculator">
-                            <!-- Calculator Headline -->
+                            <!-- LOAD TYPE TABS -->
                             <div class="calculator__headline">
                                 <button class="calculator__tab calculator__tab--active" type="button"
                                     data-load-type="full-load">
@@ -170,18 +169,18 @@
                                 <p data-mode-description-text><i>Exclusive capacity, direct routing</i></p>
                             </div>
 
-                            <!-- Calculator Form -->
+                            <!-- FORM -->
                             <div class="calculator__main">
                                 <form action="" class="form">
                                     <div class="form__container" data-calculator-body>
 
+                                        <!-- STEP 1: ROUTE -->
                                         <section data-calculator-step="route">
 
-                                            <!-- Form Fieldset Departure -->
+                                            <!-- DEPARTURE -->
                                             <fieldset class="form-area form-area--departure" data-form-area-departure>
                                                 <legend class="visually-hidden">FROM</legend>
                                                 <h3 class="form-area__title">FROM</h3>
-                                                <!-- COUNTRY -->
                                                 <div class="label-input-group" data-departure-country-field>
                                                     <div class="autocomplete-wrapper">
                                                         <input type="text" id="departing-country" placeholder=" "
@@ -200,9 +199,7 @@
                                                             country must be in Europe</span>
                                                     </div>
                                                 </div>
-                                                <!-- POST CODE & CITY -->
                                                 <div class="postcode-city-group" data-departure-postcode-city-group>
-                                                    <!--Postcode -->
                                                     <div class="label-input-group" data-departure-postcode-field>
                                                         <div class="autocomplete-wrapper">
                                                             <input type="text" id="departing-postcode" placeholder=" "
@@ -219,7 +216,6 @@
                                                                 a valid postcode</span>
                                                         </div>
                                                     </div>
-                                                    <!-- City -->
                                                     <div class="label-input-group" data-departure-city-field>
                                                         <div class="autocomplete-wrapper">
                                                             <input type="text" id="departing-city" placeholder=" "
@@ -238,13 +234,12 @@
                                                 </div>
                                             </fieldset>
 
-                                            <!-- Form Divider -->
                                             <div class="form-area form-area--divider">
-                                                <img src="assets/icons/logistics.png" alt="parcel" class="parcel-icon">
+                                                <img src="assets/icons/parcel.png" alt="" class="parcel-icon">
                                                 <div class="divider divider--internal"></div>
                                             </div>
 
-                                            <!-- Form Fieldset Destination -->
+                                            <!-- DESTINATION -->
                                             <fieldset class="form-area form-area--destination"
                                                 data-form-area-destination>
                                                 <legend class="visually-hidden">TO</legend>
@@ -265,9 +260,7 @@
                                                             valid country</span>
                                                     </div>
                                                 </div>
-                                                <!-- POST CODE & CITY -->
                                                 <div class="postcode-city-group" data-destination-postcode-city-group>
-                                                    <!--Postcode -->
                                                     <div class="label-input-group" data-destination-postcode-field>
                                                         <div class="autocomplete-wrapper">
                                                             <input type="text" id="destination-postcode" placeholder=" "
@@ -284,7 +277,6 @@
                                                                 a valid postcode</span>
                                                         </div>
                                                     </div>
-                                                    <!-- City -->
                                                     <div class="label-input-group" data-destination-city-field>
                                                         <div class="autocomplete-wrapper">
                                                             <input type="text" id="destination-city" placeholder=" "
@@ -307,9 +299,9 @@
 
                                             </fieldset>
 
-                                            <!-- Form Fieldset Fiscal Month -->
+                                            <!-- FISCAL MONTH -->
                                             <fieldset class="form-area form-area--fiscal-month">
-                                                <img src="assets/icons/arrival-time.png" alt="map-icon">
+                                                <img src="assets/icons/pin-clock.png" alt="">
                                                 <legend class="visually-hidden">Desired Arrival:</legend>
                                                 <div class="inline-label-input">
                                                     <h3 class="form-area__title form-area__title--month">Desired Arrival within:</h3>
@@ -344,7 +336,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="month-picker__helper">
-                                                    <img src="assets/icons/right-arrow.png" alt=""
+                                                    <img src="assets/icons/arrow-right.png" alt=""
                                                         class="month-picker__helper-icon">
                                                     <p class="month-picker__helper-text">
                                                         <span class="month-picker__helper-label">No custom fiscal
@@ -362,27 +354,26 @@
                                         </section>
 
 
-                                        <!-- STEP 2: SHIPMENT DETAILS -->
+                                        <!-- STEP 2: SHIPMENT -->
                                         <section data-calculator-step="shipment" class="shipment-step" hidden>
-                                            <!-- created with js -->
+                                            <!-- Rendered by the JS: renderFullRoadMode or renderComingSoonMode -->
                                         </section>
 
 
                                         <!-- STEP 3: RESULT -->
                                         <section class="result__container" data-calculator-step="result" hidden>
 
-                                            <!-- RESULT ANIMATION -->
+                                            <!-- LOADING ANIMATION -->
                                             <div class="result__loading" hidden data-loading-element>
-                                                <img src="assets/icons/delivery-truck-color-brand.png"
+                                                <img src="assets/icons/semi-truck.png"
                                                     class="result__loading-img" alt="">
                                                 <div class="result__loading-line"></div>
                                             </div>
 
-                                            <!-- RESULT CONTENT -->
                                             <div class="result__content">
                                                 <header class="result__intro">
                                                     <div>
-                                                        <img src="assets/icons/result-intro-icon.png" alt="">
+                                                        <img src="assets/icons/clipboard-check.png" alt="">
                                                     </div>
                                                     <div class="result__title-div">
                                                         <h2 class="result__title">Shipping Recommendation</h2>
@@ -391,18 +382,18 @@
                                                     <button type="button"
                                                         class="btn btn--secondary result__btn--back btn--result"
                                                         data-calculator-previous-button>
-                                                        <img src="assets/icons/back-icon.png" alt="" class="btn__icon">
+                                                        <img src="assets/icons/chevron-left.png" alt="" class="btn__icon">
                                                         <span>Back to Shipment</span>
                                                     </button>
 
                                                 </header>
 
-                                                <!-- RESULT CARDS-->
+                                                <!-- RESULT CARDS -->
                                                 <div class="result__card-container">
                                                     <article class="result-card result-card--safe">
                                                         <header class="result-card__header">
                                                             <div class="result-card__icon">
-                                                                <img src="assets/icons/result-icon__calendar.png"
+                                                                <img src="assets/icons/calendar-clock.png"
                                                                     alt="">
                                                             </div>
                                                             <p class="result-card__label">Safe Shipping Window</p>
@@ -417,7 +408,7 @@
                                                     <article class="result-card result-card--last-date">
                                                         <header class="result-card__header">
                                                             <div class="result-card__icon">
-                                                                <img src="assets/icons/result-icon__truck.png" alt="">
+                                                                <img src="assets/icons/box-truck.png" alt="">
                                                             </div>
                                                             <p class="result-card__label">Ship no later than</p>
                                                         </header>
@@ -429,7 +420,7 @@
                                                         </p>
                                                         <div class="deadline-match-note deadline-match-note--last-date"
                                                             hidden>
-                                                            <img src="assets/icons/clock-icon-orange.png" alt=""
+                                                            <img src="assets/icons/clock--orange.png" alt=""
                                                                 class="deadline-match-note__img">
                                                             <p data-result-card-last-date-note></p>
                                                         </div>
@@ -438,7 +429,7 @@
                                                     <article class="result-card result-card--deadline">
                                                         <header class="result-card__header">
                                                             <div class="result-card__icon">
-                                                                <img src="assets/icons/result-icon__deadline.png"
+                                                                <img src="assets/icons/flag.png"
                                                                     alt="">
                                                             </div>
                                                             <p class="result-card__label">Fiscal Deadline</p>
@@ -450,13 +441,14 @@
                                                         </p>
                                                         <div class="deadline-match-note deadline-match-note--deadline"
                                                             hidden>
-                                                            <img src="assets/icons/success-icon-red.png" alt=""
+                                                            <img src="assets/icons/check-circle--red.png" alt=""
                                                                 class="deadline-match-note__img">
                                                             <p>Same day delivery possible</p>
                                                         </div>
                                                     </article>
                                                 </div>
 
+                                                <!-- Hidden elements in this step are shown only in the deadline match state (see the deadline match section in result.css) -->
                                                 <div class="deadline-match-warning" hidden>
                                                     <img src="assets/icons/warning.png" alt=""
                                                         class="deadline-match-warning__icon">
@@ -473,7 +465,7 @@
                                                 <!-- SHIPMENT OVERVIEW -->
                                                 <div class="overview">
                                                     <header class="overview__header">
-                                                        <img src="assets/icons/box-icon.png"
+                                                        <img src="assets/icons/box.png"
                                                             class="overview__header-icon" alt="">
                                                         <h3 class="overview__header-title">Shipment Overview</h3>
                                                     </header>
@@ -481,7 +473,7 @@
                                                     <div class="overview__grid">
                                                         <div class="overview__item">
                                                             <div class="overview__item-icon-container">
-                                                                <img src="assets/icons/maps-icon.png"
+                                                                <img src="assets/icons/map-pin.png"
                                                                     class="overview__item-icon" alt="">
                                                             </div>
                                                             <div class="overview__item-details">
@@ -497,7 +489,7 @@
 
                                                         <div class="overview__item">
                                                             <div class="overview__item-icon-container">
-                                                                <img src="assets/icons/mode-icon.png"
+                                                                <img src="assets/icons/truck-fast.png"
                                                                     class="overview__item-icon" alt="">
                                                             </div>
                                                             <div class="overview__item-details">
@@ -513,7 +505,7 @@
 
                                                         <div class="overview__item">
                                                             <div class="overview__item-icon-container">
-                                                                <img src="assets/icons/clock-icon.png"
+                                                                <img src="assets/icons/clock.png"
                                                                     class="overview__item-icon" alt="">
                                                             </div>
                                                             <div class="overview__item-details">
@@ -531,7 +523,7 @@
 
                                                         <div class="overview__item">
                                                             <div class="overview__item-icon-container">
-                                                                <img src="assets/icons/maps-icon.png"
+                                                                <img src="assets/icons/map-pin.png"
                                                                     class="overview__item-icon" alt="">
                                                             </div>
                                                             <div class="overview__item-details">
@@ -564,7 +556,7 @@
 
                                                         <div class="overview__item">
                                                             <div class="overview__item-icon-container">
-                                                                <img src="assets/icons/customs-icon.png"
+                                                                <img src="assets/icons/customs-officer.png"
                                                                     class="overview__item-icon" alt="">
                                                             </div>
                                                             <div class="overview__item-details">
@@ -585,7 +577,7 @@
                                                 <!-- TIMELINE -->
                                                 <div class="timeline">
                                                     <header class="timeline__header">
-                                                        <img src="assets/icons/result-chart-icon.png"
+                                                        <img src="assets/icons/bar-chart.png"
                                                             class="timeline__header-icon" alt="">
                                                         <div class="timeline__header-text">
                                                             <h3 class="timeline__title">Shipping Timeline</h3>
@@ -660,7 +652,7 @@
 
                                                 <!-- IMPORTANT NOTES -->
                                                 <div class="notes">
-                                                    <img src="assets/icons/info-icon.png" alt="" class="notes__icon">
+                                                    <img src="assets/icons/info.png" alt="" class="notes__icon">
                                                     <div class="notes__text">
                                                         <h4 class="notes__title">Important Notes</h4>
                                                         <ul class="notes__list">
@@ -675,15 +667,15 @@
                                                                 loading and unloading time.</li>
                                                         </ul>
                                                     </div>
-                                                    <img src="assets/images/truck-routing-img.png" alt=""
+                                                    <img src="assets/images/truck-route.png" alt=""
                                                         class="notes__image">
                                                 </div>
 
-                                                <!-- START NEW BUTTON-->
+                                                <!-- START NEW -->
                                                 <div class="start-new">
                                                     <button type="button" class="btn btn--primary start-new__button"
                                                         data-start-new-button>
-                                                        <img src="assets/icons/restart-icon.png" alt=""
+                                                        <img src="assets/icons/restart.png" alt=""
                                                             class="start-new__button-icon">
                                                         <span>Start New Calculation</span>
                                                     </button>
@@ -693,7 +685,7 @@
                                     </div>
 
 
-                                    <!-- Form Button -->
+                                    <!-- FORM BUTTONS -->
                                     <div class="form__button-container">
                                         <button type="button"
                                             class="btn btn--primary form__button form__button--previous"
@@ -713,13 +705,13 @@
 
     </main>
 
-    <!-- FOOTER -->
+    <!-- ==== FOOTER ==== -->
     <footer class="footer">
         <div class="container">
             <div class="footer__content">
                 <div class="footer__tool-stat-item">
                     <div class="footer__tool-stat-icon-container">
-                        <img src="assets/icons/boxes-white.png" alt="" class="footer__tool-stat-icon">
+                        <img src="assets/icons/hand-truck.png" alt="" class="footer__tool-stat-icon">
                     </div>
                     <div class="footer__tool-stat-content">
                         <span class="footer__tool-stat-title">Full & Partial</span>
@@ -728,7 +720,7 @@
                 </div>
                 <div class="footer__tool-stat-item">
                     <div class="footer__tool-stat-icon-container">
-                        <img src="assets/icons/road-sea-air-white.png" alt="" class="footer__tool-stat-icon">
+                        <img src="assets/icons/transport-modes.png" alt="" class="footer__tool-stat-icon">
                     </div>
                     <div class="footer__tool-stat-content">
                         <span class="footer__tool-stat-title">Road | Sea | Air</span>
@@ -737,7 +729,7 @@
                 </div>
                 <div class="footer__tool-stat-item">
                     <div class="footer__tool-stat-icon-container">
-                        <img src="assets/icons/calendar-white.png" alt="" class="footer__tool-stat-icon">
+                        <img src="assets/icons/calendar--white.png" alt="" class="footer__tool-stat-icon">
                     </div>
                     <div class="footer__tool-stat-content">
                         <span class="footer__tool-stat-title">Fiscal Aware</span>

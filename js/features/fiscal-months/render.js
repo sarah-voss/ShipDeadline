@@ -1,3 +1,9 @@
+// The footer icon is derived from the status, not saved with the month, so renaming an icon can't break saved data
+const STATUS_ICONS = {
+    saved: 'assets/icons/check-circle.png',
+    unsaved: 'assets/icons/warning.png',
+};
+const DEFAULT_STATUS_ICON = 'assets/icons/pencil-outline.png';
 
 export function renderFiscalMonths(arr, grid) {
     grid.innerHTML = '';
@@ -59,7 +65,7 @@ export function renderFiscalMonths(arr, grid) {
         label.htmlFor = element.id;
 
         calendarIcon.src = 'assets/icons/calendar-simple.png';
-        footerIcon.src = element.footerIcon;
+        footerIcon.src = STATUS_ICONS[element.status] ?? DEFAULT_STATUS_ICON;
         stateText.textContent = element.status;
         saveButton.textContent = 'save';
         saveButton.dataset.buttonMonthId = element.id;

@@ -13,7 +13,6 @@ export function createFiscalMonths(arr, year) {
             id: `${year}-${numeratedMonth}`,
             closingDate: defaultClosingDate,
             status: 'modify closing date',
-            footerIcon: 'assets/icons/pen.png'
         }
     })
 }
@@ -23,7 +22,6 @@ export function setClosingDate(fiscalMonths, monthId, newDate) {
         if (month.id === monthId) {
             month.closingDate = newDate;
             month.status = 'unsaved';
-            month.footerIcon = 'assets/icons/warning.png'
         }
     });
     };
@@ -32,7 +30,6 @@ export function markUnsavedFiscalMonthsAsSaved(fiscalMonths) {
     fiscalMonths.forEach(month => {
         if (month.status === 'unsaved') {
             month.status = 'saved';
-            month.footerIcon = 'assets/icons/success.png'
         };
     });
 }
@@ -41,7 +38,6 @@ export function markFiscalMonthAsSaved(fiscalMonths, monthId) {
     const month = findFiscalMonthById(fiscalMonths, monthId);
     if (!month) return;
     month.status = 'saved';
-    month.footerIcon = 'assets/icons/success.png';
 }
 
 export function replaceFiscalMonth(fiscalMonths, updatedMonth) {
