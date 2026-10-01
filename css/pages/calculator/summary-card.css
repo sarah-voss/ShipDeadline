@@ -17,7 +17,7 @@
     padding-inline: 0.7rem;
 }
 
-.summary-card__header h3 {
+.summary-card__header h2 {
     font-size: var(--fs-2);
 }
 
@@ -89,6 +89,9 @@
     block-size: 1em;
     align-items: center;
     justify-content: center;
+    inline-size: 100%;
+    background: none;
+    border: none;
     border-top: 1px solid var(--color-border-subtle);
 }
 
@@ -116,7 +119,7 @@
 }
 
 .placeholder {
-    color: rgb(128, 128, 128);
+    color: var(--color-text-muted);
     font-size: var(--fs-0);
 }
 

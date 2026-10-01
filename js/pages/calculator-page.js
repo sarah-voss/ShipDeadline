@@ -58,6 +58,7 @@ function initCalculatorPage() {
             }
         },
         monthPickerInput: calculatorRoot.querySelector('[data-month-picker-input]'),
+        monthPickerTrigger: calculatorRoot.querySelector('[data-month-picker-trigger]'),
         monthPickerPanel: calculatorRoot.querySelector('[data-month-picker-panel]'),
         monthPickerLabel: calculatorRoot.querySelector('[data-month-picker-label]'),
         monthPickerYearInput: calculatorRoot.querySelector('[data-month-picker-year-input]'),

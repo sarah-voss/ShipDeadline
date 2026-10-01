@@ -163,6 +163,7 @@
 }
 
 .form-area__title {
+    font-size: var(--fs-2);
     font-weight: var(--fw-bold);
 }
 
@@ -235,7 +236,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: var(--fs-1);
-    color: var(--neutral-500);
+    color: var(--color-text-muted);
     pointer-events: none;
     transition: 0.2s ease;
 }

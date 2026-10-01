@@ -19,6 +19,7 @@ export function renderFullRoadMode(container, vehicles) {
     descriptionContainer.classList.add('description-container');
     descriptionIcon.classList.add('description-icon');
     descriptionIcon.src = 'assets/icons/arrow-right.png';
+    descriptionIcon.alt = '';
     descriptionText.classList.add('description-text');
     descriptionText.textContent = 'The selected vehicle type may slightly affect the estimated transit time.';
 
@@ -29,12 +30,12 @@ export function renderFullRoadMode(container, vehicles) {
     addButton.type = 'button';
     buttonIcon.classList.add('add-vehicle__icon');
     buttonIcon.src = 'assets/icons/plus.png';
+    buttonIcon.alt = '';
     buttonText.classList.add('add-vehicle__text');
     buttonText.textContent = 'Add another vehicle';
 
-    if (!vehicles.every(v => v.status === 'valid') || vehicles.length >= MAX_FULL_ROAD_VEHICLES) {
-        addButton.classList.add('visually-hidden');
-    }
+    // hidden (not visually-hidden) also removes it from keyboard navigation
+    addButton.hidden = !vehicles.every(v => v.status === 'valid') || vehicles.length >= MAX_FULL_ROAD_VEHICLES;
 
 
     // Assemble
@@ -64,17 +65,22 @@ export function renderFullRoadMode(container, vehicles) {
     vehicleContainer.dataset.vehicleId = vehicle.id;
 
     vehicleContent.classList.add('vehicle-content');
+    // Announces the duplicate warning when it appears
+    vehicleContent.setAttribute('aria-live', 'polite');
 
     label.classList.add('select-vehicle__label');
     label.textContent = `Vehicle ${index + 1}`;
+    label.htmlFor = `vehicle-select-${vehicle.id}`;
 
     selectWrapper.classList.add('select-vehicle-wrapper');
 
     select.classList.add('select-vehicle');
+    select.id = `vehicle-select-${vehicle.id}`;
     select.dataset.vehicleSelect = 'true';
     select.dataset.vehicleId = vehicle.id;
 
     successIcon.classList.add('helper-icon-success');
+    successIcon.setAttribute('aria-hidden', 'true');
     successIcon.textContent = '✔';
 
 
@@ -104,9 +110,11 @@ export function renderFullRoadMode(container, vehicles) {
         removeButton.classList.add('remove-button');
         removeButton.dataset.removeVehicle = 'true';
         removeButton.dataset.vehicleId = vehicle.id;
-        
+        removeButton.setAttribute('aria-label', `Remove vehicle ${index + 1}`);
+
         removeIcon.classList.add('remove-icon');
         removeIcon.src = 'assets/icons/trash.png';
+        removeIcon.alt = '';
 
         removeButton.append(removeIcon);
         vehicleContainer.append(removeButton);
@@ -118,7 +126,7 @@ export function renderFullRoadMode(container, vehicles) {
 
 export function renderAddButtonVisibility(container, isVisible) {
     const addButton = container.querySelector('[data-add-vehicle]');
-    addButton.classList.toggle('visually-hidden', !isVisible);
+    addButton.hidden = !isVisible;
 }
 
 export function renderDuplicateWarning(vehicleContainer, isDuplicate) {

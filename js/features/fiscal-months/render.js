@@ -62,12 +62,18 @@ export function renderFiscalMonths(arr, grid) {
         input.id = element.id;
         input.value = element.closingDate;
         input.dataset.inputMonthId = element.id;
+        // The label only wraps the input and an icon, so the input needs its own accessible name
+        input.setAttribute('aria-label', `Closing date, ${element.fullLabel}`);
         label.htmlFor = element.id;
 
         calendarIcon.src = 'assets/icons/calendar-simple.png';
+        calendarIcon.alt = '';
         footerIcon.src = STATUS_ICONS[element.status] ?? DEFAULT_STATUS_ICON;
+        footerIcon.alt = '';
         stateText.textContent = element.status;
+        saveButton.type = 'button';
         saveButton.textContent = 'save';
+        saveButton.setAttribute('aria-label', `Save ${element.fullLabel}`);
         saveButton.dataset.buttonMonthId = element.id;
         
 

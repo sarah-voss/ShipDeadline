@@ -179,7 +179,7 @@
 .overview__item-label {
     font-size: var(--fs-0);
     font-weight: var(--fw-bold);
-    color: var(--neutral-500);
+    color: var(--color-text-muted);
 }
 
 .overview__item-value {
@@ -365,6 +365,7 @@
 }
 
 .notes__title {
+    font-size: var(--fs-1);
     font-weight: var(--fw-bold);
     margin-block-end: var(--space-1);
 }

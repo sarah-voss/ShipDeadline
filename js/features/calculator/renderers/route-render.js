@@ -30,6 +30,8 @@ export function renderSuggestions(
     suggestions.forEach(location => {
         const li = document.createElement('li');
         const btn = document.createElement('button');
+        // Inside the form a button defaults to submit: Enter on a suggestion would reload the page
+        btn.type = 'button';
 
         if (fieldType === 'country') {
             btn.innerHTML = highlightMatch(location.name, value);
@@ -57,6 +59,16 @@ export function renderSuggestions(
 export function closeSuggestions(suggestionsContainer) {
     suggestionsContainer.innerHTML = '';
     suggestionsContainer.classList.remove('is-open');
+}
+
+// Moves the focus by step (1 or -1) from the current suggestion, or to the first one when current is null.
+// Returns false when there is no suggestion in that direction
+export function moveSuggestionFocus(suggestionsContainer, current, step) {
+    const buttons = [...suggestionsContainer.querySelectorAll('button')];
+    const next = buttons[buttons.indexOf(current) + step];
+    if (!next) return false;
+    next.focus();
+    return true;
 }
 
 
@@ -131,10 +143,11 @@ export function renderSelectedMonth(label, input, month) {
 }
 
 
-export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year) {
+export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year, trigger) {
     grid.innerHTML = '';
     monthPickerPanel.classList.add('is-open');
     pageOverlay.classList.add('dark-overlay');
+    trigger.setAttribute('aria-expanded', 'true');
 
     arr.forEach(element => {
 
@@ -167,9 +180,17 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
 }
 
 
-export function closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay) {
+// Keyboard users land on the first month they can pick
+export function focusFirstSelectableMonth(grid) {
+    grid.querySelector('button:not(:disabled)')?.focus();
+}
+
+// returnFocus moves the focus back to the trigger (month chosen or Escape), not on a click elsewhere
+export function closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay, trigger, returnFocus = false) {
     monthPickerGrid.innerHTML = '';
     monthPickerPanel.classList.remove('is-open');
     pageOverlay.classList.remove('dark-overlay');
+    trigger.setAttribute('aria-expanded', 'false');
+    if (returnFocus) trigger.focus();
 }
 

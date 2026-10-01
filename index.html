@@ -66,7 +66,7 @@
                             <div class="summary-card__rail">
 
                                 <div class="summary-card__header">
-                                    <h3>Summary</h3>
+                                    <h2>Summary</h2>
                                 </div>
 
                                 <div class="summary-card__step">
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
-                                            <h4 class="summary-card__step-title">FROM</h4>
+                                            <h3 class="summary-card__step-title">FROM</h3>
                                             <p class="summary-card__dynamic-text placeholder"
                                                 data-summary-departure-country data-placeholder="Select origin">
                                                 Select origin
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
-                                            <h4 class="summary-card__step-title">TO</h4>
+                                            <h3 class="summary-card__step-title">TO</h3>
                                             <p class="summary-card__dynamic-text placeholder"
                                                 data-summary-destination-country data-placeholder="Select destination">
                                                 Select destination</p>
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="summary-card__content">
                                         <div class="summary-card__content-text">
-                                            <h4 class="summary-card__step-title">WITHIN</h4>
+                                            <h3 class="summary-card__step-title">WITHIN</h3>
                                             <p class="summary-card__dynamic-text placeholder" data-summary-month-name>
                                                 Choose fiscal month</p>
                                             <p class="summary-card__dynamic-text" data-summary-closing-date></p>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="summary-card__content">
                                     <div class="summary-card__content-text">
-                                        <h4 class="summary-card__step-title">MODE</h4>
+                                        <h3 class="summary-card__step-title">MODE</h3>
                                         <p class="summary-card__dynamic-text placeholder" data-summary-mode>Air / Sea /
                                             Road</p>
                                         <div class="summary-card__dynamic-text" data-summary-mode-vehicles></div>
@@ -141,10 +141,10 @@
                                 </div>
                             </div>
 
-                            <div class="summary-card__footer" data-summary-edit-all-button>
+                            <button type="button" class="summary-card__footer" data-summary-edit-all-button>
                                 <img src="assets/icons/pencil.png" alt="" class="summary-card__footer-icon">
-                                <p class="summary-card__footer-text">Edit all</p>
-                            </div>
+                                <span class="summary-card__footer-text">Edit all</span>
+                            </button>
                         </div>
 
                         <!-- ==== CALCULATOR ==== -->
@@ -152,11 +152,11 @@
                             <!-- LOAD TYPE TABS -->
                             <div class="calculator__headline">
                                 <button class="calculator__tab calculator__tab--active" type="button"
-                                    data-load-type="full-load">
+                                    aria-pressed="true" data-load-type="full-load">
                                     Full Load
                                 </button>
                                 <button class="calculator__tab" type="button"
-                                    data-load-type="partial-load">
+                                    aria-pressed="false" data-load-type="partial-load">
                                     Partial Load
                                 </button>
                             </div>
@@ -180,7 +180,7 @@
                                             <!-- DEPARTURE -->
                                             <fieldset class="form-area form-area--departure" data-form-area-departure>
                                                 <legend class="visually-hidden">FROM</legend>
-                                                <h3 class="form-area__title">FROM</h3>
+                                                <h2 class="form-area__title">FROM</h2>
                                                 <div class="label-input-group" data-departure-country-field>
                                                     <div class="autocomplete-wrapper">
                                                         <input type="text" id="departing-country" placeholder=" "
@@ -191,8 +191,8 @@
                                                         </label>
                                                         <ul data-departure-country-suggestions></ul>
                                                     </div>
-                                                    <div class="field-helper">
-                                                        <span class="helper-icon-success">✔</span>
+                                                    <div class="field-helper" aria-live="polite">
+                                                        <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                         <span class="error-message error-message--not-valid">*select a
                                                             valid country</span>
                                                         <span class="error-message error-message--not-europe">*departure
@@ -210,8 +210,8 @@
                                                             </label>
                                                             <ul data-departure-postcode-suggestions></ul>
                                                         </div>
-                                                        <div class="field-helper">
-                                                            <span class="helper-icon-success">✔</span>
+                                                        <div class="field-helper" aria-live="polite">
+                                                            <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                             <span class="error-message error-message--not-valid">*select
                                                                 a valid postcode</span>
                                                         </div>
@@ -225,8 +225,8 @@
                                                             </label>
                                                             <ul data-departure-city-suggestions></ul>
                                                         </div>
-                                                        <div class="field-helper">
-                                                            <span class="helper-icon-success">✔</span>
+                                                        <div class="field-helper" aria-live="polite">
+                                                            <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                             <span class="error-message error-message--not-valid">*select
                                                                 a valid city</span>
                                                         </div>
@@ -243,7 +243,7 @@
                                             <fieldset class="form-area form-area--destination"
                                                 data-form-area-destination>
                                                 <legend class="visually-hidden">TO</legend>
-                                                <h3 class="form-area__title">TO</h3>
+                                                <h2 class="form-area__title">TO</h2>
                                                 <div class="label-input-group" data-destination-country-field>
                                                     <div class="autocomplete-wrapper">
                                                         <input type="text" id="destination-country" placeholder=" "
@@ -254,8 +254,8 @@
                                                         </label>
                                                         <ul data-destination-country-suggestions></ul>
                                                     </div>
-                                                    <div class="field-helper">
-                                                        <span class="helper-icon-success">✔</span>
+                                                    <div class="field-helper" aria-live="polite">
+                                                        <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                         <span class="error-message error-message--not-valid">*select a
                                                             valid country</span>
                                                     </div>
@@ -271,8 +271,8 @@
                                                             </label>
                                                             <ul data-destination-postcode-suggestions></ul>
                                                         </div>
-                                                        <div class="field-helper">
-                                                            <span class="helper-icon-success">✔</span>
+                                                        <div class="field-helper" aria-live="polite">
+                                                            <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                             <span class="error-message error-message--not-valid">*select
                                                                 a valid postcode</span>
                                                         </div>
@@ -286,8 +286,8 @@
                                                             </label>
                                                             <ul data-destination-city-suggestions></ul>
                                                         </div>
-                                                        <div class="field-helper">
-                                                            <span class="helper-icon-success">✔</span>
+                                                        <div class="field-helper" aria-live="polite">
+                                                            <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                             <span class="error-message error-message--not-valid">*select
                                                                 a valid city</span>
                                                             <span
@@ -304,21 +304,23 @@
                                                 <img src="assets/icons/pin-clock.png" alt="">
                                                 <legend class="visually-hidden">Desired Arrival:</legend>
                                                 <div class="inline-label-input">
-                                                    <h3 class="form-area__title form-area__title--month">Desired Arrival within:</h3>
+                                                    <h2 class="form-area__title form-area__title--month">Desired Arrival within:</h2>
                                                     <div class="label-input-group" data-month-picker-input>
                                                         <button type="button"
-                                                            class="month-picker__trigger">
+                                                            class="month-picker__trigger" aria-expanded="false"
+                                                            aria-controls="month-picker-panel" data-month-picker-trigger>
                                                             <span class="field-label" data-month-picker-label>*select
                                                                 fiscal month</span>
                                                         </button>
-                                                        <span class="helper-icon-success">✔</span>
+                                                        <span class="helper-icon-success" aria-hidden="true">✔</span>
                                                     </div>
                                                 </div>
 
                                             </fieldset>
 
                                             <!-- MONTH PICKER -->
-                                            <div class="month-picker__panel" data-month-picker-panel>
+                                            <div class="month-picker__panel" id="month-picker-panel" role="dialog"
+                                                aria-label="Select fiscal month" data-month-picker-panel>
                                                 <div class="month-picker__header">
                                                     <div class="month-picker__header-left">
                                                         <h3 class="month-picker__title">Delivery within</h3>
@@ -654,7 +656,7 @@
                                                 <div class="notes">
                                                     <img src="assets/icons/info.png" alt="" class="notes__icon">
                                                     <div class="notes__text">
-                                                        <h4 class="notes__title">Important Notes</h4>
+                                                        <h3 class="notes__title">Important Notes</h3>
                                                         <ul class="notes__list">
                                                             <li class="notes__list-item">If multiple vehicles are
                                                                 selected,

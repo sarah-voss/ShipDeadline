@@ -3,10 +3,9 @@ import { LOAD_TYPE_DESCRIPTIONS, SCENARIO_LABELS } from "../labels.js";
 export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
     const { tabButtons, modeDescriptionTitle, modeDescriptionText } = elements;
     tabButtons.forEach(button => {
-        button.classList.remove('calculator__tab--active');
-        if (button.dataset.loadType === loadType) {
-            button.classList.add('calculator__tab--active');
-        }
+        const isActive = button.dataset.loadType === loadType;
+        button.classList.toggle('calculator__tab--active', isActive);
+        button.setAttribute('aria-pressed', isActive);
     });
 
     modeDescriptionTitle.textContent = LOAD_TYPE_DESCRIPTIONS[loadType]?.title;
@@ -37,6 +36,10 @@ export function renderFieldState(field, status) {
         field.classList.add('error');
     }
 
+    // Screen readers announce the field as invalid, not only the red border
+    field.querySelectorAll('input, select').forEach(control => {
+        control.setAttribute('aria-invalid', status === 'error');
+    });
 }
 
 

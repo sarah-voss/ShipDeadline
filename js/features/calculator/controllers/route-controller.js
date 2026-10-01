@@ -15,6 +15,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         locations,
         monthPickerPanel,
         monthPickerInput,
+        monthPickerTrigger,
         monthPickerLabel,
         monthPickerYearInput,
         monthPickerGrid,
@@ -233,12 +234,17 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     let fiscalMonths = getFiscalMonths(year);
 
     // Selectability is a business rule, so it is decided here and passed to the renderer
-    function openMonthPanel() {
+    function openMonthPanel({ focusFirstMonth = false } = {}) {
         const months = fiscalMonths.map(month => ({
             ...month,
             isSelectable: isFiscalMonthSelectable(month)
         }));
-        routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, months, year);
+        routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, months, year, monthPickerTrigger);
+        if (focusFirstMonth) routeRender.focusFirstSelectableMonth(monthPickerGrid);
+    }
+
+    function closeMonthPanel(returnFocus = false) {
+        routeRender.closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay, monthPickerTrigger, returnFocus);
     }
 
 
@@ -258,11 +264,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         });
 
 
-        // Uses mousedown: fires before the input blur, so the selection is applied before the blur validation runs
-        suggestionsContainer.addEventListener('mousedown', (e) => {
-            const button = e.target.closest('button');
-            if (!button) return;
-
+        function selectSuggestion(button) {
             let status = 'valid';
             let errorType = null;
 
@@ -297,11 +299,56 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
             updateRouteStep();
             onRouteChange();
+        }
+
+        // Uses mousedown: fires before the input blur, so the selection is applied before the blur validation runs
+        suggestionsContainer.addEventListener('mousedown', (e) => {
+            const button = e.target.closest('button');
+            if (!button) return;
+            selectSuggestion(button);
+        })
+
+        // Keyboard: arrow down from the field enters the suggestions, Escape closes them
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' && routeRender.moveSuggestionFocus(suggestionsContainer, null, 1)) {
+                e.preventDefault();
+            }
+            if (e.key === 'Escape') {
+                routeRender.closeSuggestions(suggestionsContainer);
+            }
+        })
+
+        // Keyboard inside the suggestions: arrows move, Enter or Space selects, Escape goes back to the field
+        suggestionsContainer.addEventListener('keydown', (e) => {
+            const button = e.target.closest('button');
+            if (!button) return;
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const moved = routeRender.moveSuggestionFocus(suggestionsContainer, button, e.key === 'ArrowDown' ? 1 : -1);
+                if (!moved && e.key === 'ArrowUp') input.focus();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                routeRender.closeSuggestions(suggestionsContainer);
+                input.focus();
+                return;
+            }
+
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectSuggestion(button);
+                input.focus();
+            }
         })
 
 
-        // Leaving a field with text but no selected suggestion marks it as invalid
-        input.addEventListener('blur', () => {
+        // Leaving a field with text but no selected suggestion marks it as invalid,
+        // unless the focus is moving into its own suggestions (keyboard navigation)
+        input.addEventListener('blur', (e) => {
+            if (suggestionsContainer.contains(e.relatedTarget)) return;
+
             const value = input.value.trim();
             if (!value) {
                 setFieldUiState(locationName, fieldType, 'idle', field);
@@ -332,7 +379,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
     })
 
     monthPickerInput.addEventListener('click', () => {
-        openMonthPanel();
+        openMonthPanel({ focusFirstMonth: true });
     });
 
     monthPickerYearInput.addEventListener('change', (e) => {
@@ -355,7 +402,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         });
 
         routeRender.renderSelectedMonth(monthPickerLabel, monthPickerInput, selectedMonth);
-        routeRender.closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay);
+        closeMonthPanel(true);
         updateRouteStep();
         onRouteChange();
     })
@@ -374,7 +421,13 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
         if (clickedInsidePanel || clickedInput) return;
 
-        routeRender.closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay);
+        closeMonthPanel();
+    })
+
+    // Escape closes the month panel and gives the focus back to its trigger
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !monthPickerPanel.classList.contains('is-open')) return;
+        closeMonthPanel(true);
     })
 
 

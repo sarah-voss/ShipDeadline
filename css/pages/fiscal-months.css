@@ -125,7 +125,7 @@
 }
 
 .month-value-unsaved .fiscal-month-card__state {
-    color: var(--color-warning);
+    color: var(--color-warning-strong);
 }
 
 .month-value-modify:hover {

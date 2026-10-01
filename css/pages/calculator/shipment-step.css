@@ -69,6 +69,11 @@
     cursor: pointer;
 }
 
+/* The display: flex above would otherwise override the hidden attribute */
+.add-vehicle-button[hidden] {
+    display: none;
+}
+
 
 .add-vehicle-button:hover .add-vehicle__text {
     font-weight: 600;

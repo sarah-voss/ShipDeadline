@@ -3,9 +3,18 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Near-zero durations instead of none: the result loading still ends through the animationend event */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
 
