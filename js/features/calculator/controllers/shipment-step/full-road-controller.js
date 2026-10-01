@@ -2,14 +2,13 @@
 import * as calculatorRender from "../../renderers/calculator-render.js";
 import * as state from "../../state.js";
 
-import { getCalculatorScenario } from "../../logic/scenarios.js";
 import { SCENARIO_RENDERERS, MAX_FULL_ROAD_VEHICLES } from "../../shipment/config.js";
-import { getDestinationArea } from '../../logic/geography-rules.js';
 import { renderAddButtonVisibility, renderDuplicateWarning } from "../../renderers/shipment-step/full-road-step-render.js";
 
 
 
-export function initFullRoadController({ elements, onFullRoadChange }) {
+// getCurrentScenario comes from calculator-controller, so the scenario is calculated in one place only
+export function initFullRoadController({ elements, onFullRoadChange, getCurrentScenario }) {
 
     const { calculatorSteps } = elements;
     
@@ -37,14 +36,6 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
 
         renderAddButtonVisibility(calculatorSteps.shipment, isAddButtonVisible);
         state.setStepValidity('shipment', isComplete);
-    }
-
-    function getCurrentFullRoadScenario() {
-        const selectedCountryCode = state.getSelectedCountryCode('destination');
-        return getCalculatorScenario({
-            loadType: state.getLoadType(),
-            destinationArea: getDestinationArea(selectedCountryCode),
-        });
     }
 
     // ==========================================
@@ -77,7 +68,7 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
 
         state.addFullRoadVehicle();
 
-        const scenario = getCurrentFullRoadScenario();
+        const scenario = getCurrentScenario();
         const renderMode = SCENARIO_RENDERERS[scenario];
         renderMode(calculatorSteps.shipment, vehicles);
 
@@ -96,7 +87,7 @@ export function initFullRoadController({ elements, onFullRoadChange }) {
         state.removeFullRoadVehicle(Number(removeButton.dataset.vehicleId));
 
         const vehicles = state.calculatorState.shipmentDetails.fullRoad.vehicles;
-        const scenario = getCurrentFullRoadScenario();
+        const scenario = getCurrentScenario();
         const renderMode = SCENARIO_RENDERERS[scenario];
         renderMode(calculatorSteps.shipment, vehicles);
 

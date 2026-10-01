@@ -1,0 +1,135 @@
+/* === STEP 2 COMPONENTS === */
+
+.description-container {
+    margin-block: 1.5rem;
+    inline-size: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.description-icon {
+    inline-size: 1.5em;
+    block-size: 1.5em;
+}
+
+.description-text {
+    line-height: 1.5;
+    font-size: var(--fs-0);
+    color: var(--color-brand);
+}
+
+.vehicles-list>*+* {
+    margin-top: 1.5rem;
+}
+
+.vehicle-container {
+    inline-size: 100%;
+    max-inline-size: 700px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding-block: 1.5rem;
+    padding-inline: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vehicle-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    inline-size: 50%;
+}
+
+.select-vehicle-wrapper {
+    position: relative;
+}
+
+.select-vehicle {
+    inline-size: 100%;
+    max-inline-size: 300px;
+}
+
+.select-vehicle:hover {
+    box-shadow: var(--shadow-1);
+}
+
+.select-vehicle__label {
+    font-weight: 600;
+}
+
+.add-vehicle-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0.8rem;
+    cursor: pointer;
+}
+
+
+.add-vehicle-button:hover .add-vehicle__text {
+    font-weight: 600;
+}
+
+.add-vehicle-button:active {
+    transform: translateY(2px);
+}
+
+.add-vehicle-button:active .add-vehicle__text {
+    font-weight: 600;
+}
+
+.add-vehicle__icon {
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.add-vehicle__text {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.remove-button {
+    background: transparent;
+    ;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    transform: scale(1.02);
+}
+
+.remove-icon {
+    inline-size: 1.5em;
+    block-size: 1.5em;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+    .shipment-step {
+        padding-inline: var(--space-5);
+    }
+}
+
+@media (max-width: 700px) {
+    .vehicle-container {
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .vehicle-content {
+        inline-size: 100%;
+        min-inline-size: 0;
+    }
+
+    .select-vehicle {
+        max-inline-size: none;
+        min-block-size: 2.75rem;
+    }
+}

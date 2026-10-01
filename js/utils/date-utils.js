@@ -22,3 +22,11 @@ export function getTodayAtMidnight() {
     today.setHours(0, 0, 0, 0);
     return today;
 }
+
+export function isSameDay(dateA, dateB) {
+    return (
+        dateA.getFullYear() === dateB.getFullYear() &&
+        dateA.getMonth() === dateB.getMonth() &&
+        dateA.getDate() === dateB.getDate()
+    );
+}

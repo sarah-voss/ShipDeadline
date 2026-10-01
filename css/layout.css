@@ -17,14 +17,21 @@
     }
 }
 
-.page__main {   
+.page__main {
     flex: 1;
     background-color: var(--color-bg);
+    padding-block-end: 2rem;
 }
 
 .container {
     inline-size: min(1200px, 100% - var(--space-gutter));
     margin-inline: auto;
+}
+
+@media (max-width: 700px) {
+    .container {
+        inline-size: calc(100% - 2rem);
+    }
 }
 
 .section {

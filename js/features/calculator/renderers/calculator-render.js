@@ -1,3 +1,5 @@
+import { LOAD_TYPE_DESCRIPTIONS, SCENARIO_LABELS } from "../labels.js";
+
 // render load type tabs
 export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
     const { tabButtons, modeDescriptionTitle, modeDescriptionText } = elements;
@@ -7,18 +9,9 @@ export function renderLoadTypeTabs({ calculatorRoot, loadType, elements }) {
             button.classList.add('calculator__tab--active');
         }
     });
-    const descriptionTitles = {
-        'full-load': 'Dedicated shipment',
-        'partial-load': 'Partial capacity'
-    };
 
-    const descriptionTexts = {
-        'full-load': 'Exclusive capacity, direct routing',
-        'partial-load': 'Based on shipment size'
-    }
-
-    modeDescriptionTitle.textContent = descriptionTitles[loadType];
-    modeDescriptionText.textContent = descriptionTexts[loadType];
+    modeDescriptionTitle.textContent = LOAD_TYPE_DESCRIPTIONS[loadType]?.title;
+    modeDescriptionText.textContent = LOAD_TYPE_DESCRIPTIONS[loadType]?.text;
 
     calculatorRoot.classList.remove('calculator--full-load', 'calculator--partial-load');
     calculatorRoot.classList.add(`calculator--${loadType}`);
@@ -83,17 +76,16 @@ export function renderCalculatorStep(calculatorSteps, stepToShow, calculatorRoot
     });
 }
 
+// step enter animation: 'next' slides in from the right, 'back' from the left
+export function renderStepEnter(step, direction) {
+    step.classList.toggle('step-enter-next', direction === 'next');
+    step.classList.toggle('step-enter-back', direction === 'back');
+}
+
 // focus first input
 export function focusFirstRouteField(input) {
     input.focus();
 }
-
-const SCENARIO_LABELS = {
-    'full-sea': 'Sea freight (FCL)',
-    'partial-road': 'Partial load - road (LTL)',
-    'partial-air': 'Partial load - air',
-}
-
 
 // vehicles is unused here but kept so this matches the (container, vehicles, scenario)
 // signature every SCENARIO_RENDERERS entry is called with in calculator-controller.js

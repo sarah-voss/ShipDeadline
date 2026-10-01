@@ -1,7 +1,7 @@
-import { createFiscalMonths, markUnsavedFiscalMonthsAsSaved, markFiscalMonthAsSaved, replaceFiscalMonth, findFiscalMonthById, setClosingDate } from './state.js'
-import { MONTHS } from './config.js';
+import { markUnsavedFiscalMonthsAsSaved, markFiscalMonthAsSaved, replaceFiscalMonth, findFiscalMonthById, setClosingDate } from './state.js'
 import * as render from './render.js';
-import { saveFiscalMonths, loadFiscalMonths } from './storage.js';
+import { saveFiscalMonths } from './storage.js';
+import { getFiscalMonths } from './queries.js';
 
 export function initFiscalMonthsController(elements) {
 
@@ -15,7 +15,7 @@ export function initFiscalMonthsController(elements) {
     const saveAllButton = fiscalYearSettings.saveAllButton;
     const selectFiscalYear = fiscalYearSettings.selectFiscalYear;
     let year = Number(selectFiscalYear.value);
-    let fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+    let fiscalMonths = getFiscalMonths(year);
 
     render.renderFiscalMonths(fiscalMonths, grid);
 
@@ -28,7 +28,7 @@ export function initFiscalMonthsController(elements) {
     /* Select Year */
     selectFiscalYear.addEventListener('change', (e) => {
         year = Number(e.target.value);
-        fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+        fiscalMonths = getFiscalMonths(year);
         render.renderFiscalMonths(fiscalMonths, grid);
     });
 
@@ -76,7 +76,7 @@ export function initFiscalMonthsController(elements) {
         markFiscalMonthAsSaved(fiscalMonths, monthId);
 
         const savedMonth = findFiscalMonthById(fiscalMonths, monthId);
-        const storedMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+        const storedMonths = getFiscalMonths(year);
         saveFiscalMonths(year, replaceFiscalMonth(storedMonths, savedMonth));
 
         render.renderFiscalMonths(fiscalMonths, grid);

@@ -1,6 +1,23 @@
 import { fetchData } from "./api.js";  
 import { GEOAPIFY_CONFIG } from "./config.js";
-import { normalisePostcode } from "../features/calculator/logic/geography-rules.js";
+
+// countries whose official postcode format includes a hyphen as a structural character
+// (PL: NN-NNN, PT: NNNN-NNN) must never be split, unlike hyphenated postcode ranges
+// returned by Geoapify for other countries (e.g. Trieste: "34121-34151")
+const HYPHENATED_POSTCODE_COUNTRIES = [
+    'pl',
+    'pt',
+];
+
+function normalisePostcode(country, rawPostcode) {
+    if (!rawPostcode) return rawPostcode;
+
+    if (HYPHENATED_POSTCODE_COUNTRIES.includes(country)) {
+        return rawPostcode;
+    }
+
+    return rawPostcode.split((/[-–]/))[0].trim();
+}
 
 export async function searchLocation(fieldType, query, selectedCountry) {
     if (!query || query.length < 2) return [];

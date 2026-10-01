@@ -1,8 +1,3 @@
-import { calculatorState } from "../state.js";
-import { isFiscalMonthSelectable } from "../logic/business-rules.js"
-
-
-
 // highlight matching substring
 function highlightMatch(text, value) {
     const index = text.toLowerCase().indexOf(value.toLowerCase());
@@ -69,9 +64,7 @@ export function closeSuggestions(suggestionsContainer) {
 // FORM VALIDATION
 
 
-export function renderErrorMessage(locationName, fieldType, field) {
-    const errorType = calculatorState[locationName][fieldType].errorType;
-
+export function renderErrorMessage(field, errorType) {
     field.classList.remove('not-valid', 'not-europe', 'same-as-departure');
 
     if (!errorType) return;
@@ -102,16 +95,23 @@ export function renderPostcodeLabel(label, status) {
 } 
 
 
-// validate Fiscal Month
-export function validateFiscalMonth(input) {
+// render selected fiscal month (month = null shows the empty picker)
+export function renderSelectedMonth(label, input, month) {
+    if (!month) {
+        label.textContent = '*select fiscal month';
+        label.classList.remove('field-label--selected');
+        input.classList.remove('validated');
+        return;
+    }
+
+    label.textContent = month.fullLabel;
+    label.classList.add('field-label--selected');
     input.classList.add('validated');
 }
 
 
 // render Postcode City group
-export function renderPostcodeCityGroup(locationName, area) {
-    const countryStatus = calculatorState[locationName].country.status;
-    const hasCountryBeenValidated = calculatorState[locationName].country.hasBeenValidatedOnce;
+export function renderPostcodeCityGroup(area, locationName, countryStatus, hasCountryBeenValidated) {
     const postcodeCityGroup = area.querySelector(`[data-${locationName}-postcode-city-group]`);
     const inputs = postcodeCityGroup.querySelectorAll('input');
 
@@ -152,9 +152,8 @@ export function renderMonthPanel(monthPickerPanel, pageOverlay, grid, arr, year)
         cardName.classList.add('month-card__name');
         cardYear.classList.add('month-card__year');
 
-        const isSelectable = isFiscalMonthSelectable(element);
-
-        if (!isSelectable) {
+        // isSelectable is decided by the controller
+        if (!element.isSelectable) {
             button.disabled = true;
             button.classList.add('month-card--disabled');
         };

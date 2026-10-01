@@ -84,6 +84,12 @@ export const calculatorState = {
 
 // ==== GENERAL ==== //
 
+// merge the state saved in localStorage into the default state
+export function restoreCalculatorState(savedState) {
+    if (!savedState) return;
+    Object.assign(calculatorState, savedState);
+}
+
 export function getCurrentStep() {
     return calculatorState.currentStep;
 }
@@ -166,6 +172,10 @@ export function setFieldStatus(locationName, fieldType, status, errorType = null
 
 export function getFieldStatus(locationName, fieldType) {
     return calculatorState[locationName][fieldType].status;
+}
+
+export function hasCountryBeenValidated(locationName) {
+    return calculatorState[locationName].country.hasBeenValidatedOnce;
 }
 
 export function getSelectedLocation(locationName, fieldType) {

@@ -10,14 +10,19 @@
 /* Layout */
 @import url("./layout.css");
 
-/* Components  */
+/* Components (shared by both pages) */
 @import url("./components.css");
 
-/* Utilities */
-@import url("./utilities.css");
-
 /* Pages - Calculator */
-@import url("./pages/calculator.css");
+@import url("./pages/calculator/page.css");
+@import url("./pages/calculator/summary-card.css");
+@import url("./pages/calculator/form.css");
+@import url("./pages/calculator/month-picker.css");
+@import url("./pages/calculator/shipment-step.css");
+@import url("./pages/calculator/result.css");
 
 /* Pages - Fiscal Months */
 @import url("./pages/fiscal-months.css");
+
+/* Utilities (last, so they win over components and pages) */
+@import url("./utilities.css");

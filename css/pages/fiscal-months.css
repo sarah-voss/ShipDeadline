@@ -1,8 +1,4 @@
 /* ==== INTRO ==== */
-.page__main {
-    padding-block-end: 2rem;
-}
-
 .fiscal-intro {
     padding: var(--space-5);
     padding-inline: var(--space-6);
@@ -58,25 +54,6 @@
 .fiscal-intro__right {
     display: flex;
     align-items: center;
-}
-
-
-.fiscal-year__label {
-    padding-inline-end: 0.5rem;
-    color: var(--color-brand);
-    font-weight: var(--fw-medium);
-}
-
-.fiscal-year__select:hover {
-    border: 1px solid var(--color-accent);
-}
-
-
-.fiscal-year__select {
-    border-radius: var(--radius-xs);
-    min-inline-size: 5rem;
-    padding-block: 0.2rem;
-    min-block-size: 2.5rem;
 }
 
 .btn-save-all {

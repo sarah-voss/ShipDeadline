@@ -5,10 +5,9 @@ import * as state from "../state.js";
 import { searchLocation } from "../../../services/geocoding.js";
 import { getFields } from "../helpers.js";
 import { getCountryFieldStatus } from '../logic/geography-rules.js';
+import { isFiscalMonthSelectable } from '../logic/business-rules.js';
 
-import { MONTHS } from '../../fiscal-months/config.js';
-import { loadFiscalMonths } from '../../fiscal-months/storage.js';
-import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/state.js';
+import { getFiscalMonths, getFiscalMonth } from '../../fiscal-months/queries.js';
 
 export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
@@ -47,10 +46,20 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         state.setFieldStatus(locationName, fieldType, status, errorType);
         const currentStatus = state.getFieldStatus(locationName, fieldType);
         calculatorRender.renderFieldState(field, currentStatus);
-        routeRender.renderErrorMessage(locationName, fieldType, field);
+        routeRender.renderErrorMessage(field, errorType);
         if (fieldType === 'postcode') {
             routeRender.renderPostcodeLabel(locations[locationName].postcode.label, currentStatus);
         }
+    }
+
+    // UPDATE POSTCODE CITY GROUP (reveal / disable it based on the country state)
+    function updatePostcodeCityGroup(locationName, area) {
+        routeRender.renderPostcodeCityGroup(
+            area,
+            locationName,
+            state.getFieldStatus(locationName, 'country'),
+            state.hasCountryBeenValidated(locationName)
+        );
     }
 
     // APPLY SELECTED COUNTRY
@@ -193,14 +202,12 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             state.setInputValue(locationName, fieldType, '');
 
             setFieldUiState(locationName, fieldType, 'idle', field);
-            routeRender.renderPostcodeCityGroup(locationName, area);
+            updatePostcodeCityGroup(locationName, area);
 
             routeRender.closeSuggestions(suggestionsContainer);
         });
 
-        monthPickerLabel.textContent = '*select fiscal month';
-        monthPickerLabel.classList.remove('field-label--selected');
-        monthPickerInput.classList.remove('validated');
+        routeRender.renderSelectedMonth(monthPickerLabel, monthPickerInput, null);
         state.setSelectedMonth(null);
         state.resetVehicles();
 
@@ -223,19 +230,16 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
             input.value = fieldState.selected || fieldState.inputValue;
             setFieldUiState(locationName, fieldType, fieldState.status, field, fieldState.errorType);
-            routeRender.renderPostcodeCityGroup(locationName, area);
+            updatePostcodeCityGroup(locationName, area);
         });
 
         const savedMonth = state.getSelectedMonth(); 
 
         if (savedMonth) {
-        const currentMonths = loadFiscalMonths(savedMonth.year) || createFiscalMonths(MONTHS, savedMonth.year);
-        const freshMonth = findFiscalMonthById(currentMonths, savedMonth.id);
+        const freshMonth = getFiscalMonth(savedMonth);
         
         if (freshMonth) {
-            monthPickerLabel.textContent = freshMonth.fullLabel;
-            routeRender.validateFiscalMonth(monthPickerInput);
-            monthPickerLabel.classList.add('field-label--selected');
+            routeRender.renderSelectedMonth(monthPickerLabel, monthPickerInput, freshMonth);
         }
     }
     }
@@ -244,7 +248,16 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
     // CREATE / LOAD MONTHS FOR CALENDAR
     let year = Number(monthPickerYearInput.value);
-    let fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
+    let fiscalMonths = getFiscalMonths(year);
+
+    // OPEN MONTH PANEL (marks which months can be selected before rendering them)
+    function openMonthPanel() {
+        const months = fiscalMonths.map(month => ({
+            ...month,
+            isSelectable: isFiscalMonthSelectable(month)
+        }));
+        routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, months, year);
+    }
 
 
     // ==========================================
@@ -299,7 +312,7 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             setFieldUiState(locationName, fieldType, status, field, errorType);
 
             routeRender.closeSuggestions(suggestionsContainer);
-            routeRender.renderPostcodeCityGroup(locationName, area);
+            updatePostcodeCityGroup(locationName, area);
             updateDuplicateDestinationState();
 
             updateRouteStep();
@@ -312,14 +325,14 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             const value = input.value.trim();
             if (!value) {
                 setFieldUiState(locationName, fieldType, 'idle', field);
-                routeRender.renderPostcodeCityGroup(locationName, area);
+                updatePostcodeCityGroup(locationName, area);
                 updateRouteStep();
                 onRouteChange();
                 return;
             }
             if (!state.getSelectedLocation(locationName, fieldType)) {
                 setFieldUiState(locationName, fieldType, 'error', field, 'not-valid');
-                routeRender.renderPostcodeCityGroup(locationName, area);
+                updatePostcodeCityGroup(locationName, area);
                 updateRouteStep();
                 onRouteChange();
             }
@@ -343,14 +356,14 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
 
     // open month panel
     monthPickerInput.addEventListener('click', () => {
-        routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, fiscalMonths, year);
+        openMonthPanel();
     });
 
     // select year
     monthPickerYearInput.addEventListener('change', (e) => {
         year = Number(e.target.value);
-        fiscalMonths = loadFiscalMonths(year) || createFiscalMonths(MONTHS, year);
-        routeRender.renderMonthPanel(monthPickerPanel, pageOverlay, monthPickerGrid, fiscalMonths, year);
+        fiscalMonths = getFiscalMonths(year);
+        openMonthPanel();
     })
 
     // month button event
@@ -362,15 +375,12 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const monthId = button.dataset.monthId;
         const selectedMonth = fiscalMonths.find(month => month.id === monthId);
 
-        monthPickerLabel.textContent = selectedMonth.fullLabel;
-        monthPickerLabel.classList.add('field-label--selected');
-
         state.setSelectedMonth({
             id: selectedMonth.id,
             year: selectedMonth.year,
         });
 
-        routeRender.validateFiscalMonth(monthPickerInput);
+        routeRender.renderSelectedMonth(monthPickerLabel, monthPickerInput, selectedMonth);
         routeRender.closeMonthPanel(monthPickerPanel, monthPickerGrid, pageOverlay);
         updateRouteStep();
         onRouteChange();

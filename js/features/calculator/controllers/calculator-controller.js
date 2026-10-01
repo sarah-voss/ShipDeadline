@@ -5,7 +5,7 @@ import * as state from "../state.js";
 import { getCalculatorScenario, isLoadTypeFullyUnavailable } from "../logic/scenarios.js";
 import { SCENARIO_RENDERERS, IMPLEMENTED_SCENARIOS } from "../shipment/config.js";
 import { getDestinationArea, getCountryFieldStatus } from '../logic/geography-rules.js';
-import { saveCalculatorState } from "../storage.js";
+import { saveCalculatorState, loadCalculatorState } from "../storage.js";
 import { initRouteController } from "./route-controller.js";
 import { renderSummaryFromState } from "./summary-overview-controller.js";
 import { initFullRoadController } from "./shipment-step/full-road-controller.js";
@@ -16,6 +16,9 @@ import { renderResultStep } from "./result-controller.js";
 
 export function initCalculatorController({ calculatorRoot, elements, pageOverlay }) {
 
+    // restore saved state first: the sub-controllers read it while initialising
+    state.restoreCalculatorState(loadCalculatorState());
+
     // init sub-controllers
     const { resetCalculatorForm } = initRouteController({
         elements,
@@ -25,7 +28,8 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
     initFullRoadController({
         elements,
-        onFullRoadChange: handleCalculatorChange
+        onFullRoadChange: handleCalculatorChange,
+        getCurrentScenario
     });
 
 
@@ -200,8 +204,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
         if (currentStep === 'route') {
             state.setCurrentStep('shipment');
-            calculatorSteps.shipment.classList.add('step-enter-next');
-            calculatorSteps.shipment.classList.remove('step-enter-back');
+            calculatorRender.renderStepEnter(calculatorSteps.shipment, 'next');
             renderCalculatorFromState();
         }
 
@@ -220,14 +223,13 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
             if (currentStep === 'shipment') {
                 state.setCurrentStep('route');
-                calculatorSteps.route.classList.add('step-enter-back');
+                calculatorRender.renderStepEnter(calculatorSteps.route, 'back');
                 renderCalculatorFromState();
             }
 
             if (currentStep === 'result') {
                 state.setCurrentStep('shipment');
-                calculatorSteps.shipment.classList.remove('step-enter-next');
-                calculatorSteps.shipment.classList.add('step-enter-back');
+                calculatorRender.renderStepEnter(calculatorSteps.shipment, 'back');
                 renderCalculatorFromState();
             }
         })

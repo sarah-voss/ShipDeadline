@@ -1,19 +1,11 @@
 // RESPONSABILITA': TROVA I NODI NEL DOM E CHIAMA IL CONTROLLER
 import { setActiveNav } from "../utils/dom-utils.js";
 import { initCalculatorController } from "../features/calculator/controllers/calculator-controller.js";
-import { loadCalculatorState } from "../features/calculator/storage.js";
-import { calculatorState } from "../features/calculator/state.js";
 
 function initCalculatorPage() {
 
     const calculatorRoot = document.querySelector('[data-calculator]');
     if (!calculatorRoot) return;
-
-    const savedState = loadCalculatorState();
-
-    if (savedState) {
-        Object.assign(calculatorState, savedState);
-    }
 
     const navItems = document.querySelectorAll('[data-nav-item]');
     const pageOverlay = document.querySelector('[data-page-overlay]');

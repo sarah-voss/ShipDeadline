@@ -1,9 +1,7 @@
 import * as summaryOverviewRender from "../renderers/summary-overview-render.js";
 import * as state from "../state.js";
 
-import { loadFiscalMonths } from '../../fiscal-months/storage.js';
-import { createFiscalMonths, findFiscalMonthById } from '../../fiscal-months/state.js';
-import { MONTHS } from '../../fiscal-months/config.js';
+import { getFiscalMonth } from '../../fiscal-months/queries.js';
 
 
 
@@ -23,14 +21,7 @@ function displayLocationValue(component, locationName) {
     summaryOverviewRender.renderLocationValue(city, postcode, field.locationText);
 
     if (field.successIcon) {
-        const hasCountry = Boolean(country);
-        field.countryText.classList.toggle('bold', hasCountry);
-        field.countryText.classList.toggle('placeholder', !hasCountry);
-
-        if (!hasCountry) {
-            field.countryText.textContent = field.countryText.dataset.placeholder;
-        }
-
+        summaryOverviewRender.renderSummaryValue(field.countryText, country, field.countryText.dataset.placeholder);
         summaryOverviewRender.renderSummarySuccess(field.successIcon, isComplete);
     }
 }
@@ -40,23 +31,17 @@ function displayFiscalDateValue(field) {
     const selectedMonth = state.getSelectedMonth();
 
     if (!selectedMonth && field.successIcon) {
-        field.fiscalMonth.textContent = 'Choose fiscal month';
-        field.closingDate.textContent = '';
+        summaryOverviewRender.renderEmptyFiscalDate(field.fiscalMonth, field.closingDate);
         summaryOverviewRender.renderSummarySuccess(field.successIcon, false);
-        field.fiscalMonth.classList.add('placeholder');
-        field.fiscalMonth.classList.remove('bold');
         return;
     }
 
-    const currentMonths = loadFiscalMonths(selectedMonth.year) || createFiscalMonths(MONTHS, selectedMonth.year);
-    const freshMonth = findFiscalMonthById(currentMonths, selectedMonth.id);
+    const freshMonth = getFiscalMonth(selectedMonth);
 
     summaryOverviewRender.renderFiscalDateValue(field.fiscalMonth, field.closingDate, freshMonth.label, freshMonth.closingDate);
 
     if (field.successIcon) {
-        field.fiscalMonth.classList.remove('placeholder');
-        field.fiscalMonth.classList.add('bold');
-
+        summaryOverviewRender.renderSummaryValue(field.fiscalMonth, freshMonth.label);
         summaryOverviewRender.renderSummarySuccess(field.successIcon, true);
     }
 }
@@ -97,18 +82,12 @@ export function renderSummaryFromState({ elements, scenario }) {
 
 // === OVERVIEW ===
 
-const VEHICLE_OVERVIEW_CONFIG = {
-    'standard-truck': { vehicleType: 'Standard Truck', description: '13.6m | 33 pallets | 24 t' },
-    'van': { vehicleType: 'Van', description: '3.5 t | up to 5 pallets' },
-    'exceptional-load': { vehicleType: 'Exceptional Load', description: 'Special dimensions | permit required' },
-}
-
 export function renderOverviewValues({ elements, transitData }) {
     const overview = elements.result.overview;
     displayLocationValue(overview, 'departure');
     displayLocationValue(overview, 'destination');
     displayFiscalDateValue(overview.fiscalDate);
-    summaryOverviewRender.renderVehicleValue(VEHICLE_OVERVIEW_CONFIG, overview.vehicle, transitData.slowestVehicleType);
+    summaryOverviewRender.renderVehicleValue(overview.vehicle, transitData.slowestVehicleType);
     summaryOverviewRender.renderTransitValue(transitData.drivingHours, overview.transitTime.valueText);
     summaryOverviewRender.renderCustomsValue(transitData.customsDelay, overview.customs);
 }

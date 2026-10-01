@@ -1,4 +1,5 @@
 import { formatDate } from "../../../utils/date-utils.js";
+import { VEHICLES } from "../shipment/vehicles.js";
 
 // === SHARED ===
 
@@ -32,6 +33,20 @@ export function renderFiscalDateValue(fiscalMonth, closingDate, month, date) {
     fiscalMonth.textContent = month;
 
     closingDate.textContent = formattedDate;
+}
+
+// render summary value: bold when set, grey placeholder text when empty
+export function renderSummaryValue(element, value, placeholderText = '') {
+    const hasValue = Boolean(value);
+    element.textContent = hasValue ? value : placeholderText;
+    element.classList.toggle('bold', hasValue);
+    element.classList.toggle('placeholder', !hasValue);
+}
+
+// render summary fiscal date when no month is selected yet
+export function renderEmptyFiscalDate(fiscalMonth, closingDate) {
+    renderSummaryValue(fiscalMonth, null, 'Choose fiscal month');
+    closingDate.textContent = '';
 }
 
 
@@ -72,7 +87,7 @@ export function renderSummaryVehicles(div, vehicles) {
         if (v.status === 'valid') {
         const vehicleText = document.createElement('p');
         vehicleText.classList.add('vehicle-labels');
-        vehicleText.textContent = v.type.replace('-', ' ');
+        vehicleText.textContent = VEHICLES[v.type].label;
         div.append(vehicleText);
         }
     })
@@ -86,9 +101,9 @@ export function renderSummarySuccess(icon, isValid) {
 
 // === OVERVIEW ===
 
-export function renderVehicleValue(vehicleConfig, field, vehicle) {
-    field.chosenVehicle.innerText = vehicleConfig[vehicle].vehicleType;
-    field.vehicleDescription.innerText = vehicleConfig[vehicle].description;
+export function renderVehicleValue(field, vehicleType) {
+    field.chosenVehicle.innerText = VEHICLES[vehicleType].label;
+    field.vehicleDescription.innerText = VEHICLES[vehicleType].description;
 }
 
 export function renderTransitValue(transitTime, field) {

@@ -1,0 +1,521 @@
+/* ==== CALCULATOR ==== */
+.calculator {
+    background-color: var(--color-surface-plain);
+    box-shadow: var(--shadow-4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    padding-inline: 2.5rem;
+    inline-size: 80%;
+    min-block-size: 35rem;
+}
+
+/* HEADLINE */
+.calculator__headline {
+    display: flex;
+    gap: 2.5rem;
+    padding-inline: 1.5rem;
+}
+
+.calculator__tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 0.9rem;
+    background-color: inherit;
+    border: none;
+    font-size: var(--fs-3);
+    font-weight: var(--fw-medium);
+    line-height: 1.9;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    text-decoration-line: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 0.6rem;
+    text-decoration-color: transparent;
+}
+
+.calculator__tab--active {
+    text-decoration-line: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 0.6rem;
+    text-decoration-color: var(--color-primary);
+    color: var(--color-primary);
+    font-weight: var(--fw-bold);
+}
+
+.calculator__tab:hover {
+    text-decoration-color: var(--color-primary);
+    color: var(--color-primary);
+    transition: all 0.7s ease;
+}
+
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* MAIN */
+
+.calculator__main {
+    height: 100%;
+    padding-block-end: 1.5rem;
+}
+
+.mode-description {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-block: var(--space-5);
+    padding-block-end: var(--space-5);
+    color: var(--color-brand);
+    line-height: 1.2;
+    font-size: var(--fs-0);
+}
+
+.mode-description__divider {
+    background-color: var(--color-brand);
+    width: 1px;
+    height: 0.7rem;
+}
+
+/* FORM */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__container {
+    position: relative;
+    padding-block: var(--space-6);
+    padding-inline: 1.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-xs);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+@media (max-width: 850px) {
+    .form__container {
+        padding-inline: 0;
+    }
+}
+
+.form__container.is-switching {
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+.form-area {
+    position: relative;
+    margin-inline: 5rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-area input {
+    inline-size: 100%;
+}
+
+.form-area input:hover,
+.form-area button:hover {
+    box-shadow: var(--shadow-1);
+}
+
+.form-area--fiscal-month {
+    margin-inline-start: 1rem;
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 0;
+}
+
+.form-area--divider {
+    margin-inline-start: 1rem;
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 0;
+}
+
+.form-area--departure::after,
+.form-area--destination::after {
+    content: "";
+    position: absolute;
+    left: -3rem;
+    top: 0.5rem;
+    background: repeating-linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.2) 0 10px,
+            transparent 10px 20px);
+    width: 2px;
+    height: 90%;
+}
+
+
+.parcel-icon {
+    margin-top: var(--space-4);
+}
+
+.divider--internal {
+    grid-column: 2 / span 2;
+    width: 100%;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-area__title {
+    font-weight: var(--fw-bold);
+}
+
+.calculator--full-load .form-area__title {
+    color: var(--color-brand);
+}
+
+.calculator--partial-load .form-area__title {
+    color: hsl(226, 46%, 40%);
+}
+
+.form-area--destination {
+    padding-block-end: 3rem;
+}
+
+.form-area--fiscal-month {
+    margin-top: var(--space-4);
+}
+
+.label-input-group {
+    position: relative;
+    width: 100%;
+}
+
+.form-area__title--month {
+    margin-inline-end: 1rem;
+}
+
+.inline-label-input {
+    display: flex;
+    align-items: center;
+}
+
+.form__button-container {
+    margin-top: var(--space-4);
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__button {
+    inline-size: 6rem;
+}
+
+.form__button--previous {
+    visibility: hidden;
+}
+
+
+/* INPUTS */
+
+.field-input {
+    padding: 1.7rem 1rem 1rem;
+    font-weight: 500;
+}
+
+.field-input--country {
+    inline-size: 20rem;
+}
+
+.field-input:focus+label,
+.field-input:not(:placeholder-shown)+label {
+    top: 0.1rem;
+    transform: translateY(0);
+    font-size: 0.7rem;
+}
+
+.field-label {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--fs-1);
+    color: var(--neutral-500);
+    pointer-events: none;
+    transition: 0.2s ease;
+}
+
+.field-label--selected {
+    font-size: var(--fs-1);
+    font-weight: var(--fw-regular);
+    color: var(--color-text);
+}
+
+
+/* -- SUGGESTION LIST -- */
+.suggestions-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface-plain);
+    border: 1px solid var(--color-border-input-strong);
+    border-top: none;
+    list-style: none;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: var(--shadow-2);
+    border-radius: var(--radius-xs);
+}
+
+.suggestions-container button {
+    border: none;
+    padding-block: 0.7rem;
+    padding-inline: var(--space-4);
+    cursor: pointer;
+    background-color: inherit;
+    inline-size: 100%;
+    text-align: start;
+}
+
+.suggestions-container button:hover {
+    background-color: var(--neutral-100);
+}
+
+.suggestions-container button:focus-visible {
+    background-color: var(--neutral-100);
+    outline: none;
+    border: 1px solid var(--color-primary);
+}
+
+.suggestions-container button:active {
+    background-color: var(--neutral-200);
+}
+
+/* POSTCODE & CITY */
+.postcode-city-group {
+    position: absolute;
+    opacity: 0;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2fr 3fr;
+    gap: 2.5rem;
+}
+
+.is-revealed .postcode-city-group {
+    opacity: 1;
+    position: relative;
+    transition: opacity 0.5s ease;
+}
+
+.is-disabled .postcode-city-group {
+    position: relative;
+    display: grid;
+    opacity: 0.7;
+}
+
+/* ==== FORM FIELD STATES ==== */
+
+/* Success */
+.validated input,
+.validated select {
+    outline: none;
+    border: 1px solid var(--color-success);
+}
+
+.validated input:focus-visible,
+.validated select:focus-visible {
+    outline: none;
+    border: 1px solid var(--color-success);
+    box-shadow: 0px 1px 3px 1px #63ca6366,
+        0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.validated button {
+    outline: none;
+    border: 1px solid var(--color-success);
+}
+
+.helper-icon-success {
+    display: none;
+}
+
+.validated .helper-icon-success {
+    display: block;
+    font-size: var(--fs-1);
+    position: absolute;
+    right: -1.3rem;
+    top: 0;
+    margin-inline-start: 0.6rem;
+    color: var(--color-success-strong);
+}
+
+/* Error */
+.error input,
+.error select {
+    outline: none;
+    border: 1px solid var(--color-error-subtle);
+}
+
+.error input:focus-visible,
+.error select:focus-visible {
+    outline: none;
+    border: 1px solid var(--color-error-subtle);
+    box-shadow: 1px 2px 3px 1px hsla(0, 49%, 59%, 0.4),
+        0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.error-message {
+    display: none;
+}
+
+.error .error-message {
+    font-size: var(--fs-caption);
+    margin-inline-start: 0.6rem;
+    color: var(--color-error);
+    font-weight: 500;
+}
+
+.error.not-valid .error-message--not-valid {
+    display: block;
+}
+
+.error.not-europe .error-message--not-europe {
+    display: block;
+}
+
+.error.same-as-departure .error-message--same-as-departure {
+    display: block;
+}
+
+.error.duplicate .error-message--duplicate {
+    display: block;
+}
+
+
+.not-applicable {
+    font-size: var(--fs-0);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1150px) {
+    .calculator {
+        inline-size: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .calculator {
+        min-inline-size: 0;
+        min-block-size: 0;
+        padding-inline: 1rem;
+    }
+
+    .calculator__headline {
+        gap: 1.25rem;
+        padding-inline: 0;
+    }
+
+    .calculator__tab {
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+
+    .mode-description {
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        padding-block: 1rem;
+        line-height: 1.45;
+    }
+
+    .form__container {
+        padding: 0.5rem 0.5rem;
+        border: none;
+    }
+
+    .form-area {
+        margin-inline: 0;
+        gap: 0.85rem;
+        min-inline-size: 0;
+    }
+
+    .form-area--departure,
+    .form-area--destination {
+        padding-inline-start: 0.5rem;
+    }
+
+    .form-area--departure::after,
+    .form-area--destination::after,
+    .parcel-icon,
+    .form-area--fiscal-month>img {
+        display: none;
+    }
+
+    .form-area--divider {
+        display: block;
+        padding-inline-start: 0.5rem;
+        margin-block: 1.5rem 0.8rem;
+    }
+
+    .form-area--destination {
+        padding-block-end: 1.5rem;
+    }
+
+    .label-input-group,
+    .autocomplete-wrapper,
+    .postcode-city-group>* {
+        min-inline-size: 0;
+    }
+
+    .field-input,
+    .field-input--country {
+        min-block-size: 2.8rem;
+        padding: 1.1rem 0.75rem 0.25rem;
+    }
+
+    .field-label {
+        left: 0.75rem;
+        font-size: var(--fs-1);
+    }
+
+    .postcode-city-group {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: 0.75rem;
+    }
+
+    .validated .helper-icon-success {
+        right: 0.35rem;
+        top: 0.2rem;
+        margin-inline-start: 0;
+    }
+
+    .form-area--fiscal-month {
+        display: flex;
+    }
+
+    .not-applicable {
+        font-size: var(--fs-caption);
+    }
+
+    .inline-label-input {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .calculator {
+        padding-block: var(--space-1);
+    }
+}
+
+@media (max-width: 370px) {
+    .postcode-city-group {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .calculator__headline {
+        gap: 0.75rem;
+    }
+}
