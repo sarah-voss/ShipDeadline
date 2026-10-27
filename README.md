@@ -4,7 +4,7 @@ A logistics planning tool that estimates departure windows against a target fisc
 
 Built from real-world experience in logistics coordination, where delays and planning errors directly impact delivery performance and monthly revenue recognition.
 
-**Deployment target:** https://sarah-voss.github.io/ShipDeadline/ (pending first deployment)
+**Live demo:** [Try ShipDeadline](https://sarah-voss.github.io/ShipDeadline/)
 
 ![ShipDeadline shipping recommendation for Milan to Berlin](docs/screenshot-result.jpg)
 
