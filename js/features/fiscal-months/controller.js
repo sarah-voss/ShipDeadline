@@ -11,6 +11,10 @@ export function initFiscalMonthsController(elements) {
     } = elements;
 
 
+    function datesAreValid(container) {
+        return [...container.querySelectorAll('input[type="date"]')].every(input => input.reportValidity());
+    }
+
     // ==== INIT ====
 
     const saveAllButton = fiscalYearSettings.saveAllButton;
@@ -31,6 +35,7 @@ export function initFiscalMonthsController(elements) {
 
 
     saveAllButton.addEventListener('click', () => {
+        if (!datesAreValid(grid)) return;
         markUnsavedFiscalMonthsAsSaved(fiscalMonths);
         saveFiscalMonths(year, fiscalMonths);
         render.renderFiscalMonths(fiscalMonths, grid);
@@ -41,6 +46,7 @@ export function initFiscalMonthsController(elements) {
     grid.addEventListener('change', (event) => {
         const input = event.target.closest('[data-input-month-id]');
         if (!input) return;
+        if (!input.reportValidity()) return;
         const monthId = input.dataset.inputMonthId;
         const newDate = input.value;
 
@@ -66,6 +72,7 @@ export function initFiscalMonthsController(elements) {
         const card = saveButton.closest('.fiscal-month-card');
         const input = card.querySelector('[data-input-month-id]');
 
+        if (!input.reportValidity()) return;
         const monthId = saveButton.dataset.buttonMonthId;
 
         const newDate = input.value;

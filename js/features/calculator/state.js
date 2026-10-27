@@ -223,12 +223,7 @@ export function setFullRoadVehicleType(index, type) {
 
     vehicle.type = type;
 
-    if (isVehicleDuplicate(vehicle.id)) {
-        vehicle.status = 'error';
-        return;
-    }
-
-    vehicle.status = type ? 'valid' : 'idle';
+    refreshFullRoadVehicleStatuses();
 }
 
 export function isFullRoadComplete() {
@@ -256,7 +251,14 @@ export function removeFullRoadVehicle(vehicleId) {
 
     calculatorState.shipmentDetails.fullRoad.vehicles = vehicles.filter(
         vehicle => vehicle.id !== vehicleId
-    )
+    );
+    refreshFullRoadVehicleStatuses();
+}
+
+function refreshFullRoadVehicleStatuses() {
+    calculatorState.shipmentDetails.fullRoad.vehicles.forEach(vehicle => {
+        vehicle.status = !vehicle.type ? 'idle' : isVehicleDuplicate(vehicle.id) ? 'error' : 'valid';
+    });
 }
 
 

@@ -59,6 +59,7 @@ export function renderFiscalMonths(arr, grid) {
         title.textContent = element.fullLabel;
 
         input.type = 'date';
+        input.required = true;
         input.id = element.id;
         input.value = element.closingDate;
         input.dataset.inputMonthId = element.id;

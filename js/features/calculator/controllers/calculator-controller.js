@@ -193,6 +193,7 @@ export function initCalculatorController({ calculatorRoot, elements, pageOverlay
 
     calculatorNextButton.addEventListener('click', () => {
         const currentStep = state.getCurrentStep();
+        if (!state.getStepValidity(currentStep)) return;
 
         if (currentStep === 'route') {
             state.setCurrentStep('shipment');

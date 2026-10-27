@@ -6,6 +6,19 @@
   return `${year}-${month}-${day}`;
 }
 
+// HTML date inputs represent local calendar days, not UTC instants.
+export function parseCalendarDate(value) {
+    if (value instanceof Date) return new Date(value);
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (!match) throw new RangeError('Expected a date in YYYY-MM-DD format');
+    const [, year, month, day] = match.map(Number);
+    const date = new Date(year, month - 1, day);
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+        throw new RangeError('Invalid calendar date');
+    }
+    return date;
+}
+
 const DATE_STYLES = {
     long: undefined,
     short: { day: 'numeric', month: 'short', year: 'numeric' },
@@ -13,7 +26,7 @@ const DATE_STYLES = {
 };
 
 export function formatDate(dateString, style = 'long') {
-    const date = new Date(dateString);
+    const date = parseCalendarDate(dateString);
     return date.toLocaleDateString('en-GB', DATE_STYLES[style]);
 }
 

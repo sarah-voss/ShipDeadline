@@ -1,5 +1,5 @@
 import * as state from "../state.js";
-import { isSameDay } from "../../../utils/date-utils.js";
+import { isSameDay, parseCalendarDate } from "../../../utils/date-utils.js";
 
 import { getFiscalMonth } from '../../fiscal-months/queries.js';
 
@@ -25,7 +25,7 @@ export function renderResultStep({ elements }) {
 
         const selectedMonth = state.getSelectedMonth();
         const freshMonth = getFiscalMonth(selectedMonth);
-        const fiscalDeadline = new Date(freshMonth.closingDate);
+        const fiscalDeadline = parseCalendarDate(freshMonth.closingDate);
 
         const transitInput = {
             departureCoords,

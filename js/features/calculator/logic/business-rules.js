@@ -1,4 +1,4 @@
-import { getTodayAtMidnight } from "../../../utils/date-utils.js";
+import { getTodayAtMidnight, parseCalendarDate } from "../../../utils/date-utils.js";
 
 export function isFiscalMonthSelectable(fiscalMonth) {
     const today = getTodayAtMidnight();
@@ -21,7 +21,7 @@ export function isFiscalMonthSelectable(fiscalMonth) {
     }
 
     // A past month stays selectable while its closing date, set in the following month, has not passed
-    const closingDate = new Date(fiscalMonth.closingDate);
+    const closingDate = parseCalendarDate(fiscalMonth.closingDate);
 
     const allowedSpilloverMonth = new Date(
         fiscalMonth.year,

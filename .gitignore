@@ -2,3 +2,6 @@ js/services/env.js
 
 .DS_Store
 Thumbs.db
+
+_site/
+node_modules/

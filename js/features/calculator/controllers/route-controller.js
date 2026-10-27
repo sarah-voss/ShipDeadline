@@ -10,6 +10,7 @@ import { isFiscalMonthSelectable } from '../logic/business-rules.js';
 import { getFiscalMonths, getFiscalMonth } from '../../fiscal-months/queries.js';
 
 export function initRouteController({ elements, pageOverlay, onRouteChange }) {
+    const searchTimers = new WeakMap();
 
     const {
         locations,
@@ -97,13 +98,17 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
         const suggestions = await searchLocation(fieldType, checkedValue, selectedCountry);
 
         // Ignore late responses: the user may have kept typing while the request was pending
-        if (input.value.trim() !== checkedValue) return;
+        if (input.value.trim() !== checkedValue ||
+            state.getSelectedCountryCode(locationName) !== selectedCountry ||
+            state.getSelectedLocation(locationName, fieldType)) return;
 
         routeRender.renderSuggestions(suggestions, suggestionsContainer, checkedValue, fieldType);
     }
     
 
-    async function handleLocationInput(locationName, fieldType, suggestionsContainer, value, input, field) {
+    function handleLocationInput(locationName, fieldType, suggestionsContainer, value, input, field) {
+        clearTimeout(searchTimers.get(input));
+        routeRender.closeSuggestions(suggestionsContainer);
         const checkedValue = value.trim();
         state.setInputValue(locationName, fieldType, checkedValue);
 
@@ -117,12 +122,28 @@ export function initRouteController({ elements, pageOverlay, onRouteChange }) {
             setFieldUiState(locationName, 'postcode', 'idle', locations[locationName].postcode.field);
         }
 
+        // Invalidate the route before an asynchronous request or blur can occur.
+        setFieldUiState(locationName, fieldType, 'idle', field);
+        updatePostcodeCityGroup(locationName, locations[locationName].area);
+        updateRouteStep();
+        onRouteChange();
+
         if (checkedValue.length < 2) {
             setFieldUiState(locationName, fieldType, 'idle', field);
             return;
         }
         setFieldUiState(locationName, fieldType, 'typing', field);
-        await showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input);
+        const countryAtRequest = state.getSelectedCountryCode(locationName);
+        searchTimers.set(input, setTimeout(async () => {
+            try {
+                await showSuggestions(locationName, fieldType, suggestionsContainer, checkedValue, input);
+            } catch {
+                if (input.value.trim() !== checkedValue ||
+                    state.getSelectedCountryCode(locationName) !== countryAtRequest ||
+                    state.getSelectedLocation(locationName, fieldType)) return;
+                routeRender.renderSearchError(suggestionsContainer);
+            }
+        }, 300));
     }
 
 

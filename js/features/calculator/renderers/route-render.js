@@ -2,13 +2,15 @@
 
 function highlightMatch(text, value) {
     const index = text.toLowerCase().indexOf(value.toLowerCase());
-    if (index === -1) return text;
+    if (index === -1) return [document.createTextNode(text)];
 
     const first = text.slice(0, index);
     const match = text.slice(index, index + value.length);
     const after = text.slice(index + value.length);
 
-    return `${first}<strong>${match}</strong>${after}`;
+    const strong = document.createElement('strong');
+    strong.textContent = match;
+    return [document.createTextNode(first), strong, document.createTextNode(after)];
 }
 
 export function renderSuggestions(
@@ -34,14 +36,14 @@ export function renderSuggestions(
         btn.type = 'button';
 
         if (fieldType === 'country') {
-            btn.innerHTML = highlightMatch(location.name, value);
+            btn.append(...highlightMatch(location.name, value));
             btn.dataset.name = location.name;
             btn.dataset.code = location.code;
         }
 
         if (fieldType === 'city' || fieldType === 'postcode') {
             const displayValue = location[fieldType];
-            btn.innerHTML = highlightMatch(displayValue, value);
+            btn.append(...highlightMatch(displayValue, value));
 
             btn.dataset.city = location.city;
             btn.dataset.lat = location.coordinates.lat;
@@ -59,6 +61,14 @@ export function renderSuggestions(
 export function closeSuggestions(suggestionsContainer) {
     suggestionsContainer.innerHTML = '';
     suggestionsContainer.classList.remove('is-open');
+}
+
+export function renderSearchError(suggestionsContainer) {
+    const message = document.createElement('li');
+    message.setAttribute('role', 'status');
+    message.textContent = 'Location search unavailable. Check your connection and try again.';
+    suggestionsContainer.replaceChildren(message);
+    suggestionsContainer.classList.add('suggestions-container', 'is-open');
 }
 
 // Moves the focus by step (1 or -1) from the current suggestion, or to the first one when current is null.
