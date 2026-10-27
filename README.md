@@ -1,153 +1,119 @@
 # ShipDeadline
 
-A logistics planning tool that estimates departure windows against a target fiscal closing date.
+A vanilla JavaScript portfolio project inspired by my work in logistics coordination.
 
-Built from real-world experience in logistics coordination, where delays and planning errors directly impact delivery performance and monthly revenue recognition.
+I built ShipDeadline around a question that comes up in shipment planning: **when should a shipment leave to arrive before a fiscal closing date?**
 
-**Live demo:** [Try ShipDeadline](https://sarah-voss.github.io/ShipDeadline/)
+I wanted to practise JavaScript with a problem I knew from work. The app takes a route, vehicle types and a target fiscal month, then estimates a departure window. It gives a starting point for planning; actual transit times and availability still need to be checked with the carrier.
+
+**[Try the live demo](https://sarah-voss.github.io/ShipDeadline/)** — no account or installation needed.
 
 ![ShipDeadline shipping recommendation for Milan to Berlin](docs/screenshot-result.jpg)
 
+## Try it
 
-## The Problem
+For an example, choose Italy / Milan as the departure and Germany / Berlin as the destination, selecting each location from the suggestions. Choose November 2026 and Standard Truck, then continue to the result.
 
-Shipment planning requires manually gathering transit times from multiple carriers for every individual shipment. The process is time-consuming, fragmented, and difficult to align with internal fiscal deadlines.
+You can also open **Fiscal Deadlines** to change the monthly closing dates. Your settings and progress are saved in your browser.
 
-When a shipment misses a fiscal month cut-off, it does not just affect logistics. It affects revenue reporting.
+## What it does
 
+- Finds cities and postcodes using Geoapify autocomplete.
+- Estimates a departure window and latest departure date for full-load road shipments within the supported European country list.
+- Supports Standard Truck, Van and Exceptional Load, with up to three different vehicle types per shipment.
+- Shows the route, estimated transit time, customs allowance and fiscal deadline together on the result screen.
+- Lets you customise monthly fiscal deadlines for 2026 and 2027.
+- Adapts to smaller screens and includes keyboard navigation, screen reader labels and reduced motion support.
 
-## The Solution
+## What I practised
 
-ShipDeadline estimates a recommended departure window and latest departure date based on a few key inputs: origin, destination, vehicles, and target fiscal month.
+This project gave me practice with JavaScript beyond individual exercises: connecting form inputs, an external API, saved settings and calculation rules in one app.
 
-It provides a starting point for planning. Confirm actual transit times and availability with your carrier.
+The main areas were:
 
+- Fetching location suggestions and handling responses from an API.
+- Validating inputs and keeping the interface in sync with the selected route and vehicles.
+- Saving progress and settings with `localStorage`.
+- Working with calendar dates and weekends.
+- Splitting JavaScript into modules, with the calculation rules separate from the code that updates the page.
 
-## Features
+## How the estimate works
 
-### Fiscal deadlines
-- Set a custom closing date for each month of the fiscal year (2026 and 2027)
-- Defaults to the last calendar day of the month when no custom date is set
-- Save one month at a time or all changes at once
-- Saved in the browser (localStorage) and used by the calculator
+The calculation uses a simplified model:
 
-### Route
-- Country, postcode and city autocomplete powered by the [Geoapify](https://www.geoapify.com/) geocoding API
-- Selecting a postcode fills in the city, and vice versa
-- Validation: departure must be in Europe, destination cannot match the departure
-- Fiscal month picker that disables past months, unless their closing date (set in the following month) has not passed yet
+1. Calculate the straight-line distance between the locations and add 30% as an approximation of road distance.
+2. Estimate driving time using the slowest selected vehicle: 70 km/h for Standard Truck, 85 km/h for Van or 45 km/h for Exceptional Load.
+3. Add the longest loading allowance among the selected vehicles, plus 6 hours for customs if either country is outside the EU customs union.
+4. Allow same-day arrival for totals up to 8 hours; otherwise split the time into transit days using a simplified 9-hour allowance per day.
+5. Count backwards from the fiscal deadline using working days. Weekend deadlines move back to Friday, and the suggested window starts four working days before the latest departure date.
 
-### Full load road shipments (FTL)
-- Three vehicle types: Standard Truck, Van, Exceptional Load
-- Up to three vehicles per shipment, each of a different type
+These are planning estimates. The daily allowances are not a driver-hours compliance model.
 
-### Result
-- Safe shipping window, last recommended shipping date and fiscal deadline
-- Visual timeline from the safe window to the deadline
-- Shipment overview: route, vehicle used for the estimate, transit time, customs
-- Dedicated message when the shipment can still leave on the deadline day itself
+## Built with
 
-### General
-- Progress is kept across page reloads
-- Responsive layout from mobile to desktop
-- Keyboard navigation, screen reader labels and reduced motion support. This is not a claim of audited WCAG conformance.
+- HTML, CSS and vanilla JavaScript with ES modules.
+- [Geoapify Autocomplete API](https://www.geoapify.com/address-autocomplete) for location search.
+- `localStorage` for browser settings and progress.
+- Node.js's built-in test runner for automated checks.
+- GitHub Pages and GitHub Actions for hosting and deployment.
+- Google Fonts: Manrope and Zen Dots.
 
+There is no frontend framework or bundler. Node.js is used for tests and deployment packaging.
 
-## How the Calculation Works
+## Current limits
 
-1. **Distance:** straight-line (haversine) distance between the two locations, increased by 30% to approximate the road distance
-2. **Driving time:** distance divided by the speed of the slowest selected vehicle (Standard Truck 70 km/h, Van 85 km/h, Exceptional Load 45 km/h)
-3. **Total time:** driving time + 6 hours of customs when either country is outside the EU customs union + the longest loading time among the vehicles
-4. **Transit days:** up to 8 hours the shipment can leave and arrive on the same working day; otherwise the time is split into days of a simplified allowance of 9 hours per day; this is a planning assumption, not a driver-hours compliance model
-5. **Dates:** a fiscal deadline on a weekend moves back to Friday; the last shipping date is the deadline minus the transit days, counting working days only; the safe window starts 4 working days earlier
+Version 1 focuses on full-load road shipments. The other transport options are placeholders.
 
-All results are estimates meant for planning, not carrier commitments.
+- Distances are approximate, rather than calculated from real road routes.
+- Traffic, public holidays, carrier schedules, ferry services and exceptional-load permits are not included.
+- Loading times, speeds and customs allowances are fixed assumptions.
+- Fiscal years are limited to 2026 and 2027.
+- A current-month calculation can suggest a departure date that has already passed, so check the dates before planning.
+- Saved data stays in the current browser; it is not shared between devices.
 
+The accessibility features have not had a full independent audit.
 
-## Tech Stack
+## Possible future improvements
 
-- HTML, CSS and vanilla JavaScript (ES modules)
-- No frameworks, libraries or build step
-- [Geoapify Autocomplete API](https://www.geoapify.com/address-autocomplete) for location search
-- Google Fonts (Manrope, Zen Dots)
+I may explore more accurate route estimates and support for other transport modes, such as groupage, sea or air. These are ideas for later; the current version focuses on the full-load road workflow.
 
+## For anyone exploring the code
 
-## Project Structure
+The calculation rules are in `js/features/calculator/logic/`. Controllers handle events and state, renderers update the page, and `js/services/` contains the Geoapify integration.
 
-```
-css/
-  main.css              Imports every layer in cascade order
-  base.css, layout.css  Element defaults and page layout
-  components.css        Components shared by both pages
-  pages/                Page-specific styles (calculator split by area)
-  utilities.css         State and utility classes, loaded last
-js/
-  pages/                Find the DOM nodes of each page and start its controller
-  features/
-    calculator/
-      controllers/      Handle events and coordinate state and rendering
-      renderers/        Update the DOM only, from the data they receive
-      logic/            Pure business rules and transit calculation
-      shipment/         Vehicle and scenario configuration
-      state.js          Calculator state (saved to localStorage)
-    fiscal-months/      Fiscal deadlines page: state, storage, rendering
-  services/             Geoapify API access
-  utils/                Date and DOM helpers
-```
+<details>
+<summary>Run locally and run the tests (optional)</summary>
 
-Controllers coordinate events and state, renderers update the interface, and calculation rules live in `logic/`. This keeps the core calculations testable independently of the browser.
+You only need these steps to run a copy on your own computer. To use the app, open the live demo above.
 
+1. Clone or download this repository.
+2. Create your own API key at [Geoapify](https://www.geoapify.com/).
+3. Copy `js/services/env.example.js` to `js/services/env.js` and set your key:
 
-## Getting Started
-
-1. Clone the repository
-   ```
-   git clone https://github.com/sarah-voss/ShipDeadline.git
-   ```
-2. Create a free API key at [geoapify.com](https://www.geoapify.com/)
-3. Copy `js/services/env.example.js` to `js/services/env.js` and paste your key:
    ```js
    export const GEOAPIFY_API_KEY = 'your_api_key_here';
    ```
-   `env.js` is ignored by Git. This does not make the deployed key secret: browser JavaScript and network requests are visible to visitors. Use a separate production key restricted to the deployed origin/referrer. Do not commit unrestricted keys. See [Geoapify key restrictions](https://myprojects.geoapify.com/help/api-keys/).
-4. Serve the project with a local server (ES modules do not load from `file://`), for example the VS Code **Live Server** extension, and open `index.html`
 
+4. Serve the folder with a local server, such as the VS Code **Live Server** extension, and open `index.html`. JavaScript modules need a server rather than opening the file directly.
 
-## Tests and Deployment
+`env.js` is ignored by Git. Browser API keys are still visible in the running website, so restrict your key to the origins/referrers where you intend to use it. See [Geoapify key restrictions](https://myprojects.geoapify.com/help/api-keys/).
 
-The application itself needs no package installation or frontend build tool. Node.js 22+ is used only for the test command and deployment packaging.
+With Node.js 22 or newer, run the automated checks with:
 
 ```sh
 npm test
 ```
 
-The tests cover local calendar dates in three time zones, weekend handling, the planning buffer, approximate distances, multi-vehicle/customs assumptions and leap years.
+The tests cover API errors, calendar dates in three time zones, weekend handling, the planning buffer, distance estimates, vehicle/customs assumptions, leap years and recovery after correcting duplicate vehicle selections.
 
-See [Publishing on GitHub Pages](docs/PUBLISHING.md). The workflow packages only the public HTML, CSS, JavaScript and assets into `_site/`; it generates the browser configuration from a GitHub Actions secret named `GEOAPIFY_API_KEY`. Keeping the key in Actions avoids committing it, but does not hide it in the published site.
+For deployment details, see [Publishing on GitHub Pages](docs/PUBLISHING.md).
 
-## Known Limitations
+</details>
 
-- Only full load road shipments within Europe are calculated; the other modes show a "coming soon" message
-- Public holidays are not considered, only weekends
-- Distances are approximated from coordinates, not from real road routes
-- Fiscal years are limited to 2026 and 2027
-- Traffic, carrier schedules, ferry/tunnel services and exceptional-load permits are not modelled
-- The customs allowance is fixed and cannot predict actual clearance time
-- A selected current-month deadline can produce a departure date already in the past; check the result before planning
-- Data is stored only in the current browser
+## Author and credits
 
-
-## Roadmap
-
-The following scenarios are planned for future versions:
-
-- Full load sea shipments (FCL): document cut-off dates, port-to-door transit times
-- Partial load road (LTL / groupage)
-- Partial load air (express and standard)
-
-
-## Credits and Author
-
-Built by [Sarah Voss](https://github.com/sarah-voss), informed by experience in logistics coordination.
+Built by [Sarah Voss](https://github.com/sarah-voss) as part of my transition from logistics into software development, alongside part-time computer science studies.
 
 Location search: [Geoapify](https://www.geoapify.com/). Map data: [OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+
+© 2026 Sarah Voss. Third-party services and assets belong to their respective owners.
